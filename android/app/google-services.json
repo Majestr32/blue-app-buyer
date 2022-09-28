@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "663681207213",
+    "project_id": "blueapp-957f8",
+    "storage_bucket": "blueapp-957f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663681207213:android:eb99bcd7d4a8fdccf4ef24",
+        "android_client_info": {
+          "package_name": "com.blueapp.blue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663681207213-28mt455i1vv3mbmf23ocep9eafb9390p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blueapp.blue",
+            "certificate_hash": "0c472bda890f8cac9ac0826527400f09dbfffba6"
+          }
+        },
+        {
+          "client_id": "663681207213-8h65vpqihdm0l4ibsibn39jv2913bd93.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blueapp.blue",
+            "certificate_hash": "d9477bab247d8d8b0e51483eac01b4da363f2103"
+          }
+        },
+        {
+          "client_id": "663681207213-r627plfkf59787kac9ftlqi6gnotk13t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7cVXCFJaYHFHjUhB4sbUfFs6edbU_dg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663681207213-r627plfkf59787kac9ftlqi6gnotk13t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
