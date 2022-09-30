@@ -5,7 +5,6 @@ import 'package:blue/consts/k_icons.dart';
 import 'package:blue/screens/operation_screens/order_completed.dart';
 import 'package:blue/widgets/common/app_bar_with_arrow.dart';
 import 'package:blue/widgets/common/cart_coupon_tile.dart';
-import 'package:blue/widgets/common/payment_method_tile.dart';
 import 'package:blue/widgets/common/select_payment_method_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +26,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   bool _showItems = false;
   String _selectPaymentMethod = '';
   ProgressDialog? _loadingDialog;
+
+  final _sliderKey = GlobalKey<SlideActionState>();
 
   @override
   void initState() {
@@ -131,6 +132,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         ),
                         SizedBox(height: 10,),
                         SlideAction(
+                          key: _sliderKey,
                           sliderButtonYOffset: -8,
                           sliderButtonIcon: SvgPicture.asset(KIcons.arrowRight, color: Colors.white,),
                           borderRadius: 24,
@@ -140,8 +142,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           text: 'Deslizar para continuar',
                           innerColor: const Color(0xFF3D5BF6),
                           outerColor: const Color(0xFFDEDEDE),
-                          onSubmit: (){
+                          onSubmit: () async{
+                            if(_selectPaymentMethod.isEmpty){
+                              showInfoSnackBar(context, 'No tienes tarjetas de pago');
+                              _sliderKey.currentState!.reset();
+                              return;
+                            }
                             context.read<UserCubit>().checkout(_selectPaymentMethod);
+                            Future.delayed(Duration(seconds: 2), () => _sliderKey.currentState!.reset());
                           },
                         )
                       ],

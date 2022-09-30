@@ -11,6 +11,15 @@ class KIcons{
   static String directionLeft = "${iconsPathBase}direction_left.svg";
   static String key = "${iconsPathBase}key.svg";
   static String shieldTick = "${iconsPathBase}shield-tick.svg";
+  static String ticket = "${iconsPathBase}Ticket.svg";
+  static String chart = "${iconsPathBase}Chart.svg";
+  static String dollar = "${iconsPathBase}dollar.svg";
+  static String scanBold = "${iconsPathBase}ScanBold.svg";
+  static String calling = "${iconsPathBase}Calling.svg";
+  static String whatsapp = "${iconsPathBase}whatsapp.svg";
+  static String discovery = "${iconsPathBase}Discovery.svg";
+  static String bag = "${iconsPathBase}Bag.svg";
+  static String discount = "${iconsPathBase}Discount.svg";
 
   static String home = "${iconsPathBase}Home.svg";
   static String document = "${iconsPathBase}Document.svg";
@@ -31,6 +40,7 @@ class KIcons{
   static String buy = "${iconsPathBase}Buy.svg";
   static String edit = "${iconsPathBase}Edit.svg";
   static String camera = "${iconsPathBase}Camera.svg";
+  static String calendar = "${iconsPathBase}Calendar.svg";
 
   static String filter = "${iconsPathBase}Filter.svg";
   static String filter2 = "${iconsPathBase}Filter_2.svg";

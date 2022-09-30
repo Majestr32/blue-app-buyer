@@ -1,5 +1,6 @@
 import 'package:blue/services/commerce/commerce_service_contract.dart';
 
+import '../../models/branch/branch.dart';
 import '../../models/coupon/coupon.dart';
 
 class CommerceRepository{
@@ -10,6 +11,9 @@ class CommerceRepository{
   }
   Future<Coupon> getCommerceMostRatedCoupon(int commerceId){
     return _commerceService.getCommerceMostRatedCoupon(commerceId);
+  }
+  Future<List<Branch>> listBranches({required int commerceId}){
+    return _commerceService.listBranches(commerceId: commerceId);
   }
 
   const CommerceRepository({

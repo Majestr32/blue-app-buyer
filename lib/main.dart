@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:blue/blocs/auth_bloc/auth_bloc.dart';
 import 'package:blue/blocs/bloc_observer.dart';
+import 'package:blue/blocs/branches_cubit/branches_cubit.dart';
 import 'package:blue/blocs/commerce_cubit/commerce_cubit.dart';
 import 'package:blue/blocs/coupon_cubit/coupon_cubit.dart';
 import 'package:blue/blocs/coupon_reviews_cubit/coupon_reviews_cubit.dart';
@@ -12,6 +13,7 @@ import 'package:blue/blocs/user_cubit/user_cubit.dart';
 import 'package:blue/consts/api.dart';
 import 'package:blue/consts/k_icons.dart';
 import 'package:blue/repositories/auth/auth_repository.dart';
+import 'package:blue/repositories/branch/branch_repository.dart';
 import 'package:blue/repositories/commerce/commerce_repository.dart';
 import 'package:blue/repositories/coupon/coupon_repository.dart';
 import 'package:blue/repositories/payment/payment_repository.dart';
@@ -22,6 +24,7 @@ import 'package:blue/screens/auth/signing.dart';
 import 'package:blue/screens/home.dart';
 import 'package:blue/screens/post_auth/banners_preview.dart';
 import 'package:blue/screens/splash/splash_screen.dart';
+import 'package:blue/services/branch/branch_service.dart';
 import 'package:blue/services/commerce/commerce_service.dart';
 import 'package:blue/services/coupon/coupon_service.dart';
 import 'package:blue/services/payment/payment_service.dart';
@@ -50,7 +53,8 @@ Future<void> main() async{
       RepositoryProvider(create: (context) => UserRepository(userService: UserService(dio: Dio()))),
       RepositoryProvider(create: (context) => CouponRepository(couponService: CouponService(dio: Dio()))),
       RepositoryProvider(create: (context) => CommerceRepository(commerceService: CommerceService(dio: Dio()))),
-      RepositoryProvider(create: (context) => PaymentRepository(paymentService: PaymentService(dio: Dio(BaseOptions(headers: stripeHeaders)))))
+      RepositoryProvider(create: (context) => PaymentRepository(paymentService: PaymentService(dio: Dio(BaseOptions(headers: stripeHeaders))))),
+      RepositoryProvider(create: (context) => BranchRepository(branchService: BranchService(dio: Dio())))
     ],
     child: MultiBlocProvider(
         providers: [
@@ -61,6 +65,7 @@ Future<void> main() async{
           BlocProvider(create: (context) => SearchedCouponsCubit(couponRepository: context.read<CouponRepository>())),
           BlocProvider(create: (context) => ThemeCubit(),),
           BlocProvider(create: (context) => CommerceCubit(commerceRepository: context.read<CommerceRepository>())),
+          BlocProvider(create: (context) => BranchesCubit(branchRepository: context.read<BranchRepository>())),
           BlocProvider(create: (context) => CouponReviewsCubit(couponRepository: context.read<CouponRepository>()))],
         child: const MyApp()),
   ));

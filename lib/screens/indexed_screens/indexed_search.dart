@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:blue/blocs/branches_cubit/branches_cubit.dart';
 import 'package:blue/blocs/coupon_cubit/coupon_cubit.dart';
 import 'package:blue/blocs/theme_cubit/theme_cubit.dart';
 import 'package:blue/consts/map_style.dart';
@@ -147,6 +148,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
   @override
   void initState() {
     super.initState();
+    context.read<BranchesCubit>().loadBranches();
   }
 
   @override
@@ -157,70 +159,84 @@ class _MapSearchTabState extends State<MapSearchTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.7,
-            child: BlocListener<ThemeCubit, ThemeState>(
-              listener: (context,state){
-                if(state.theme == ThemeMode.light){
-                  _mapController?.setMapStyle(null);
-                }else{
-                  _mapController?.setMapStyle(jsonEncode(darkMapStyle));
-                }
-              },
-              child: SizedBox(
-                child: GoogleMap(
-                  markers: _markers,
-                  onTap: (_){
-                    setState((){
-                      _selectedCommerce = null;
-                      _commerceCoupons = [];
-                    });
-                  },
-                  onMapCreated: (controller) async{
-                    _mapController = controller;
-                    bool isLightTheme = context.read<ThemeCubit>().state.theme == ThemeMode.light;
-                    if(!isLightTheme){
-                      _mapController?.setMapStyle(jsonEncode(darkMapStyle));
-                    }
-                    do{
-                      await Future.delayed(Duration(seconds: 1));
-                    }while(context.read<CouponCubit>().state.status == CouponStateStatus.initial);
-                      for(int i = 0; i < context.read<CouponCubit>().state.newCoupons.length; i++){
-                        final commerce = context.read<CouponCubit>().state.newCoupons[i].commerce;
-                        _markers.add(Marker(markerId: MarkerId(commerce.id.toString()), position: LatLng(commerce.lat,commerce.ln), onTap: (){
-                          setState((){
-                            _selectedCommerce = commerce;
-                            _commerceCoupons = context.read<CouponCubit>().state.newCoupons.where((element) => element.commerceId == _selectedCommerce!.id).toList();
-                          });
-                        }));
+    return BlocListener<BranchesCubit,BranchesState>(
+      listener: (context,state){
+        if(state.status == BranchesStateStatus.loaded){
+          setState((){
+            _markers.addAll(state.branches.map((e) => Marker(markerId: MarkerId(e.id.toString()), position: LatLng(e.lat,e.ln), onTap: (){
+              setState((){
+                _selectedCommerce = e.commerce;
+                _commerceCoupons = context.read<CouponCubit>().state.newCoupons.where((element) => element.commerceId == _selectedCommerce!.id).toList();
+              });
+            })));
+          });
+        }
+      },
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: BlocListener<ThemeCubit, ThemeState>(
+                listener: (context,state){
+                  if(state.theme == ThemeMode.light){
+                    _mapController?.setMapStyle(null);
+                  }else{
+                    _mapController?.setMapStyle(jsonEncode(darkMapStyle));
+                  }
+                },
+                child: SizedBox(
+                  child: GoogleMap(
+                    markers: _markers,
+                    onTap: (_){
+                      setState((){
+                        _selectedCommerce = null;
+                        _commerceCoupons = [];
+                      });
+                    },
+                    onMapCreated: (controller) async{
+                      _mapController = controller;
+                      bool isLightTheme = context.read<ThemeCubit>().state.theme == ThemeMode.light;
+                      if(!isLightTheme){
+                        _mapController?.setMapStyle(jsonEncode(darkMapStyle));
                       }
-                    setState((){});
-                  },
-                  zoomControlsEnabled: false,
-                  initialCameraPosition: CameraPosition(target: LatLng(5,6)),
+                      do{
+                        await Future.delayed(Duration(seconds: 1));
+                      }while(context.read<CouponCubit>().state.status == CouponStateStatus.initial);
+                        for(int i = 0; i < context.read<CouponCubit>().state.newCoupons.length; i++){
+                          final commerce = context.read<CouponCubit>().state.newCoupons[i].commerce;
+                          _markers.add(Marker(markerId: MarkerId(commerce.id.toString()), position: LatLng(commerce.lat,commerce.ln), onTap: (){
+                            setState((){
+                              _selectedCommerce = commerce;
+                              _commerceCoupons = context.read<CouponCubit>().state.newCoupons.where((element) => element.commerceId == _selectedCommerce!.id).toList();
+                            });
+                          }));
+                        }
+                      setState((){});
+                    },
+                    zoomControlsEnabled: false,
+                    initialCameraPosition: CameraPosition(target: LatLng(5,6)),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-        _selectedCommerce == null ? Container() : Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(margin: EdgeInsets.only(bottom: 90), height: 140, child: CarouselSlider.builder(
-              itemCount: _commerceCoupons.length,
-              options: CarouselOptions(
-                viewportFraction: 0.95,
-                enableInfiniteScroll: false,
-                height: 140
-              ),
-              itemBuilder: (context, i, j){
-                return VerticalSmallCouponTile(coupon: _commerceCoupons[i]);
-              },
-            ),))
-      ],
+          _selectedCommerce == null ? Container() : Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(margin: EdgeInsets.only(bottom: 90), height: 140, child: CarouselSlider.builder(
+                itemCount: _commerceCoupons.length,
+                options: CarouselOptions(
+                  viewportFraction: 0.95,
+                  enableInfiniteScroll: false,
+                  height: 140
+                ),
+                itemBuilder: (context, i, j){
+                  return VerticalSmallCouponTile(coupon: _commerceCoupons[i]);
+                },
+              ),))
+        ],
+      ),
     );
   }
 }

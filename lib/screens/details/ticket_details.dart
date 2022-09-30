@@ -195,7 +195,20 @@ class _TicketDetailsState extends State<TicketDetails> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Detalles', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+          SizedBox(height: 10,),
           Text(widget.coupon.description, style: TextStyle(fontWeight: FontWeight.w200, fontFamily: 'Outfit', fontSize: 14),),
+          SizedBox(height: 10,),
+          widget.coupon.items!.isEmpty ? Container() : Text('Incluye:', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+          SizedBox(height: 10,),
+          Column(
+            children: widget.coupon.items!.map((e) => Row(
+              children: [
+                SvgPicture.asset(KIcons.tick, color: Theme.of(context).highlightColor,),
+                SizedBox(width: 10,),
+                Text(e.trim(), style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w400)),
+              ],
+            )).toList()
+          )
         ],
       ),
     );

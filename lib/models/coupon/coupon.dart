@@ -21,6 +21,7 @@ class Coupon with _$Coupon{
     required int sold,
     @JsonKey(name: 'avg_rating') required double avgRating,
     @JsonKey(name: 'reviews_count') required int reviewsCount,
+    required List<String>? items
   }) = _Coupon;
 
   factory Coupon.fromJson(Map<String, Object?> json) => _$CouponFromJson(json);

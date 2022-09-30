@@ -35,7 +35,7 @@ mixin _$Commerce {
   @JsonKey(name: 'logo_url')
   String get logoUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'reviews_count')
-  int get reviewsCount => throw _privateConstructorUsedError;
+  int? get reviewsCount => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +58,7 @@ abstract class $CommerceCopyWith<$Res> {
       double ln,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'logo_url') String logoUrl,
-      @JsonKey(name: 'reviews_count') int reviewsCount});
+      @JsonKey(name: 'reviews_count') int? reviewsCount});
 }
 
 /// @nodoc
@@ -127,7 +127,7 @@ class _$CommerceCopyWithImpl<$Res> implements $CommerceCopyWith<$Res> {
       reviewsCount: reviewsCount == freezed
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -149,7 +149,7 @@ abstract class _$$_CommerceCopyWith<$Res> implements $CommerceCopyWith<$Res> {
       double ln,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'logo_url') String logoUrl,
-      @JsonKey(name: 'reviews_count') int reviewsCount});
+      @JsonKey(name: 'reviews_count') int? reviewsCount});
 }
 
 /// @nodoc
@@ -220,7 +220,7 @@ class __$$_CommerceCopyWithImpl<$Res> extends _$CommerceCopyWithImpl<$Res>
       reviewsCount: reviewsCount == freezed
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
     ));
   }
 }
@@ -271,7 +271,7 @@ class _$_Commerce extends _Commerce {
   final String logoUrl;
   @override
   @JsonKey(name: 'reviews_count')
-  final int reviewsCount;
+  final int? reviewsCount;
 
   @override
   String toString() {
@@ -340,7 +340,7 @@ abstract class _Commerce extends Commerce {
           required final double ln,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
           @JsonKey(name: 'logo_url') required final String logoUrl,
-          @JsonKey(name: 'reviews_count') required final int reviewsCount}) =
+          @JsonKey(name: 'reviews_count') required final int? reviewsCount}) =
       _$_Commerce;
   _Commerce._() : super._();
 
@@ -372,7 +372,7 @@ abstract class _Commerce extends Commerce {
   String get logoUrl;
   @override
   @JsonKey(name: 'reviews_count')
-  int get reviewsCount;
+  int? get reviewsCount;
   @override
   @JsonKey(ignore: true)
   _$$_CommerceCopyWith<_$_Commerce> get copyWith =>

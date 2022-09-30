@@ -38,6 +38,7 @@ mixin _$Coupon {
   double get avgRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'reviews_count')
   int get reviewsCount => throw _privateConstructorUsedError;
+  List<String>? get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -60,7 +61,8 @@ abstract class $CouponCopyWith<$Res> {
       @JsonKey(name: 'commerce') Commerce commerce,
       int sold,
       @JsonKey(name: 'avg_rating') double avgRating,
-      @JsonKey(name: 'reviews_count') int reviewsCount});
+      @JsonKey(name: 'reviews_count') int reviewsCount,
+      List<String>? items});
 
   $CommerceCopyWith<$Res> get commerce;
 }
@@ -87,6 +89,7 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
     Object? sold = freezed,
     Object? avgRating = freezed,
     Object? reviewsCount = freezed,
+    Object? items = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -137,6 +140,10 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 
@@ -165,7 +172,8 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
       @JsonKey(name: 'commerce') Commerce commerce,
       int sold,
       @JsonKey(name: 'avg_rating') double avgRating,
-      @JsonKey(name: 'reviews_count') int reviewsCount});
+      @JsonKey(name: 'reviews_count') int reviewsCount,
+      List<String>? items});
 
   @override
   $CommerceCopyWith<$Res> get commerce;
@@ -194,6 +202,7 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
     Object? sold = freezed,
     Object? avgRating = freezed,
     Object? reviewsCount = freezed,
+    Object? items = freezed,
   }) {
     return _then(_$_Coupon(
       id: id == freezed
@@ -244,6 +253,10 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      items: items == freezed
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -263,8 +276,10 @@ class _$_Coupon extends _Coupon {
       @JsonKey(name: 'commerce') required this.commerce,
       required this.sold,
       @JsonKey(name: 'avg_rating') required this.avgRating,
-      @JsonKey(name: 'reviews_count') required this.reviewsCount})
-      : super._();
+      @JsonKey(name: 'reviews_count') required this.reviewsCount,
+      required final List<String>? items})
+      : _items = items,
+        super._();
 
   factory _$_Coupon.fromJson(Map<String, dynamic> json) =>
       _$$_CouponFromJson(json);
@@ -299,10 +314,18 @@ class _$_Coupon extends _Coupon {
   @override
   @JsonKey(name: 'reviews_count')
   final int reviewsCount;
+  final List<String>? _items;
+  @override
+  List<String>? get items {
+    final value = _items;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, posterUrl: $posterUrl, price: $price, expDate: $expDate, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount)';
+    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, posterUrl: $posterUrl, price: $price, expDate: $expDate, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount, items: $items)';
   }
 
   @override
@@ -324,7 +347,8 @@ class _$_Coupon extends _Coupon {
             const DeepCollectionEquality().equals(other.sold, sold) &&
             const DeepCollectionEquality().equals(other.avgRating, avgRating) &&
             const DeepCollectionEquality()
-                .equals(other.reviewsCount, reviewsCount));
+                .equals(other.reviewsCount, reviewsCount) &&
+            const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @JsonKey(ignore: true)
@@ -342,7 +366,8 @@ class _$_Coupon extends _Coupon {
       const DeepCollectionEquality().hash(commerce),
       const DeepCollectionEquality().hash(sold),
       const DeepCollectionEquality().hash(avgRating),
-      const DeepCollectionEquality().hash(reviewsCount));
+      const DeepCollectionEquality().hash(reviewsCount),
+      const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
   @override
@@ -359,19 +384,19 @@ class _$_Coupon extends _Coupon {
 
 abstract class _Coupon extends Coupon {
   factory _Coupon(
-          {required final int id,
-          @JsonKey(name: 'commerce_id') required final int commerceId,
-          required final String name,
-          required final String description,
-          @JsonKey(name: 'poster_url') required final String posterUrl,
-          required final double price,
-          @JsonKey(name: 'exp_date') required final DateTime expDate,
-          required final int? discount,
-          @JsonKey(name: 'commerce') required final Commerce commerce,
-          required final int sold,
-          @JsonKey(name: 'avg_rating') required final double avgRating,
-          @JsonKey(name: 'reviews_count') required final int reviewsCount}) =
-      _$_Coupon;
+      {required final int id,
+      @JsonKey(name: 'commerce_id') required final int commerceId,
+      required final String name,
+      required final String description,
+      @JsonKey(name: 'poster_url') required final String posterUrl,
+      required final double price,
+      @JsonKey(name: 'exp_date') required final DateTime expDate,
+      required final int? discount,
+      @JsonKey(name: 'commerce') required final Commerce commerce,
+      required final int sold,
+      @JsonKey(name: 'avg_rating') required final double avgRating,
+      @JsonKey(name: 'reviews_count') required final int reviewsCount,
+      required final List<String>? items}) = _$_Coupon;
   _Coupon._() : super._();
 
   factory _Coupon.fromJson(Map<String, dynamic> json) = _$_Coupon.fromJson;
@@ -406,6 +431,8 @@ abstract class _Coupon extends Coupon {
   @override
   @JsonKey(name: 'reviews_count')
   int get reviewsCount;
+  @override
+  List<String>? get items;
   @override
   @JsonKey(ignore: true)
   _$$_CouponCopyWith<_$_Coupon> get copyWith =>

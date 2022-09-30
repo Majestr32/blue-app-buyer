@@ -61,8 +61,8 @@ class UsedVerticalSmallCouponTile extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(8),
                                       color: Color(0xFFCAFFD9)
                                   ),
-                                  padding: EdgeInsets.all(16),
-                                  child: Text("Usó", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: Color(0xFF25B700), fontWeight: FontWeight.bold),)),
+                                  padding: EdgeInsets.all(8),
+                                  child: Text("Usó", style: TextStyle(fontFamily: 'Poppins', fontSize: 10, color: Color(0xFF25B700), fontWeight: FontWeight.bold),)),
                             ],
                           ),
                         ],

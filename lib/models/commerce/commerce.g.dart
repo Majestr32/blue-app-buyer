@@ -17,7 +17,7 @@ _$_Commerce _$$_CommerceFromJson(Map<String, dynamic> json) => _$_Commerce(
       ln: (json['ln'] as num).toDouble(),
       createdAt: DateTime.parse(json['created_at'] as String),
       logoUrl: json['logo_url'] as String,
-      reviewsCount: json['reviews_count'] as int,
+      reviewsCount: json['reviews_count'] as int?,
     );
 
 Map<String, dynamic> _$$_CommerceToJson(_$_Commerce instance) =>

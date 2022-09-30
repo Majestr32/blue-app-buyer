@@ -17,7 +17,7 @@ class Commerce with _$Commerce{
     required double ln,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'logo_url') required String logoUrl,
-    @JsonKey(name: 'reviews_count') required int reviewsCount
+    @JsonKey(name: 'reviews_count') required int? reviewsCount
   }) = _Commerce;
 
   factory Commerce.fromJson(Map<String, Object?> json) => _$CommerceFromJson(json);

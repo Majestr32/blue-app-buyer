@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:blue/models/coupon/coupon.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../models/branch/branch.dart';
 import '../../repositories/commerce/commerce_repository.dart';
 
 part 'commerce_state.dart';
@@ -13,7 +14,8 @@ class CommerceCubit extends Cubit<CommerceState> {
     emit(CommerceState.initial());
     final coupons = await _commerceRepository.getCommerceCoupons(commerceId, 0, 20);
     final mostRatedCoupon = await _commerceRepository.getCommerceMostRatedCoupon(commerceId);
-    emit(state.copyWith(coupons: coupons, mostRatedCoupon: mostRatedCoupon, status: CommerceStateStatus.loaded));
+    final branches = await _commerceRepository.listBranches(commerceId: commerceId);
+    emit(state.copyWith(coupons: coupons, mostRatedCoupon: mostRatedCoupon, branches: branches, status: CommerceStateStatus.loaded));
   }
 
   CommerceCubit({

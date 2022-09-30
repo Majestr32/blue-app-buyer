@@ -20,7 +20,7 @@ class CouponQrDetails extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.network('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${coupon.qr}'),
+                Image.network('https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${coupon.id}'),
                 SizedBox(height: 10,),
                 Text('CÓDIGO', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w400, fontSize: 16,),),
               ],
