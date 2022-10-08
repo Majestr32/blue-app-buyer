@@ -41,6 +41,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
+import 'blocs/selected_map_marker_cubit/selected_map_marker_cubit.dart';
+
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -66,6 +68,7 @@ Future<void> main() async{
           BlocProvider(create: (context) => ThemeCubit(),),
           BlocProvider(create: (context) => CommerceCubit(commerceRepository: context.read<CommerceRepository>())),
           BlocProvider(create: (context) => BranchesCubit(branchRepository: context.read<BranchRepository>())),
+          BlocProvider(create: (context) => SelectedMapMarkerCubit(branchRepository: context.read<BranchRepository>())),
           BlocProvider(create: (context) => CouponReviewsCubit(couponRepository: context.read<CouponRepository>()))],
         child: const MyApp()),
   ));

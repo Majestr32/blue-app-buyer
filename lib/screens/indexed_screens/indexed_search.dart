@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:blue/blocs/branches_cubit/branches_cubit.dart';
 import 'package:blue/blocs/coupon_cubit/coupon_cubit.dart';
+import 'package:blue/blocs/selected_map_marker_cubit/selected_map_marker_cubit.dart';
 import 'package:blue/blocs/theme_cubit/theme_cubit.dart';
 import 'package:blue/consts/map_style.dart';
 import 'package:blue/models/commerce/commerce.dart';
@@ -142,7 +143,6 @@ class MapSearchTab extends StatefulWidget {
 class _MapSearchTabState extends State<MapSearchTab> {
   GoogleMapController? _mapController;
   Commerce? _selectedCommerce;
-  List<Coupon> _commerceCoupons = [];
   Set<Marker> _markers = <Marker>{};
 
   @override
@@ -166,7 +166,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
             _markers.addAll(state.branches.map((e) => Marker(markerId: MarkerId(e.id.toString()), position: LatLng(e.lat,e.ln), onTap: (){
               setState((){
                 _selectedCommerce = e.commerce;
-                _commerceCoupons = context.read<CouponCubit>().state.newCoupons.where((element) => element.commerceId == _selectedCommerce!.id).toList();
+                context.read<SelectedMapMarkerCubit>().loadBranchMarkers(e.id!);
               });
             })));
           });
@@ -192,7 +192,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
                     onTap: (_){
                       setState((){
                         _selectedCommerce = null;
-                        _commerceCoupons = [];
+                        context.read<SelectedMapMarkerCubit>().reset();
                       });
                     },
                     onMapCreated: (controller) async{
@@ -201,18 +201,6 @@ class _MapSearchTabState extends State<MapSearchTab> {
                       if(!isLightTheme){
                         _mapController?.setMapStyle(jsonEncode(darkMapStyle));
                       }
-                      do{
-                        await Future.delayed(Duration(seconds: 1));
-                      }while(context.read<CouponCubit>().state.status == CouponStateStatus.initial);
-                        for(int i = 0; i < context.read<CouponCubit>().state.newCoupons.length; i++){
-                          final commerce = context.read<CouponCubit>().state.newCoupons[i].commerce;
-                          _markers.add(Marker(markerId: MarkerId(commerce.id.toString()), position: LatLng(commerce.lat,commerce.ln), onTap: (){
-                            setState((){
-                              _selectedCommerce = commerce;
-                              _commerceCoupons = context.read<CouponCubit>().state.newCoupons.where((element) => element.commerceId == _selectedCommerce!.id).toList();
-                            });
-                          }));
-                        }
                       setState((){});
                     },
                     zoomControlsEnabled: false,
@@ -222,19 +210,21 @@ class _MapSearchTabState extends State<MapSearchTab> {
               ),
             ),
           ),
-          _selectedCommerce == null ? Container() : Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(margin: EdgeInsets.only(bottom: 90), height: 140, child: CarouselSlider.builder(
-                itemCount: _commerceCoupons.length,
-                options: CarouselOptions(
-                  viewportFraction: 0.95,
-                  enableInfiniteScroll: false,
-                  height: 140
-                ),
-                itemBuilder: (context, i, j){
-                  return VerticalSmallCouponTile(coupon: _commerceCoupons[i]);
-                },
-              ),))
+          _selectedCommerce == null ? Container() : BlocBuilder<SelectedMapMarkerCubit,SelectedMapMarkerState>(
+            builder: (context,state) => Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(margin: EdgeInsets.only(bottom: 90), height: 140, child: CarouselSlider.builder(
+                  itemCount: state.markerCoupons.length,
+                  options: CarouselOptions(
+                    viewportFraction: 0.95,
+                    enableInfiniteScroll: false,
+                    height: 140
+                  ),
+                  itemBuilder: (context, i, j){
+                    return VerticalSmallCouponTile(coupon: state.markerCoupons[i]);
+                  },
+                ),)),
+          )
         ],
       ),
     );
