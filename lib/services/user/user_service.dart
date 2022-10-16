@@ -72,7 +72,9 @@ class UserService implements IUserServiceContract{
 
   @override
   Future<User?> getUserById({required String uid}) async{
+    log(uid);
     final response = await _dio.get("${hostApi}buyers/$uid");
+    log(response.data.toString());
     final json = response.data;
     if(json.toString().isEmpty){
       return null;

@@ -2,8 +2,7 @@ import 'dart:developer';
 
 import 'package:blue/blocs/auth_bloc/auth_bloc.dart';
 import 'package:blue/blocs/theme_cubit/theme_cubit.dart';
-import 'package:blue/screens/auth/confirm_phone.dart';
-import 'package:blue/screens/auth/confirm_sms.dart';
+import 'package:blue/blocs/user_cubit/user_cubit.dart';
 import 'package:blue/screens/auth/forgot_password.dart';
 import 'package:blue/screens/home.dart';
 import 'package:blue/utils/utils.dart';
@@ -31,92 +30,95 @@ class _SigningState extends State<Signing> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: BlocListener<AuthBloc,AuthState>(
+      child: BlocListener<UserCubit,UserState>(
         listener: (context, state) async{
-          log(state.toString());
-          if(state is AuthAuthenticatedState) {
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => BannersPreview()));
-          }else if(state is AuthNeedsPhoneVerificationState){
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => ConfirmPhone()));
-          } else if(state is AuthForgotPasswordState){
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ForgotPassword()));
-          } else if(state is AuthReadyForSignInPhoneVerificationState){
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => ConfirmSms()));
+          if(state.status == UserStateStatus.authenticated) {
+            if(state.user.endedTutorial!){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
+            }else{
+              Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => BannersPreview()));
+            }
           }
         },
-        child: Scaffold(
-          backgroundColor: context.watch<ThemeCubit>().state.theme == ThemeMode.dark ? Color(0xFF121725) : null,
-          body: Stack(
-            children: [
-              ArcWithLogo(),
-              Center(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.86,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 150,),
-                        Center(
-                          child: Container(
-                            height: 60,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).splashColor,
-                              borderRadius: BorderRadius.circular(32)
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 6,),
-                                GestureDetector(
-                                  onTap: (){
-                                    setState((){
-                                      _selectedButton = 0;
-                                    });
-                                  },
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.43 - 6,
-                                      height: 50,
-                                      decoration: _selectedButton == 0 ? BoxDecoration(
-                                        color: Theme.of(context).focusColor,
-                                        borderRadius: BorderRadius.circular(32)
-                                      ) : null,
-                                      child: Center(child: Text('Iniciar sesión', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, color: _selectedButton == 0 ? Theme.of(context).highlightColor : Color(0xFFA7A9B7)),))),
-                                ),
-                                GestureDetector(
-                                  onTap: (){
-                                    setState((){
-                                      _selectedButton = 1;
-                                    });
-                                  },
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width * 0.43 - 6,
-                                      height: 50,
-                                      decoration: _selectedButton == 1 ? BoxDecoration(
+        child: BlocListener<AuthBloc,AuthState>(
+          listener: (context,state){
+            if(state is AuthForgotPasswordState){
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ForgotPassword()));
+            }
+          },
+          child: Scaffold(
+            backgroundColor: context.watch<ThemeCubit>().state.theme == ThemeMode.dark ? Color(0xFF121725) : null,
+            body: Stack(
+              children: [
+                ArcWithLogo(),
+                Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.86,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 150,),
+                          Center(
+                            child: Container(
+                              height: 60,
+                              decoration: BoxDecoration(
+                                  color: Theme.of(context).splashColor,
+                                borderRadius: BorderRadius.circular(32)
+                              ),
+                              child: Row(
+                                children: [
+                                  SizedBox(width: 6,),
+                                  GestureDetector(
+                                    onTap: (){
+                                      setState((){
+                                        _selectedButton = 0;
+                                      });
+                                    },
+                                    child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.43 - 6,
+                                        height: 50,
+                                        decoration: _selectedButton == 0 ? BoxDecoration(
                                           color: Theme.of(context).focusColor,
                                           borderRadius: BorderRadius.circular(32)
-                                      ) : null,
-                                      child: Center(child: Text('Registro', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, color: _selectedButton == 1 ? Theme.of(context).highlightColor : Color(0xFFA7A9B7)),))),
+                                        ) : null,
+                                        child: Center(child: Text('Iniciar sesión', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, color: _selectedButton == 0 ? Theme.of(context).highlightColor : Color(0xFFA7A9B7)),))),
+                                  ),
+                                  GestureDetector(
+                                    onTap: (){
+                                      setState((){
+                                        _selectedButton = 1;
+                                      });
+                                    },
+                                    child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.43 - 6,
+                                        height: 50,
+                                        decoration: _selectedButton == 1 ? BoxDecoration(
+                                            color: Theme.of(context).focusColor,
+                                            borderRadius: BorderRadius.circular(32)
+                                        ) : null,
+                                        child: Center(child: Text('Registro', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, color: _selectedButton == 1 ? Theme.of(context).highlightColor : Color(0xFFA7A9B7)),))),
 
-                                ),
-                                SizedBox(width: 6,),
-                              ],
+                                  ),
+                                  SizedBox(width: 6,),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 20,),
-                        Text('Bienvenido 👋', style: TextStyle(fontWeight: FontWeight.w500, fontFamily: 'Outfit', fontSize: 24, color: Theme.of(context).highlightColor),),
-                        SizedBox(height: 50,),
-                        _selectedButton == 0 ? SignInForm() : SignUpForm()
-                      ],
+                          SizedBox(height: 20,),
+                          Text('Bienvenido 👋', style: TextStyle(fontWeight: FontWeight.w500, fontFamily: 'Outfit', fontSize: 24, color: Theme.of(context).highlightColor),),
+                          SizedBox(height: 50,),
+                          _selectedButton == 0 ? SignInForm() : SignUpForm()
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
-          )
+                )
+              ],
+            )
+          ),
         ),
       ),
     );

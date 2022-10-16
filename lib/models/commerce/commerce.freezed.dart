@@ -28,8 +28,6 @@ mixin _$Commerce {
   int get couponsSold => throw _privateConstructorUsedError;
   String get location => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  double get lat => throw _privateConstructorUsedError;
-  double get ln => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'logo_url')
@@ -54,8 +52,6 @@ abstract class $CommerceCopyWith<$Res> {
       @JsonKey(name: 'coupons_sold') int couponsSold,
       String location,
       String description,
-      double lat,
-      double ln,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'logo_url') String logoUrl,
       @JsonKey(name: 'reviews_count') int? reviewsCount});
@@ -77,8 +73,6 @@ class _$CommerceCopyWithImpl<$Res> implements $CommerceCopyWith<$Res> {
     Object? couponsSold = freezed,
     Object? location = freezed,
     Object? description = freezed,
-    Object? lat = freezed,
-    Object? ln = freezed,
     Object? createdAt = freezed,
     Object? logoUrl = freezed,
     Object? reviewsCount = freezed,
@@ -108,14 +102,6 @@ class _$CommerceCopyWithImpl<$Res> implements $CommerceCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      lat: lat == freezed
-          ? _value.lat
-          : lat // ignore: cast_nullable_to_non_nullable
-              as double,
-      ln: ln == freezed
-          ? _value.ln
-          : ln // ignore: cast_nullable_to_non_nullable
-              as double,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -145,8 +131,6 @@ abstract class _$$_CommerceCopyWith<$Res> implements $CommerceCopyWith<$Res> {
       @JsonKey(name: 'coupons_sold') int couponsSold,
       String location,
       String description,
-      double lat,
-      double ln,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'logo_url') String logoUrl,
       @JsonKey(name: 'reviews_count') int? reviewsCount});
@@ -170,8 +154,6 @@ class __$$_CommerceCopyWithImpl<$Res> extends _$CommerceCopyWithImpl<$Res>
     Object? couponsSold = freezed,
     Object? location = freezed,
     Object? description = freezed,
-    Object? lat = freezed,
-    Object? ln = freezed,
     Object? createdAt = freezed,
     Object? logoUrl = freezed,
     Object? reviewsCount = freezed,
@@ -201,14 +183,6 @@ class __$$_CommerceCopyWithImpl<$Res> extends _$CommerceCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      lat: lat == freezed
-          ? _value.lat
-          : lat // ignore: cast_nullable_to_non_nullable
-              as double,
-      ln: ln == freezed
-          ? _value.ln
-          : ln // ignore: cast_nullable_to_non_nullable
-              as double,
       createdAt: createdAt == freezed
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -235,8 +209,6 @@ class _$_Commerce extends _Commerce {
       @JsonKey(name: 'coupons_sold') required this.couponsSold,
       required this.location,
       required this.description,
-      required this.lat,
-      required this.ln,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'logo_url') required this.logoUrl,
       @JsonKey(name: 'reviews_count') required this.reviewsCount})
@@ -260,10 +232,6 @@ class _$_Commerce extends _Commerce {
   @override
   final String description;
   @override
-  final double lat;
-  @override
-  final double ln;
-  @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
   @override
@@ -275,7 +243,7 @@ class _$_Commerce extends _Commerce {
 
   @override
   String toString() {
-    return 'Commerce(id: $id, name: $name, avgRating: $avgRating, couponsSold: $couponsSold, location: $location, description: $description, lat: $lat, ln: $ln, createdAt: $createdAt, logoUrl: $logoUrl, reviewsCount: $reviewsCount)';
+    return 'Commerce(id: $id, name: $name, avgRating: $avgRating, couponsSold: $couponsSold, location: $location, description: $description, createdAt: $createdAt, logoUrl: $logoUrl, reviewsCount: $reviewsCount)';
   }
 
   @override
@@ -291,8 +259,6 @@ class _$_Commerce extends _Commerce {
             const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.lat, lat) &&
-            const DeepCollectionEquality().equals(other.ln, ln) &&
             const DeepCollectionEquality().equals(other.createdAt, createdAt) &&
             const DeepCollectionEquality().equals(other.logoUrl, logoUrl) &&
             const DeepCollectionEquality()
@@ -309,8 +275,6 @@ class _$_Commerce extends _Commerce {
       const DeepCollectionEquality().hash(couponsSold),
       const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(lat),
-      const DeepCollectionEquality().hash(ln),
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(logoUrl),
       const DeepCollectionEquality().hash(reviewsCount));
@@ -336,8 +300,6 @@ abstract class _Commerce extends Commerce {
           @JsonKey(name: 'coupons_sold') required final int couponsSold,
           required final String location,
           required final String description,
-          required final double lat,
-          required final double ln,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
           @JsonKey(name: 'logo_url') required final String logoUrl,
           @JsonKey(name: 'reviews_count') required final int? reviewsCount}) =
@@ -360,10 +322,6 @@ abstract class _Commerce extends Commerce {
   String get location;
   @override
   String get description;
-  @override
-  double get lat;
-  @override
-  double get ln;
   @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;

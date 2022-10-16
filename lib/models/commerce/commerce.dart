@@ -13,8 +13,6 @@ class Commerce with _$Commerce{
     @JsonKey(name: 'coupons_sold') required int couponsSold,
     required String location,
     required String description,
-    required double lat,
-    required double ln,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'logo_url') required String logoUrl,
     @JsonKey(name: 'reviews_count') required int? reviewsCount

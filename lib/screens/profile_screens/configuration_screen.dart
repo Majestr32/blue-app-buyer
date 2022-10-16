@@ -1,5 +1,4 @@
 import 'package:blue/blocs/auth_bloc/auth_bloc.dart';
-import 'package:blue/screens/auth/confirm_sms.dart';
 import 'package:blue/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,7 +87,6 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
                           bool valid = _formKey.currentState!.validate();
                           if(valid){
                             context.read<AuthBloc>().add(AuthEvent.changePassword(oldPassword: _oldPasswordController.text, newPassword: _passwordController.text));
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ConfirmSms()));
                           }
 
                         }, child: Text('Aplicar', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),))),

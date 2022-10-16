@@ -25,20 +25,11 @@ mixin _$AuthEvent {
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) =>
@@ -51,19 +42,10 @@ mixin _$AuthEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) =>
@@ -76,19 +58,10 @@ mixin _$AuthEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -105,22 +78,11 @@ mixin _$AuthEvent {
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -138,22 +100,11 @@ mixin _$AuthEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -170,22 +121,11 @@ mixin _$AuthEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -298,20 +238,11 @@ class _$AuthSignInWithEmailAndPasswordEvent
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -327,19 +258,10 @@ class _$AuthSignInWithEmailAndPasswordEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -355,19 +277,10 @@ class _$AuthSignInWithEmailAndPasswordEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -390,22 +303,11 @@ class _$AuthSignInWithEmailAndPasswordEvent
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -426,22 +328,11 @@ class _$AuthSignInWithEmailAndPasswordEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -461,22 +352,11 @@ class _$AuthSignInWithEmailAndPasswordEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -600,20 +480,11 @@ class _$AuthSignUpWithEmailAndPasswordEvent
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -629,19 +500,10 @@ class _$AuthSignUpWithEmailAndPasswordEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -657,19 +519,10 @@ class _$AuthSignUpWithEmailAndPasswordEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -692,22 +545,11 @@ class _$AuthSignUpWithEmailAndPasswordEvent
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -728,22 +570,11 @@ class _$AuthSignUpWithEmailAndPasswordEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -763,22 +594,11 @@ class _$AuthSignUpWithEmailAndPasswordEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -859,20 +679,11 @@ class _$AuthSignInWithGoogleAccountEvent
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -888,19 +699,10 @@ class _$AuthSignInWithGoogleAccountEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -916,19 +718,10 @@ class _$AuthSignInWithGoogleAccountEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -951,22 +744,11 @@ class _$AuthSignInWithGoogleAccountEvent
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -987,22 +769,11 @@ class _$AuthSignInWithGoogleAccountEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -1022,22 +793,11 @@ class _$AuthSignInWithGoogleAccountEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -1108,20 +868,11 @@ class _$AuthSignInWithFacebookAccountEvent
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -1137,19 +888,10 @@ class _$AuthSignInWithFacebookAccountEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -1165,19 +907,10 @@ class _$AuthSignInWithFacebookAccountEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -1200,22 +933,11 @@ class _$AuthSignInWithFacebookAccountEvent
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -1236,22 +958,11 @@ class _$AuthSignInWithFacebookAccountEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -1271,22 +982,11 @@ class _$AuthSignInWithFacebookAccountEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -1352,20 +1052,11 @@ class _$AuthSignOutEvent implements AuthSignOutEvent {
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -1381,19 +1072,10 @@ class _$AuthSignOutEvent implements AuthSignOutEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -1409,19 +1091,10 @@ class _$AuthSignOutEvent implements AuthSignOutEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -1444,22 +1117,11 @@ class _$AuthSignOutEvent implements AuthSignOutEvent {
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -1480,22 +1142,11 @@ class _$AuthSignOutEvent implements AuthSignOutEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -1515,22 +1166,11 @@ class _$AuthSignOutEvent implements AuthSignOutEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -1545,255 +1185,6 @@ class _$AuthSignOutEvent implements AuthSignOutEvent {
 
 abstract class AuthSignOutEvent implements AuthEvent {
   const factory AuthSignOutEvent() = _$AuthSignOutEvent;
-}
-
-/// @nodoc
-abstract class _$$AuthSendEmailVerificationMailEventCopyWith<$Res> {
-  factory _$$AuthSendEmailVerificationMailEventCopyWith(
-          _$AuthSendEmailVerificationMailEvent value,
-          $Res Function(_$AuthSendEmailVerificationMailEvent) then) =
-      __$$AuthSendEmailVerificationMailEventCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AuthSendEmailVerificationMailEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res>
-    implements _$$AuthSendEmailVerificationMailEventCopyWith<$Res> {
-  __$$AuthSendEmailVerificationMailEventCopyWithImpl(
-      _$AuthSendEmailVerificationMailEvent _value,
-      $Res Function(_$AuthSendEmailVerificationMailEvent) _then)
-      : super(_value, (v) => _then(v as _$AuthSendEmailVerificationMailEvent));
-
-  @override
-  _$AuthSendEmailVerificationMailEvent get _value =>
-      super._value as _$AuthSendEmailVerificationMailEvent;
-}
-
-/// @nodoc
-
-class _$AuthSendEmailVerificationMailEvent
-    implements AuthSendEmailVerificationMailEvent {
-  const _$AuthSendEmailVerificationMailEvent();
-
-  @override
-  String toString() {
-    return 'AuthEvent.sendEmailVerificationMail()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthSendEmailVerificationMailEvent);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password)
-        signInWithEmailAndPassword,
-    required TResult Function(String email, String password, String username)
-        signUpWithEmailAndPassword,
-    required TResult Function() signInWithGoogleAccount,
-    required TResult Function() signInWithFacebookAccount,
-    required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
-    required TResult Function() backToSigning,
-    required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
-    required TResult Function(String email) enterEmailForRecovery,
-    required TResult Function() confirmEmailRecovery,
-  }) {
-    return sendEmailVerificationMail();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-  }) {
-    return sendEmailVerificationMail?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (sendEmailVerificationMail != null) {
-      return sendEmailVerificationMail();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthSignInWithEmailAndPasswordEvent value)
-        signInWithEmailAndPassword,
-    required TResult Function(AuthSignUpWithEmailAndPasswordEvent value)
-        signUpWithEmailAndPassword,
-    required TResult Function(AuthSignInWithGoogleAccountEvent value)
-        signInWithGoogleAccount,
-    required TResult Function(AuthSignInWithFacebookAccountEvent value)
-        signInWithFacebookAccount,
-    required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
-    required TResult Function(AuthBackToSigningEvent value) backToSigning,
-    required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
-    required TResult Function(AuthRequestPasswordRecoveryEvent value)
-        requestPasswordRecovery,
-    required TResult Function(AuthEnterEmailForRecoveryEvent value)
-        enterEmailForRecovery,
-    required TResult Function(AuthConfirmEmailRecoveryEvent value)
-        confirmEmailRecovery,
-  }) {
-    return sendEmailVerificationMail(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-  }) {
-    return sendEmailVerificationMail?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (sendEmailVerificationMail != null) {
-      return sendEmailVerificationMail(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthSendEmailVerificationMailEvent implements AuthEvent {
-  const factory AuthSendEmailVerificationMailEvent() =
-      _$AuthSendEmailVerificationMailEvent;
 }
 
 /// @nodoc
@@ -1845,20 +1236,11 @@ class _$AuthBackToSigningEvent implements AuthBackToSigningEvent {
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -1874,19 +1256,10 @@ class _$AuthBackToSigningEvent implements AuthBackToSigningEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -1902,19 +1275,10 @@ class _$AuthBackToSigningEvent implements AuthBackToSigningEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -1937,22 +1301,11 @@ class _$AuthBackToSigningEvent implements AuthBackToSigningEvent {
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -1973,22 +1326,11 @@ class _$AuthBackToSigningEvent implements AuthBackToSigningEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -2008,22 +1350,11 @@ class _$AuthBackToSigningEvent implements AuthBackToSigningEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -2114,20 +1445,11 @@ class _$AuthChangeAuthUserEvent implements AuthChangeAuthUserEvent {
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -2143,19 +1465,10 @@ class _$AuthChangeAuthUserEvent implements AuthChangeAuthUserEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -2171,19 +1484,10 @@ class _$AuthChangeAuthUserEvent implements AuthChangeAuthUserEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -2206,22 +1510,11 @@ class _$AuthChangeAuthUserEvent implements AuthChangeAuthUserEvent {
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -2242,22 +1535,11 @@ class _$AuthChangeAuthUserEvent implements AuthChangeAuthUserEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -2277,22 +1559,11 @@ class _$AuthChangeAuthUserEvent implements AuthChangeAuthUserEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -2316,72 +1587,47 @@ abstract class AuthChangeAuthUserEvent implements AuthEvent {
 }
 
 /// @nodoc
-abstract class _$$AuthEnterPhoneForVerificationEventCopyWith<$Res> {
-  factory _$$AuthEnterPhoneForVerificationEventCopyWith(
-          _$AuthEnterPhoneForVerificationEvent value,
-          $Res Function(_$AuthEnterPhoneForVerificationEvent) then) =
-      __$$AuthEnterPhoneForVerificationEventCopyWithImpl<$Res>;
-  $Res call({String phone});
+abstract class _$$AuthRequestPasswordRecoveryEventCopyWith<$Res> {
+  factory _$$AuthRequestPasswordRecoveryEventCopyWith(
+          _$AuthRequestPasswordRecoveryEvent value,
+          $Res Function(_$AuthRequestPasswordRecoveryEvent) then) =
+      __$$AuthRequestPasswordRecoveryEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$AuthEnterPhoneForVerificationEventCopyWithImpl<$Res>
+class __$$AuthRequestPasswordRecoveryEventCopyWithImpl<$Res>
     extends _$AuthEventCopyWithImpl<$Res>
-    implements _$$AuthEnterPhoneForVerificationEventCopyWith<$Res> {
-  __$$AuthEnterPhoneForVerificationEventCopyWithImpl(
-      _$AuthEnterPhoneForVerificationEvent _value,
-      $Res Function(_$AuthEnterPhoneForVerificationEvent) _then)
-      : super(_value, (v) => _then(v as _$AuthEnterPhoneForVerificationEvent));
+    implements _$$AuthRequestPasswordRecoveryEventCopyWith<$Res> {
+  __$$AuthRequestPasswordRecoveryEventCopyWithImpl(
+      _$AuthRequestPasswordRecoveryEvent _value,
+      $Res Function(_$AuthRequestPasswordRecoveryEvent) _then)
+      : super(_value, (v) => _then(v as _$AuthRequestPasswordRecoveryEvent));
 
   @override
-  _$AuthEnterPhoneForVerificationEvent get _value =>
-      super._value as _$AuthEnterPhoneForVerificationEvent;
-
-  @override
-  $Res call({
-    Object? phone = freezed,
-  }) {
-    return _then(_$AuthEnterPhoneForVerificationEvent(
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+  _$AuthRequestPasswordRecoveryEvent get _value =>
+      super._value as _$AuthRequestPasswordRecoveryEvent;
 }
 
 /// @nodoc
 
-class _$AuthEnterPhoneForVerificationEvent
-    implements AuthEnterPhoneForVerificationEvent {
-  const _$AuthEnterPhoneForVerificationEvent({required this.phone});
-
-  @override
-  final String phone;
+class _$AuthRequestPasswordRecoveryEvent
+    implements AuthRequestPasswordRecoveryEvent {
+  const _$AuthRequestPasswordRecoveryEvent();
 
   @override
   String toString() {
-    return 'AuthEvent.enterPhoneForVerification(phone: $phone)';
+    return 'AuthEvent.requestPasswordRecovery()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AuthEnterPhoneForVerificationEvent &&
-            const DeepCollectionEquality().equals(other.phone, phone));
+            other is _$AuthRequestPasswordRecoveryEvent);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(phone));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthEnterPhoneForVerificationEventCopyWith<
-          _$AuthEnterPhoneForVerificationEvent>
-      get copyWith => __$$AuthEnterPhoneForVerificationEventCopyWithImpl<
-          _$AuthEnterPhoneForVerificationEvent>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -2393,24 +1639,15 @@ class _$AuthEnterPhoneForVerificationEvent
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
-    return enterPhoneForVerification(phone);
+    return requestPasswordRecovery();
   }
 
   @override
@@ -2422,23 +1659,14 @@ class _$AuthEnterPhoneForVerificationEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
-    return enterPhoneForVerification?.call(phone);
+    return requestPasswordRecovery?.call();
   }
 
   @override
@@ -2450,25 +1678,16 @@ class _$AuthEnterPhoneForVerificationEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
   }) {
-    if (enterPhoneForVerification != null) {
-      return enterPhoneForVerification(phone);
+    if (requestPasswordRecovery != null) {
+      return requestPasswordRecovery();
     }
     return orElse();
   }
@@ -2485,28 +1704,17 @@ class _$AuthEnterPhoneForVerificationEvent
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
         confirmEmailRecovery,
   }) {
-    return enterPhoneForVerification(this);
+    return requestPasswordRecovery(this);
   }
 
   @override
@@ -2521,27 +1729,16 @@ class _$AuthEnterPhoneForVerificationEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
   }) {
-    return enterPhoneForVerification?.call(this);
+    return requestPasswordRecovery?.call(this);
   }
 
   @override
@@ -2556,613 +1753,26 @@ class _$AuthEnterPhoneForVerificationEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
     required TResult orElse(),
   }) {
-    if (enterPhoneForVerification != null) {
-      return enterPhoneForVerification(this);
+    if (requestPasswordRecovery != null) {
+      return requestPasswordRecovery(this);
     }
     return orElse();
   }
 }
 
-abstract class AuthEnterPhoneForVerificationEvent implements AuthEvent {
-  const factory AuthEnterPhoneForVerificationEvent(
-      {required final String phone}) = _$AuthEnterPhoneForVerificationEvent;
-
-  String get phone;
-  @JsonKey(ignore: true)
-  _$$AuthEnterPhoneForVerificationEventCopyWith<
-          _$AuthEnterPhoneForVerificationEvent>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthVerificationPhoneCodeSentEventCopyWith<$Res> {
-  factory _$$AuthVerificationPhoneCodeSentEventCopyWith(
-          _$AuthVerificationPhoneCodeSentEvent value,
-          $Res Function(_$AuthVerificationPhoneCodeSentEvent) then) =
-      __$$AuthVerificationPhoneCodeSentEventCopyWithImpl<$Res>;
-  $Res call({String phone, String verificationId});
-}
-
-/// @nodoc
-class __$$AuthVerificationPhoneCodeSentEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res>
-    implements _$$AuthVerificationPhoneCodeSentEventCopyWith<$Res> {
-  __$$AuthVerificationPhoneCodeSentEventCopyWithImpl(
-      _$AuthVerificationPhoneCodeSentEvent _value,
-      $Res Function(_$AuthVerificationPhoneCodeSentEvent) _then)
-      : super(_value, (v) => _then(v as _$AuthVerificationPhoneCodeSentEvent));
-
-  @override
-  _$AuthVerificationPhoneCodeSentEvent get _value =>
-      super._value as _$AuthVerificationPhoneCodeSentEvent;
-
-  @override
-  $Res call({
-    Object? phone = freezed,
-    Object? verificationId = freezed,
-  }) {
-    return _then(_$AuthVerificationPhoneCodeSentEvent(
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-      verificationId: verificationId == freezed
-          ? _value.verificationId
-          : verificationId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AuthVerificationPhoneCodeSentEvent
-    implements AuthVerificationPhoneCodeSentEvent {
-  const _$AuthVerificationPhoneCodeSentEvent(
-      {required this.phone, required this.verificationId});
-
-  @override
-  final String phone;
-  @override
-  final String verificationId;
-
-  @override
-  String toString() {
-    return 'AuthEvent.verificationPhoneCodeSent(phone: $phone, verificationId: $verificationId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthVerificationPhoneCodeSentEvent &&
-            const DeepCollectionEquality().equals(other.phone, phone) &&
-            const DeepCollectionEquality()
-                .equals(other.verificationId, verificationId));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(phone),
-      const DeepCollectionEquality().hash(verificationId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthVerificationPhoneCodeSentEventCopyWith<
-          _$AuthVerificationPhoneCodeSentEvent>
-      get copyWith => __$$AuthVerificationPhoneCodeSentEventCopyWithImpl<
-          _$AuthVerificationPhoneCodeSentEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password)
-        signInWithEmailAndPassword,
-    required TResult Function(String email, String password, String username)
-        signUpWithEmailAndPassword,
-    required TResult Function() signInWithGoogleAccount,
-    required TResult Function() signInWithFacebookAccount,
-    required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
-    required TResult Function() backToSigning,
-    required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
-    required TResult Function(String email) enterEmailForRecovery,
-    required TResult Function() confirmEmailRecovery,
-  }) {
-    return verificationPhoneCodeSent(phone, verificationId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-  }) {
-    return verificationPhoneCodeSent?.call(phone, verificationId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (verificationPhoneCodeSent != null) {
-      return verificationPhoneCodeSent(phone, verificationId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthSignInWithEmailAndPasswordEvent value)
-        signInWithEmailAndPassword,
-    required TResult Function(AuthSignUpWithEmailAndPasswordEvent value)
-        signUpWithEmailAndPassword,
-    required TResult Function(AuthSignInWithGoogleAccountEvent value)
-        signInWithGoogleAccount,
-    required TResult Function(AuthSignInWithFacebookAccountEvent value)
-        signInWithFacebookAccount,
-    required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
-    required TResult Function(AuthBackToSigningEvent value) backToSigning,
-    required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
-    required TResult Function(AuthRequestPasswordRecoveryEvent value)
-        requestPasswordRecovery,
-    required TResult Function(AuthEnterEmailForRecoveryEvent value)
-        enterEmailForRecovery,
-    required TResult Function(AuthConfirmEmailRecoveryEvent value)
-        confirmEmailRecovery,
-  }) {
-    return verificationPhoneCodeSent(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-  }) {
-    return verificationPhoneCodeSent?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (verificationPhoneCodeSent != null) {
-      return verificationPhoneCodeSent(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthVerificationPhoneCodeSentEvent implements AuthEvent {
-  const factory AuthVerificationPhoneCodeSentEvent(
-          {required final String phone, required final String verificationId}) =
-      _$AuthVerificationPhoneCodeSentEvent;
-
-  String get phone;
-  String get verificationId;
-  @JsonKey(ignore: true)
-  _$$AuthVerificationPhoneCodeSentEventCopyWith<
-          _$AuthVerificationPhoneCodeSentEvent>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthVerifyPhoneCodeEventCopyWith<$Res> {
-  factory _$$AuthVerifyPhoneCodeEventCopyWith(_$AuthVerifyPhoneCodeEvent value,
-          $Res Function(_$AuthVerifyPhoneCodeEvent) then) =
-      __$$AuthVerifyPhoneCodeEventCopyWithImpl<$Res>;
-  $Res call({String code});
-}
-
-/// @nodoc
-class __$$AuthVerifyPhoneCodeEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res>
-    implements _$$AuthVerifyPhoneCodeEventCopyWith<$Res> {
-  __$$AuthVerifyPhoneCodeEventCopyWithImpl(_$AuthVerifyPhoneCodeEvent _value,
-      $Res Function(_$AuthVerifyPhoneCodeEvent) _then)
-      : super(_value, (v) => _then(v as _$AuthVerifyPhoneCodeEvent));
-
-  @override
-  _$AuthVerifyPhoneCodeEvent get _value =>
-      super._value as _$AuthVerifyPhoneCodeEvent;
-
-  @override
-  $Res call({
-    Object? code = freezed,
-  }) {
-    return _then(_$AuthVerifyPhoneCodeEvent(
-      code: code == freezed
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AuthVerifyPhoneCodeEvent implements AuthVerifyPhoneCodeEvent {
-  const _$AuthVerifyPhoneCodeEvent({required this.code});
-
-  @override
-  final String code;
-
-  @override
-  String toString() {
-    return 'AuthEvent.verifyPhoneCode(code: $code)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthVerifyPhoneCodeEvent &&
-            const DeepCollectionEquality().equals(other.code, code));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(code));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthVerifyPhoneCodeEventCopyWith<_$AuthVerifyPhoneCodeEvent>
-      get copyWith =>
-          __$$AuthVerifyPhoneCodeEventCopyWithImpl<_$AuthVerifyPhoneCodeEvent>(
-              this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password)
-        signInWithEmailAndPassword,
-    required TResult Function(String email, String password, String username)
-        signUpWithEmailAndPassword,
-    required TResult Function() signInWithGoogleAccount,
-    required TResult Function() signInWithFacebookAccount,
-    required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
-    required TResult Function() backToSigning,
-    required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
-    required TResult Function(String email) enterEmailForRecovery,
-    required TResult Function() confirmEmailRecovery,
-  }) {
-    return verifyPhoneCode(code);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-  }) {
-    return verifyPhoneCode?.call(code);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (verifyPhoneCode != null) {
-      return verifyPhoneCode(code);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthSignInWithEmailAndPasswordEvent value)
-        signInWithEmailAndPassword,
-    required TResult Function(AuthSignUpWithEmailAndPasswordEvent value)
-        signUpWithEmailAndPassword,
-    required TResult Function(AuthSignInWithGoogleAccountEvent value)
-        signInWithGoogleAccount,
-    required TResult Function(AuthSignInWithFacebookAccountEvent value)
-        signInWithFacebookAccount,
-    required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
-    required TResult Function(AuthBackToSigningEvent value) backToSigning,
-    required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
-    required TResult Function(AuthRequestPasswordRecoveryEvent value)
-        requestPasswordRecovery,
-    required TResult Function(AuthEnterEmailForRecoveryEvent value)
-        enterEmailForRecovery,
-    required TResult Function(AuthConfirmEmailRecoveryEvent value)
-        confirmEmailRecovery,
-  }) {
-    return verifyPhoneCode(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-  }) {
-    return verifyPhoneCode?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (verifyPhoneCode != null) {
-      return verifyPhoneCode(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthVerifyPhoneCodeEvent implements AuthEvent {
-  const factory AuthVerifyPhoneCodeEvent({required final String code}) =
-      _$AuthVerifyPhoneCodeEvent;
-
-  String get code;
-  @JsonKey(ignore: true)
-  _$$AuthVerifyPhoneCodeEventCopyWith<_$AuthVerifyPhoneCodeEvent>
-      get copyWith => throw _privateConstructorUsedError;
+abstract class AuthRequestPasswordRecoveryEvent implements AuthEvent {
+  const factory AuthRequestPasswordRecoveryEvent() =
+      _$AuthRequestPasswordRecoveryEvent;
 }
 
 /// @nodoc
@@ -3252,20 +1862,11 @@ class _$AuthChangePasswordEvent implements AuthChangePasswordEvent {
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -3281,19 +1882,10 @@ class _$AuthChangePasswordEvent implements AuthChangePasswordEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -3309,19 +1901,10 @@ class _$AuthChangePasswordEvent implements AuthChangePasswordEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -3344,22 +1927,11 @@ class _$AuthChangePasswordEvent implements AuthChangePasswordEvent {
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -3380,22 +1952,11 @@ class _$AuthChangePasswordEvent implements AuthChangePasswordEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -3415,22 +1976,11 @@ class _$AuthChangePasswordEvent implements AuthChangePasswordEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -3453,846 +2003,6 @@ abstract class AuthChangePasswordEvent implements AuthEvent {
   @JsonKey(ignore: true)
   _$$AuthChangePasswordEventCopyWith<_$AuthChangePasswordEvent> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthSignInVerificationPhoneCodeSentEventCopyWith<$Res> {
-  factory _$$AuthSignInVerificationPhoneCodeSentEventCopyWith(
-          _$AuthSignInVerificationPhoneCodeSentEvent value,
-          $Res Function(_$AuthSignInVerificationPhoneCodeSentEvent) then) =
-      __$$AuthSignInVerificationPhoneCodeSentEventCopyWithImpl<$Res>;
-  $Res call(
-      {MultiFactorResolver resolver,
-      MultiFactorInfo hint,
-      String verificationId});
-}
-
-/// @nodoc
-class __$$AuthSignInVerificationPhoneCodeSentEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res>
-    implements _$$AuthSignInVerificationPhoneCodeSentEventCopyWith<$Res> {
-  __$$AuthSignInVerificationPhoneCodeSentEventCopyWithImpl(
-      _$AuthSignInVerificationPhoneCodeSentEvent _value,
-      $Res Function(_$AuthSignInVerificationPhoneCodeSentEvent) _then)
-      : super(_value,
-            (v) => _then(v as _$AuthSignInVerificationPhoneCodeSentEvent));
-
-  @override
-  _$AuthSignInVerificationPhoneCodeSentEvent get _value =>
-      super._value as _$AuthSignInVerificationPhoneCodeSentEvent;
-
-  @override
-  $Res call({
-    Object? resolver = freezed,
-    Object? hint = freezed,
-    Object? verificationId = freezed,
-  }) {
-    return _then(_$AuthSignInVerificationPhoneCodeSentEvent(
-      resolver: resolver == freezed
-          ? _value.resolver
-          : resolver // ignore: cast_nullable_to_non_nullable
-              as MultiFactorResolver,
-      hint: hint == freezed
-          ? _value.hint
-          : hint // ignore: cast_nullable_to_non_nullable
-              as MultiFactorInfo,
-      verificationId: verificationId == freezed
-          ? _value.verificationId
-          : verificationId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AuthSignInVerificationPhoneCodeSentEvent
-    implements AuthSignInVerificationPhoneCodeSentEvent {
-  const _$AuthSignInVerificationPhoneCodeSentEvent(
-      {required this.resolver,
-      required this.hint,
-      required this.verificationId});
-
-  @override
-  final MultiFactorResolver resolver;
-  @override
-  final MultiFactorInfo hint;
-  @override
-  final String verificationId;
-
-  @override
-  String toString() {
-    return 'AuthEvent.signInVerificationPhoneCodeSent(resolver: $resolver, hint: $hint, verificationId: $verificationId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthSignInVerificationPhoneCodeSentEvent &&
-            const DeepCollectionEquality().equals(other.resolver, resolver) &&
-            const DeepCollectionEquality().equals(other.hint, hint) &&
-            const DeepCollectionEquality()
-                .equals(other.verificationId, verificationId));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(resolver),
-      const DeepCollectionEquality().hash(hint),
-      const DeepCollectionEquality().hash(verificationId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthSignInVerificationPhoneCodeSentEventCopyWith<
-          _$AuthSignInVerificationPhoneCodeSentEvent>
-      get copyWith => __$$AuthSignInVerificationPhoneCodeSentEventCopyWithImpl<
-          _$AuthSignInVerificationPhoneCodeSentEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password)
-        signInWithEmailAndPassword,
-    required TResult Function(String email, String password, String username)
-        signUpWithEmailAndPassword,
-    required TResult Function() signInWithGoogleAccount,
-    required TResult Function() signInWithFacebookAccount,
-    required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
-    required TResult Function() backToSigning,
-    required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
-    required TResult Function(String email) enterEmailForRecovery,
-    required TResult Function() confirmEmailRecovery,
-  }) {
-    return signInVerificationPhoneCodeSent(resolver, hint, verificationId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-  }) {
-    return signInVerificationPhoneCodeSent?.call(
-        resolver, hint, verificationId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (signInVerificationPhoneCodeSent != null) {
-      return signInVerificationPhoneCodeSent(resolver, hint, verificationId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthSignInWithEmailAndPasswordEvent value)
-        signInWithEmailAndPassword,
-    required TResult Function(AuthSignUpWithEmailAndPasswordEvent value)
-        signUpWithEmailAndPassword,
-    required TResult Function(AuthSignInWithGoogleAccountEvent value)
-        signInWithGoogleAccount,
-    required TResult Function(AuthSignInWithFacebookAccountEvent value)
-        signInWithFacebookAccount,
-    required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
-    required TResult Function(AuthBackToSigningEvent value) backToSigning,
-    required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
-    required TResult Function(AuthRequestPasswordRecoveryEvent value)
-        requestPasswordRecovery,
-    required TResult Function(AuthEnterEmailForRecoveryEvent value)
-        enterEmailForRecovery,
-    required TResult Function(AuthConfirmEmailRecoveryEvent value)
-        confirmEmailRecovery,
-  }) {
-    return signInVerificationPhoneCodeSent(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-  }) {
-    return signInVerificationPhoneCodeSent?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (signInVerificationPhoneCodeSent != null) {
-      return signInVerificationPhoneCodeSent(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthSignInVerificationPhoneCodeSentEvent implements AuthEvent {
-  const factory AuthSignInVerificationPhoneCodeSentEvent(
-          {required final MultiFactorResolver resolver,
-          required final MultiFactorInfo hint,
-          required final String verificationId}) =
-      _$AuthSignInVerificationPhoneCodeSentEvent;
-
-  MultiFactorResolver get resolver;
-  MultiFactorInfo get hint;
-  String get verificationId;
-  @JsonKey(ignore: true)
-  _$$AuthSignInVerificationPhoneCodeSentEventCopyWith<
-          _$AuthSignInVerificationPhoneCodeSentEvent>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthSignInVerifyPhoneCodeEventCopyWith<$Res> {
-  factory _$$AuthSignInVerifyPhoneCodeEventCopyWith(
-          _$AuthSignInVerifyPhoneCodeEvent value,
-          $Res Function(_$AuthSignInVerifyPhoneCodeEvent) then) =
-      __$$AuthSignInVerifyPhoneCodeEventCopyWithImpl<$Res>;
-  $Res call({String code});
-}
-
-/// @nodoc
-class __$$AuthSignInVerifyPhoneCodeEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res>
-    implements _$$AuthSignInVerifyPhoneCodeEventCopyWith<$Res> {
-  __$$AuthSignInVerifyPhoneCodeEventCopyWithImpl(
-      _$AuthSignInVerifyPhoneCodeEvent _value,
-      $Res Function(_$AuthSignInVerifyPhoneCodeEvent) _then)
-      : super(_value, (v) => _then(v as _$AuthSignInVerifyPhoneCodeEvent));
-
-  @override
-  _$AuthSignInVerifyPhoneCodeEvent get _value =>
-      super._value as _$AuthSignInVerifyPhoneCodeEvent;
-
-  @override
-  $Res call({
-    Object? code = freezed,
-  }) {
-    return _then(_$AuthSignInVerifyPhoneCodeEvent(
-      code: code == freezed
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AuthSignInVerifyPhoneCodeEvent
-    implements AuthSignInVerifyPhoneCodeEvent {
-  const _$AuthSignInVerifyPhoneCodeEvent({required this.code});
-
-  @override
-  final String code;
-
-  @override
-  String toString() {
-    return 'AuthEvent.signInVerifyPhoneCode(code: $code)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthSignInVerifyPhoneCodeEvent &&
-            const DeepCollectionEquality().equals(other.code, code));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(code));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthSignInVerifyPhoneCodeEventCopyWith<_$AuthSignInVerifyPhoneCodeEvent>
-      get copyWith => __$$AuthSignInVerifyPhoneCodeEventCopyWithImpl<
-          _$AuthSignInVerifyPhoneCodeEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password)
-        signInWithEmailAndPassword,
-    required TResult Function(String email, String password, String username)
-        signUpWithEmailAndPassword,
-    required TResult Function() signInWithGoogleAccount,
-    required TResult Function() signInWithFacebookAccount,
-    required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
-    required TResult Function() backToSigning,
-    required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
-    required TResult Function(String email) enterEmailForRecovery,
-    required TResult Function() confirmEmailRecovery,
-  }) {
-    return signInVerifyPhoneCode(code);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-  }) {
-    return signInVerifyPhoneCode?.call(code);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (signInVerifyPhoneCode != null) {
-      return signInVerifyPhoneCode(code);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthSignInWithEmailAndPasswordEvent value)
-        signInWithEmailAndPassword,
-    required TResult Function(AuthSignUpWithEmailAndPasswordEvent value)
-        signUpWithEmailAndPassword,
-    required TResult Function(AuthSignInWithGoogleAccountEvent value)
-        signInWithGoogleAccount,
-    required TResult Function(AuthSignInWithFacebookAccountEvent value)
-        signInWithFacebookAccount,
-    required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
-    required TResult Function(AuthBackToSigningEvent value) backToSigning,
-    required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
-    required TResult Function(AuthRequestPasswordRecoveryEvent value)
-        requestPasswordRecovery,
-    required TResult Function(AuthEnterEmailForRecoveryEvent value)
-        enterEmailForRecovery,
-    required TResult Function(AuthConfirmEmailRecoveryEvent value)
-        confirmEmailRecovery,
-  }) {
-    return signInVerifyPhoneCode(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-  }) {
-    return signInVerifyPhoneCode?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (signInVerifyPhoneCode != null) {
-      return signInVerifyPhoneCode(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthSignInVerifyPhoneCodeEvent implements AuthEvent {
-  const factory AuthSignInVerifyPhoneCodeEvent({required final String code}) =
-      _$AuthSignInVerifyPhoneCodeEvent;
-
-  String get code;
-  @JsonKey(ignore: true)
-  _$$AuthSignInVerifyPhoneCodeEventCopyWith<_$AuthSignInVerifyPhoneCodeEvent>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthRequestPasswordRecoveryEventCopyWith<$Res> {
-  factory _$$AuthRequestPasswordRecoveryEventCopyWith(
-          _$AuthRequestPasswordRecoveryEvent value,
-          $Res Function(_$AuthRequestPasswordRecoveryEvent) then) =
-      __$$AuthRequestPasswordRecoveryEventCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$AuthRequestPasswordRecoveryEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res>
-    implements _$$AuthRequestPasswordRecoveryEventCopyWith<$Res> {
-  __$$AuthRequestPasswordRecoveryEventCopyWithImpl(
-      _$AuthRequestPasswordRecoveryEvent _value,
-      $Res Function(_$AuthRequestPasswordRecoveryEvent) _then)
-      : super(_value, (v) => _then(v as _$AuthRequestPasswordRecoveryEvent));
-
-  @override
-  _$AuthRequestPasswordRecoveryEvent get _value =>
-      super._value as _$AuthRequestPasswordRecoveryEvent;
-}
-
-/// @nodoc
-
-class _$AuthRequestPasswordRecoveryEvent
-    implements AuthRequestPasswordRecoveryEvent {
-  const _$AuthRequestPasswordRecoveryEvent();
-
-  @override
-  String toString() {
-    return 'AuthEvent.requestPasswordRecovery()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthRequestPasswordRecoveryEvent);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password)
-        signInWithEmailAndPassword,
-    required TResult Function(String email, String password, String username)
-        signUpWithEmailAndPassword,
-    required TResult Function() signInWithGoogleAccount,
-    required TResult Function() signInWithFacebookAccount,
-    required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
-    required TResult Function() backToSigning,
-    required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
-    required TResult Function(String oldPassword, String newPassword)
-        changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
-    required TResult Function(String email) enterEmailForRecovery,
-    required TResult Function() confirmEmailRecovery,
-  }) {
-    return requestPasswordRecovery();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-  }) {
-    return requestPasswordRecovery?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? signInWithEmailAndPassword,
-    TResult Function(String email, String password, String username)?
-        signUpWithEmailAndPassword,
-    TResult Function()? signInWithGoogleAccount,
-    TResult Function()? signInWithFacebookAccount,
-    TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
-    TResult Function()? backToSigning,
-    TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
-    TResult Function()? requestPasswordRecovery,
-    TResult Function(String email)? enterEmailForRecovery,
-    TResult Function()? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (requestPasswordRecovery != null) {
-      return requestPasswordRecovery();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthSignInWithEmailAndPasswordEvent value)
-        signInWithEmailAndPassword,
-    required TResult Function(AuthSignUpWithEmailAndPasswordEvent value)
-        signUpWithEmailAndPassword,
-    required TResult Function(AuthSignInWithGoogleAccountEvent value)
-        signInWithGoogleAccount,
-    required TResult Function(AuthSignInWithFacebookAccountEvent value)
-        signInWithFacebookAccount,
-    required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
-    required TResult Function(AuthBackToSigningEvent value) backToSigning,
-    required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
-    required TResult Function(AuthRequestPasswordRecoveryEvent value)
-        requestPasswordRecovery,
-    required TResult Function(AuthEnterEmailForRecoveryEvent value)
-        enterEmailForRecovery,
-    required TResult Function(AuthConfirmEmailRecoveryEvent value)
-        confirmEmailRecovery,
-  }) {
-    return requestPasswordRecovery(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-  }) {
-    return requestPasswordRecovery?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthSignInWithEmailAndPasswordEvent value)?
-        signInWithEmailAndPassword,
-    TResult Function(AuthSignUpWithEmailAndPasswordEvent value)?
-        signUpWithEmailAndPassword,
-    TResult Function(AuthSignInWithGoogleAccountEvent value)?
-        signInWithGoogleAccount,
-    TResult Function(AuthSignInWithFacebookAccountEvent value)?
-        signInWithFacebookAccount,
-    TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
-    TResult Function(AuthBackToSigningEvent value)? backToSigning,
-    TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
-    TResult Function(AuthRequestPasswordRecoveryEvent value)?
-        requestPasswordRecovery,
-    TResult Function(AuthEnterEmailForRecoveryEvent value)?
-        enterEmailForRecovery,
-    TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
-    required TResult orElse(),
-  }) {
-    if (requestPasswordRecovery != null) {
-      return requestPasswordRecovery(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthRequestPasswordRecoveryEvent implements AuthEvent {
-  const factory AuthRequestPasswordRecoveryEvent() =
-      _$AuthRequestPasswordRecoveryEvent;
 }
 
 /// @nodoc
@@ -4372,20 +2082,11 @@ class _$AuthEnterEmailForRecoveryEvent
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -4401,19 +2102,10 @@ class _$AuthEnterEmailForRecoveryEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -4429,19 +2121,10 @@ class _$AuthEnterEmailForRecoveryEvent
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -4464,22 +2147,11 @@ class _$AuthEnterEmailForRecoveryEvent
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -4500,22 +2172,11 @@ class _$AuthEnterEmailForRecoveryEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -4535,22 +2196,11 @@ class _$AuthEnterEmailForRecoveryEvent
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -4625,20 +2275,11 @@ class _$AuthConfirmEmailRecoveryEvent implements AuthConfirmEmailRecoveryEvent {
     required TResult Function() signInWithGoogleAccount,
     required TResult Function() signInWithFacebookAccount,
     required TResult Function() signOut,
-    required TResult Function() sendEmailVerificationMail,
     required TResult Function() backToSigning,
     required TResult Function(User? user) changeAuthUser,
-    required TResult Function(String phone) enterPhoneForVerification,
-    required TResult Function(String phone, String verificationId)
-        verificationPhoneCodeSent,
-    required TResult Function(String code) verifyPhoneCode,
+    required TResult Function() requestPasswordRecovery,
     required TResult Function(String oldPassword, String newPassword)
         changePassword,
-    required TResult Function(MultiFactorResolver resolver,
-            MultiFactorInfo hint, String verificationId)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(String code) signInVerifyPhoneCode,
-    required TResult Function() requestPasswordRecovery,
     required TResult Function(String email) enterEmailForRecovery,
     required TResult Function() confirmEmailRecovery,
   }) {
@@ -4654,19 +2295,10 @@ class _$AuthConfirmEmailRecoveryEvent implements AuthConfirmEmailRecoveryEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
   }) {
@@ -4682,19 +2314,10 @@ class _$AuthConfirmEmailRecoveryEvent implements AuthConfirmEmailRecoveryEvent {
     TResult Function()? signInWithGoogleAccount,
     TResult Function()? signInWithFacebookAccount,
     TResult Function()? signOut,
-    TResult Function()? sendEmailVerificationMail,
     TResult Function()? backToSigning,
     TResult Function(User? user)? changeAuthUser,
-    TResult Function(String phone)? enterPhoneForVerification,
-    TResult Function(String phone, String verificationId)?
-        verificationPhoneCodeSent,
-    TResult Function(String code)? verifyPhoneCode,
-    TResult Function(String oldPassword, String newPassword)? changePassword,
-    TResult Function(MultiFactorResolver resolver, MultiFactorInfo hint,
-            String verificationId)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(String code)? signInVerifyPhoneCode,
     TResult Function()? requestPasswordRecovery,
+    TResult Function(String oldPassword, String newPassword)? changePassword,
     TResult Function(String email)? enterEmailForRecovery,
     TResult Function()? confirmEmailRecovery,
     required TResult orElse(),
@@ -4717,22 +2340,11 @@ class _$AuthConfirmEmailRecoveryEvent implements AuthConfirmEmailRecoveryEvent {
     required TResult Function(AuthSignInWithFacebookAccountEvent value)
         signInWithFacebookAccount,
     required TResult Function(AuthSignOutEvent value) signOut,
-    required TResult Function(AuthSendEmailVerificationMailEvent value)
-        sendEmailVerificationMail,
     required TResult Function(AuthBackToSigningEvent value) backToSigning,
     required TResult Function(AuthChangeAuthUserEvent value) changeAuthUser,
-    required TResult Function(AuthEnterPhoneForVerificationEvent value)
-        enterPhoneForVerification,
-    required TResult Function(AuthVerificationPhoneCodeSentEvent value)
-        verificationPhoneCodeSent,
-    required TResult Function(AuthVerifyPhoneCodeEvent value) verifyPhoneCode,
-    required TResult Function(AuthChangePasswordEvent value) changePassword,
-    required TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)
-        signInVerificationPhoneCodeSent,
-    required TResult Function(AuthSignInVerifyPhoneCodeEvent value)
-        signInVerifyPhoneCode,
     required TResult Function(AuthRequestPasswordRecoveryEvent value)
         requestPasswordRecovery,
+    required TResult Function(AuthChangePasswordEvent value) changePassword,
     required TResult Function(AuthEnterEmailForRecoveryEvent value)
         enterEmailForRecovery,
     required TResult Function(AuthConfirmEmailRecoveryEvent value)
@@ -4753,22 +2365,11 @@ class _$AuthConfirmEmailRecoveryEvent implements AuthConfirmEmailRecoveryEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -4788,22 +2389,11 @@ class _$AuthConfirmEmailRecoveryEvent implements AuthConfirmEmailRecoveryEvent {
     TResult Function(AuthSignInWithFacebookAccountEvent value)?
         signInWithFacebookAccount,
     TResult Function(AuthSignOutEvent value)? signOut,
-    TResult Function(AuthSendEmailVerificationMailEvent value)?
-        sendEmailVerificationMail,
     TResult Function(AuthBackToSigningEvent value)? backToSigning,
     TResult Function(AuthChangeAuthUserEvent value)? changeAuthUser,
-    TResult Function(AuthEnterPhoneForVerificationEvent value)?
-        enterPhoneForVerification,
-    TResult Function(AuthVerificationPhoneCodeSentEvent value)?
-        verificationPhoneCodeSent,
-    TResult Function(AuthVerifyPhoneCodeEvent value)? verifyPhoneCode,
-    TResult Function(AuthChangePasswordEvent value)? changePassword,
-    TResult Function(AuthSignInVerificationPhoneCodeSentEvent value)?
-        signInVerificationPhoneCodeSent,
-    TResult Function(AuthSignInVerifyPhoneCodeEvent value)?
-        signInVerifyPhoneCode,
     TResult Function(AuthRequestPasswordRecoveryEvent value)?
         requestPasswordRecovery,
+    TResult Function(AuthChangePasswordEvent value)? changePassword,
     TResult Function(AuthEnterEmailForRecoveryEvent value)?
         enterEmailForRecovery,
     TResult Function(AuthConfirmEmailRecoveryEvent value)? confirmEmailRecovery,
@@ -4828,12 +2418,6 @@ mixin _$AuthState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -4845,11 +2429,6 @@ mixin _$AuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -4861,11 +2440,6 @@ mixin _$AuthState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -4878,12 +2452,6 @@ mixin _$AuthState {
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -4896,12 +2464,6 @@ mixin _$AuthState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -4914,12 +2476,6 @@ mixin _$AuthState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -4989,12 +2545,6 @@ class _$AuthInitialState extends AuthInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -5009,11 +2559,6 @@ class _$AuthInitialState extends AuthInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -5028,11 +2573,6 @@ class _$AuthInitialState extends AuthInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -5051,12 +2591,6 @@ class _$AuthInitialState extends AuthInitialState {
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -5072,12 +2606,6 @@ class _$AuthInitialState extends AuthInitialState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -5093,12 +2621,6 @@ class _$AuthInitialState extends AuthInitialState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -5162,12 +2684,6 @@ class _$AuthLoadingState extends AuthLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -5182,11 +2698,6 @@ class _$AuthLoadingState extends AuthLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -5201,11 +2712,6 @@ class _$AuthLoadingState extends AuthLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -5224,12 +2730,6 @@ class _$AuthLoadingState extends AuthLoadingState {
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -5245,12 +2745,6 @@ class _$AuthLoadingState extends AuthLoadingState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -5266,12 +2760,6 @@ class _$AuthLoadingState extends AuthLoadingState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -5358,12 +2846,6 @@ class _$AuthErrorState extends AuthErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -5378,11 +2860,6 @@ class _$AuthErrorState extends AuthErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -5397,11 +2874,6 @@ class _$AuthErrorState extends AuthErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -5420,12 +2892,6 @@ class _$AuthErrorState extends AuthErrorState {
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -5441,12 +2907,6 @@ class _$AuthErrorState extends AuthErrorState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -5462,12 +2922,6 @@ class _$AuthErrorState extends AuthErrorState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -5491,678 +2945,6 @@ abstract class AuthErrorState extends AuthState {
   @JsonKey(ignore: true)
   _$$AuthErrorStateCopyWith<_$AuthErrorState> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthNeedsPhoneVerificationStateCopyWith<$Res> {
-  factory _$$AuthNeedsPhoneVerificationStateCopyWith(
-          _$AuthNeedsPhoneVerificationState value,
-          $Res Function(_$AuthNeedsPhoneVerificationState) then) =
-      __$$AuthNeedsPhoneVerificationStateCopyWithImpl<$Res>;
-  $Res call({User user});
-}
-
-/// @nodoc
-class __$$AuthNeedsPhoneVerificationStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res>
-    implements _$$AuthNeedsPhoneVerificationStateCopyWith<$Res> {
-  __$$AuthNeedsPhoneVerificationStateCopyWithImpl(
-      _$AuthNeedsPhoneVerificationState _value,
-      $Res Function(_$AuthNeedsPhoneVerificationState) _then)
-      : super(_value, (v) => _then(v as _$AuthNeedsPhoneVerificationState));
-
-  @override
-  _$AuthNeedsPhoneVerificationState get _value =>
-      super._value as _$AuthNeedsPhoneVerificationState;
-
-  @override
-  $Res call({
-    Object? user = freezed,
-  }) {
-    return _then(_$AuthNeedsPhoneVerificationState(
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AuthNeedsPhoneVerificationState
-    extends AuthNeedsPhoneVerificationState {
-  const _$AuthNeedsPhoneVerificationState({required this.user}) : super._();
-
-  @override
-  final User user;
-
-  @override
-  String toString() {
-    return 'AuthState.needsPhoneVerification(user: $user)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthNeedsPhoneVerificationState &&
-            const DeepCollectionEquality().equals(other.user, user));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(user));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthNeedsPhoneVerificationStateCopyWith<_$AuthNeedsPhoneVerificationState>
-      get copyWith => __$$AuthNeedsPhoneVerificationStateCopyWithImpl<
-          _$AuthNeedsPhoneVerificationState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
-    required TResult Function() forgotPassword,
-    required TResult Function(String email) recoveryEmailPasswordLinkSent,
-    required TResult Function(User user) authenticated,
-    required TResult Function() notAuthenticated,
-  }) {
-    return needsPhoneVerification(user);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
-    TResult Function()? forgotPassword,
-    TResult Function(String email)? recoveryEmailPasswordLinkSent,
-    TResult Function(User user)? authenticated,
-    TResult Function()? notAuthenticated,
-  }) {
-    return needsPhoneVerification?.call(user);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
-    TResult Function()? forgotPassword,
-    TResult Function(String email)? recoveryEmailPasswordLinkSent,
-    TResult Function(User user)? authenticated,
-    TResult Function()? notAuthenticated,
-    required TResult orElse(),
-  }) {
-    if (needsPhoneVerification != null) {
-      return needsPhoneVerification(user);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthInitialState value) initial,
-    required TResult Function(AuthLoadingState value) loading,
-    required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
-    required TResult Function(AuthForgotPasswordState value) forgotPassword,
-    required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
-        recoveryEmailPasswordLinkSent,
-    required TResult Function(AuthAuthenticatedState value) authenticated,
-    required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
-  }) {
-    return needsPhoneVerification(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthInitialState value)? initial,
-    TResult Function(AuthLoadingState value)? loading,
-    TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
-    TResult Function(AuthForgotPasswordState value)? forgotPassword,
-    TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
-        recoveryEmailPasswordLinkSent,
-    TResult Function(AuthAuthenticatedState value)? authenticated,
-    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
-  }) {
-    return needsPhoneVerification?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthInitialState value)? initial,
-    TResult Function(AuthLoadingState value)? loading,
-    TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
-    TResult Function(AuthForgotPasswordState value)? forgotPassword,
-    TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
-        recoveryEmailPasswordLinkSent,
-    TResult Function(AuthAuthenticatedState value)? authenticated,
-    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
-    required TResult orElse(),
-  }) {
-    if (needsPhoneVerification != null) {
-      return needsPhoneVerification(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthNeedsPhoneVerificationState extends AuthState {
-  const factory AuthNeedsPhoneVerificationState({required final User user}) =
-      _$AuthNeedsPhoneVerificationState;
-  const AuthNeedsPhoneVerificationState._() : super._();
-
-  User get user;
-  @JsonKey(ignore: true)
-  _$$AuthNeedsPhoneVerificationStateCopyWith<_$AuthNeedsPhoneVerificationState>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthEnteredPhoneForVerificationStateCopyWith<$Res> {
-  factory _$$AuthEnteredPhoneForVerificationStateCopyWith(
-          _$AuthEnteredPhoneForVerificationState value,
-          $Res Function(_$AuthEnteredPhoneForVerificationState) then) =
-      __$$AuthEnteredPhoneForVerificationStateCopyWithImpl<$Res>;
-  $Res call({User user, String verificationId, String phone});
-}
-
-/// @nodoc
-class __$$AuthEnteredPhoneForVerificationStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res>
-    implements _$$AuthEnteredPhoneForVerificationStateCopyWith<$Res> {
-  __$$AuthEnteredPhoneForVerificationStateCopyWithImpl(
-      _$AuthEnteredPhoneForVerificationState _value,
-      $Res Function(_$AuthEnteredPhoneForVerificationState) _then)
-      : super(
-            _value, (v) => _then(v as _$AuthEnteredPhoneForVerificationState));
-
-  @override
-  _$AuthEnteredPhoneForVerificationState get _value =>
-      super._value as _$AuthEnteredPhoneForVerificationState;
-
-  @override
-  $Res call({
-    Object? user = freezed,
-    Object? verificationId = freezed,
-    Object? phone = freezed,
-  }) {
-    return _then(_$AuthEnteredPhoneForVerificationState(
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-      verificationId: verificationId == freezed
-          ? _value.verificationId
-          : verificationId // ignore: cast_nullable_to_non_nullable
-              as String,
-      phone: phone == freezed
-          ? _value.phone
-          : phone // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AuthEnteredPhoneForVerificationState
-    extends AuthEnteredPhoneForVerificationState {
-  const _$AuthEnteredPhoneForVerificationState(
-      {required this.user, required this.verificationId, required this.phone})
-      : super._();
-
-  @override
-  final User user;
-  @override
-  final String verificationId;
-  @override
-  final String phone;
-
-  @override
-  String toString() {
-    return 'AuthState.enteredPhoneForVerification(user: $user, verificationId: $verificationId, phone: $phone)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthEnteredPhoneForVerificationState &&
-            const DeepCollectionEquality().equals(other.user, user) &&
-            const DeepCollectionEquality()
-                .equals(other.verificationId, verificationId) &&
-            const DeepCollectionEquality().equals(other.phone, phone));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(user),
-      const DeepCollectionEquality().hash(verificationId),
-      const DeepCollectionEquality().hash(phone));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthEnteredPhoneForVerificationStateCopyWith<
-          _$AuthEnteredPhoneForVerificationState>
-      get copyWith => __$$AuthEnteredPhoneForVerificationStateCopyWithImpl<
-          _$AuthEnteredPhoneForVerificationState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
-    required TResult Function() forgotPassword,
-    required TResult Function(String email) recoveryEmailPasswordLinkSent,
-    required TResult Function(User user) authenticated,
-    required TResult Function() notAuthenticated,
-  }) {
-    return enteredPhoneForVerification(user, verificationId, phone);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
-    TResult Function()? forgotPassword,
-    TResult Function(String email)? recoveryEmailPasswordLinkSent,
-    TResult Function(User user)? authenticated,
-    TResult Function()? notAuthenticated,
-  }) {
-    return enteredPhoneForVerification?.call(user, verificationId, phone);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
-    TResult Function()? forgotPassword,
-    TResult Function(String email)? recoveryEmailPasswordLinkSent,
-    TResult Function(User user)? authenticated,
-    TResult Function()? notAuthenticated,
-    required TResult orElse(),
-  }) {
-    if (enteredPhoneForVerification != null) {
-      return enteredPhoneForVerification(user, verificationId, phone);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthInitialState value) initial,
-    required TResult Function(AuthLoadingState value) loading,
-    required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
-    required TResult Function(AuthForgotPasswordState value) forgotPassword,
-    required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
-        recoveryEmailPasswordLinkSent,
-    required TResult Function(AuthAuthenticatedState value) authenticated,
-    required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
-  }) {
-    return enteredPhoneForVerification(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthInitialState value)? initial,
-    TResult Function(AuthLoadingState value)? loading,
-    TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
-    TResult Function(AuthForgotPasswordState value)? forgotPassword,
-    TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
-        recoveryEmailPasswordLinkSent,
-    TResult Function(AuthAuthenticatedState value)? authenticated,
-    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
-  }) {
-    return enteredPhoneForVerification?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthInitialState value)? initial,
-    TResult Function(AuthLoadingState value)? loading,
-    TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
-    TResult Function(AuthForgotPasswordState value)? forgotPassword,
-    TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
-        recoveryEmailPasswordLinkSent,
-    TResult Function(AuthAuthenticatedState value)? authenticated,
-    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
-    required TResult orElse(),
-  }) {
-    if (enteredPhoneForVerification != null) {
-      return enteredPhoneForVerification(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthEnteredPhoneForVerificationState extends AuthState {
-  const factory AuthEnteredPhoneForVerificationState(
-      {required final User user,
-      required final String verificationId,
-      required final String phone}) = _$AuthEnteredPhoneForVerificationState;
-  const AuthEnteredPhoneForVerificationState._() : super._();
-
-  User get user;
-  String get verificationId;
-  String get phone;
-  @JsonKey(ignore: true)
-  _$$AuthEnteredPhoneForVerificationStateCopyWith<
-          _$AuthEnteredPhoneForVerificationState>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$AuthReadyForSignInPhoneVerificationStateCopyWith<$Res> {
-  factory _$$AuthReadyForSignInPhoneVerificationStateCopyWith(
-          _$AuthReadyForSignInPhoneVerificationState value,
-          $Res Function(_$AuthReadyForSignInPhoneVerificationState) then) =
-      __$$AuthReadyForSignInPhoneVerificationStateCopyWithImpl<$Res>;
-  $Res call({String verificationId, MultiFactorResolver resolver});
-}
-
-/// @nodoc
-class __$$AuthReadyForSignInPhoneVerificationStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res>
-    implements _$$AuthReadyForSignInPhoneVerificationStateCopyWith<$Res> {
-  __$$AuthReadyForSignInPhoneVerificationStateCopyWithImpl(
-      _$AuthReadyForSignInPhoneVerificationState _value,
-      $Res Function(_$AuthReadyForSignInPhoneVerificationState) _then)
-      : super(_value,
-            (v) => _then(v as _$AuthReadyForSignInPhoneVerificationState));
-
-  @override
-  _$AuthReadyForSignInPhoneVerificationState get _value =>
-      super._value as _$AuthReadyForSignInPhoneVerificationState;
-
-  @override
-  $Res call({
-    Object? verificationId = freezed,
-    Object? resolver = freezed,
-  }) {
-    return _then(_$AuthReadyForSignInPhoneVerificationState(
-      verificationId: verificationId == freezed
-          ? _value.verificationId
-          : verificationId // ignore: cast_nullable_to_non_nullable
-              as String,
-      resolver: resolver == freezed
-          ? _value.resolver
-          : resolver // ignore: cast_nullable_to_non_nullable
-              as MultiFactorResolver,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$AuthReadyForSignInPhoneVerificationState
-    extends AuthReadyForSignInPhoneVerificationState {
-  const _$AuthReadyForSignInPhoneVerificationState(
-      {required this.verificationId, required this.resolver})
-      : super._();
-
-  @override
-  final String verificationId;
-  @override
-  final MultiFactorResolver resolver;
-
-  @override
-  String toString() {
-    return 'AuthState.readyForSignInPhoneVerification(verificationId: $verificationId, resolver: $resolver)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AuthReadyForSignInPhoneVerificationState &&
-            const DeepCollectionEquality()
-                .equals(other.verificationId, verificationId) &&
-            const DeepCollectionEquality().equals(other.resolver, resolver));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(verificationId),
-      const DeepCollectionEquality().hash(resolver));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$AuthReadyForSignInPhoneVerificationStateCopyWith<
-          _$AuthReadyForSignInPhoneVerificationState>
-      get copyWith => __$$AuthReadyForSignInPhoneVerificationStateCopyWithImpl<
-          _$AuthReadyForSignInPhoneVerificationState>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
-    required TResult Function() forgotPassword,
-    required TResult Function(String email) recoveryEmailPasswordLinkSent,
-    required TResult Function(User user) authenticated,
-    required TResult Function() notAuthenticated,
-  }) {
-    return readyForSignInPhoneVerification(verificationId, resolver);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
-    TResult Function()? forgotPassword,
-    TResult Function(String email)? recoveryEmailPasswordLinkSent,
-    TResult Function(User user)? authenticated,
-    TResult Function()? notAuthenticated,
-  }) {
-    return readyForSignInPhoneVerification?.call(verificationId, resolver);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
-    TResult Function()? forgotPassword,
-    TResult Function(String email)? recoveryEmailPasswordLinkSent,
-    TResult Function(User user)? authenticated,
-    TResult Function()? notAuthenticated,
-    required TResult orElse(),
-  }) {
-    if (readyForSignInPhoneVerification != null) {
-      return readyForSignInPhoneVerification(verificationId, resolver);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(AuthInitialState value) initial,
-    required TResult Function(AuthLoadingState value) loading,
-    required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
-    required TResult Function(AuthForgotPasswordState value) forgotPassword,
-    required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
-        recoveryEmailPasswordLinkSent,
-    required TResult Function(AuthAuthenticatedState value) authenticated,
-    required TResult Function(AuthNotAuthenticatedState value) notAuthenticated,
-  }) {
-    return readyForSignInPhoneVerification(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(AuthInitialState value)? initial,
-    TResult Function(AuthLoadingState value)? loading,
-    TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
-    TResult Function(AuthForgotPasswordState value)? forgotPassword,
-    TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
-        recoveryEmailPasswordLinkSent,
-    TResult Function(AuthAuthenticatedState value)? authenticated,
-    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
-  }) {
-    return readyForSignInPhoneVerification?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(AuthInitialState value)? initial,
-    TResult Function(AuthLoadingState value)? loading,
-    TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
-    TResult Function(AuthForgotPasswordState value)? forgotPassword,
-    TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
-        recoveryEmailPasswordLinkSent,
-    TResult Function(AuthAuthenticatedState value)? authenticated,
-    TResult Function(AuthNotAuthenticatedState value)? notAuthenticated,
-    required TResult orElse(),
-  }) {
-    if (readyForSignInPhoneVerification != null) {
-      return readyForSignInPhoneVerification(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class AuthReadyForSignInPhoneVerificationState extends AuthState {
-  const factory AuthReadyForSignInPhoneVerificationState(
-          {required final String verificationId,
-          required final MultiFactorResolver resolver}) =
-      _$AuthReadyForSignInPhoneVerificationState;
-  const AuthReadyForSignInPhoneVerificationState._() : super._();
-
-  String get verificationId;
-  MultiFactorResolver get resolver;
-  @JsonKey(ignore: true)
-  _$$AuthReadyForSignInPhoneVerificationStateCopyWith<
-          _$AuthReadyForSignInPhoneVerificationState>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -6211,12 +2993,6 @@ class _$AuthForgotPasswordState extends AuthForgotPasswordState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -6231,11 +3007,6 @@ class _$AuthForgotPasswordState extends AuthForgotPasswordState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6250,11 +3021,6 @@ class _$AuthForgotPasswordState extends AuthForgotPasswordState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6273,12 +3039,6 @@ class _$AuthForgotPasswordState extends AuthForgotPasswordState {
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -6294,12 +3054,6 @@ class _$AuthForgotPasswordState extends AuthForgotPasswordState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -6315,12 +3069,6 @@ class _$AuthForgotPasswordState extends AuthForgotPasswordState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -6416,12 +3164,6 @@ class _$AuthRecoveryEmailPasswordLinkSentState
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -6436,11 +3178,6 @@ class _$AuthRecoveryEmailPasswordLinkSentState
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6455,11 +3192,6 @@ class _$AuthRecoveryEmailPasswordLinkSentState
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6478,12 +3210,6 @@ class _$AuthRecoveryEmailPasswordLinkSentState
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -6499,12 +3225,6 @@ class _$AuthRecoveryEmailPasswordLinkSentState
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -6520,12 +3240,6 @@ class _$AuthRecoveryEmailPasswordLinkSentState
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -6622,12 +3336,6 @@ class _$AuthAuthenticatedState extends AuthAuthenticatedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -6642,11 +3350,6 @@ class _$AuthAuthenticatedState extends AuthAuthenticatedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6661,11 +3364,6 @@ class _$AuthAuthenticatedState extends AuthAuthenticatedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6684,12 +3382,6 @@ class _$AuthAuthenticatedState extends AuthAuthenticatedState {
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -6705,12 +3397,6 @@ class _$AuthAuthenticatedState extends AuthAuthenticatedState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -6726,12 +3412,6 @@ class _$AuthAuthenticatedState extends AuthAuthenticatedState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -6804,12 +3484,6 @@ class _$AuthNotAuthenticatedState extends AuthNotAuthenticatedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(CustomError error) error,
-    required TResult Function(User user) needsPhoneVerification,
-    required TResult Function(User user, String verificationId, String phone)
-        enteredPhoneForVerification,
-    required TResult Function(
-            String verificationId, MultiFactorResolver resolver)
-        readyForSignInPhoneVerification,
     required TResult Function() forgotPassword,
     required TResult Function(String email) recoveryEmailPasswordLinkSent,
     required TResult Function(User user) authenticated,
@@ -6824,11 +3498,6 @@ class _$AuthNotAuthenticatedState extends AuthNotAuthenticatedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6843,11 +3512,6 @@ class _$AuthNotAuthenticatedState extends AuthNotAuthenticatedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(CustomError error)? error,
-    TResult Function(User user)? needsPhoneVerification,
-    TResult Function(User user, String verificationId, String phone)?
-        enteredPhoneForVerification,
-    TResult Function(String verificationId, MultiFactorResolver resolver)?
-        readyForSignInPhoneVerification,
     TResult Function()? forgotPassword,
     TResult Function(String email)? recoveryEmailPasswordLinkSent,
     TResult Function(User user)? authenticated,
@@ -6866,12 +3530,6 @@ class _$AuthNotAuthenticatedState extends AuthNotAuthenticatedState {
     required TResult Function(AuthInitialState value) initial,
     required TResult Function(AuthLoadingState value) loading,
     required TResult Function(AuthErrorState value) error,
-    required TResult Function(AuthNeedsPhoneVerificationState value)
-        needsPhoneVerification,
-    required TResult Function(AuthEnteredPhoneForVerificationState value)
-        enteredPhoneForVerification,
-    required TResult Function(AuthReadyForSignInPhoneVerificationState value)
-        readyForSignInPhoneVerification,
     required TResult Function(AuthForgotPasswordState value) forgotPassword,
     required TResult Function(AuthRecoveryEmailPasswordLinkSentState value)
         recoveryEmailPasswordLinkSent,
@@ -6887,12 +3545,6 @@ class _$AuthNotAuthenticatedState extends AuthNotAuthenticatedState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,
@@ -6908,12 +3560,6 @@ class _$AuthNotAuthenticatedState extends AuthNotAuthenticatedState {
     TResult Function(AuthInitialState value)? initial,
     TResult Function(AuthLoadingState value)? loading,
     TResult Function(AuthErrorState value)? error,
-    TResult Function(AuthNeedsPhoneVerificationState value)?
-        needsPhoneVerification,
-    TResult Function(AuthEnteredPhoneForVerificationState value)?
-        enteredPhoneForVerification,
-    TResult Function(AuthReadyForSignInPhoneVerificationState value)?
-        readyForSignInPhoneVerification,
     TResult Function(AuthForgotPasswordState value)? forgotPassword,
     TResult Function(AuthRecoveryEmailPasswordLinkSentState value)?
         recoveryEmailPasswordLinkSent,

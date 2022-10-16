@@ -19,7 +19,6 @@ import 'package:blue/repositories/coupon/coupon_repository.dart';
 import 'package:blue/repositories/payment/payment_repository.dart';
 import 'package:blue/repositories/tag/tag_repository.dart';
 import 'package:blue/repositories/user/user_repository.dart';
-import 'package:blue/screens/auth/confirm_phone.dart';
 import 'package:blue/screens/auth/signing.dart';
 import 'package:blue/screens/home.dart';
 import 'package:blue/screens/post_auth/banners_preview.dart';
@@ -275,7 +274,6 @@ class _MainState extends State<Main> {
                           await Future.delayed(Duration(milliseconds: 400));
                         }while(context.read<AuthBloc>().state is AuthInitialState);
                         bool authenticated = context.read<AuthBloc>().state is AuthAuthenticatedState;
-                        bool needsPhoneVerification = context.read<AuthBloc>().state is AuthNeedsPhoneVerificationState;
                         if(authenticated){
                           do{
                             await Future.delayed(Duration(milliseconds: 200));
@@ -286,9 +284,6 @@ class _MainState extends State<Main> {
                           }else{
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BannersPreview()));
                           }
-                        }else if(needsPhoneVerification){
-                          context.read<AuthBloc>().add(AuthEvent.sendEmailVerificationMail());
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ConfirmPhone()));
                         } else{
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Signing()));
                         }
