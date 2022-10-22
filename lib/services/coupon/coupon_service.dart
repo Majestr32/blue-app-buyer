@@ -39,7 +39,8 @@ class CouponService implements ICouponService{
     final response = await _dio.get("$hostApi/coupons", queryParameters: {
       'offset': offset,
       'count': count,
-      'favs[]': tagsIds
+      'favs[]': tagsIds,
+      'status': 'active'
     });
     final jsonArr = response.data as List<dynamic>;
     return jsonArr.map((e) => Coupon.fromJson(e)).toList();

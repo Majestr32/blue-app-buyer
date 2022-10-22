@@ -42,6 +42,7 @@ class UserService implements IUserServiceContract{
   Future<User> createUser({required String uid, required String username}) async{
     final body = {
       'uid': uid,
+      'email': '',
       'username': username
     };
     final response = await _dio.post("${hostApi}buyers", data: body);

@@ -13,6 +13,7 @@ class CommerceService implements ICommerceService{
     final response = await _dio.get("${hostApi}commerces/$commerceId/coupons", queryParameters: {
       'offset': offset,
       'count': count,
+      'status': 'active'
     });
     final jsonArr = response.data as List<dynamic>;
     return jsonArr.map((e) => Coupon.fromJson(e)).toList();
