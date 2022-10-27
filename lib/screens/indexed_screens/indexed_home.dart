@@ -1,12 +1,11 @@
-import 'dart:developer';
 
 import 'package:blue/blocs/coupon_cubit/coupon_cubit.dart';
 import 'package:blue/blocs/user_cubit/user_cubit.dart';
-import 'package:blue/models/user/user.dart';
 import 'package:blue/screens/filter/filters_screen.dart';
 import 'package:blue/widgets/common/cart_icon.dart';
 import 'package:blue/widgets/common/featured_tile.dart';
 import 'package:blue/widgets/common/horizontal_coupon_tile.dart';
+import 'package:blue/widgets/common/notification_icon.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,38 +50,57 @@ class _IndexedHomeState extends State<IndexedHome> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ArcWithLogo(heightExtend: _heightExtend,),
         Center(
           child: SingleChildScrollView(
             controller: _scrollController,
             child: Column(
               children: [
-                const SizedBox(height: 200,),
+                const SizedBox(height: 210,),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Destacados', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),)),
+                  child: Row(
+                    children: [
+                      Text('Destacados', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                      Spacer(),
+                      GestureDetector(
+                          onTap: (){
+                            context.read<SearchedCouponsCubit>().findCoupons('');
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                          },
+                          child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 23,),
                 context.watch<CouponCubit>().state.status == CouponStateStatus.initial? CarouselSlider(items: const [FakeFeaturedTile(),FakeFeaturedTile(),FakeFeaturedTile()], options: CarouselOptions(viewportFraction: 1, enableInfiniteScroll: false, clipBehavior: Clip.none, onPageChanged: (i,cause) => setState((){_recommendedIndex = i;})),)
                 : CarouselSlider.builder(
                   itemCount: context.watch<CouponCubit>().state.recommendedCoupons.length,
                   itemBuilder:  (context, i, j) => FeaturedTile(coupon: context.watch<CouponCubit>().state.recommendedCoupons[i]), options: CarouselOptions(
+                  aspectRatio: 16/8,
                     clipBehavior: Clip.none,
                     enableInfiniteScroll: false,
                     viewportFraction: 1, onPageChanged: (i,cause) => setState((){_recommendedIndex = i;})),),
                 const SizedBox(height: 20,),
                 _dots(context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? 3 : context.watch<CouponCubit>().state.recommendedCoupons.length),
+                const SizedBox(height: 25,),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text('Nuevos cupones', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),)),
+                  child: Row(
+                    children: [
+                      Text('Nuevos cupones', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                      Spacer(),
+                      GestureDetector(
+                          onTap: (){
+                            context.read<SearchedCouponsCubit>().findCoupons('');
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                          },
+                          child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 15,),
                 SizedBox(
-                  height: 300,
+                  height: 310,
                   child: ListView.builder(
                     clipBehavior: Clip.none,
                       itemCount: context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? 3 : context.watch<CouponCubit>().state.newCoupons.length,
@@ -95,43 +113,55 @@ class _IndexedHomeState extends State<IndexedHome> {
             ),
           ),
         ),
+        ArcWithLogo(heightExtend: _heightExtend,),
         SafeArea(
           child: Align(
               alignment: Alignment.topRight,
               child: Container(
                   margin: const EdgeInsets.only(top: 20, right: 40),
-                  child: CartIcon(itemsCount: context.watch<UserCubit>().state.cartCoupons.length))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      NotificationIcon(),
+                      SizedBox(width: 4,),
+                      CartIcon(itemsCount: context.watch<UserCubit>().state.cartCoupons.length),
+                    ],
+                  ))),
         ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: Container(margin: const EdgeInsets.only(top: 120), child: SizedBox(
-            height: 50,
-            width: MediaQuery.of(context).size.width * 0.9,
-            child: Row(
-              children: [
-                Flexible(child: TextField(
-                  onSubmitted: (val){
-                    context.read<SearchedCouponsCubit>().findCoupons(val);
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
-                  },
-                  decoration: InputDecoration(
-                    fillColor: Colors.white,
-                      isDense: true,
-                      hintText: 'Busqueda de cupones', suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: SvgPicture.asset(KIcons.search, color: const Color(0xFF595CE6),)), suffixIconConstraints: const BoxConstraints(maxWidth: 32,maxHeight: 32)),)),
-                const SizedBox(width: 10,),
-                InkWell(
-                  onTap: (){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => FiltersScreen(inSearchResultsScreen: false,)));
-                  },
-                  child: CircleAvatar(
-                    radius: 24,
-                    backgroundColor: Colors.white, child: SvgPicture.asset(KIcons.filter, color: const Color(0xFF595CE6),),),
-                )
-              ],
-            ),
-          ),),
+        AnimatedOpacity(
+          opacity: _heightExtend > 50 ? 0 : _heightExtend < 0 ? 1 : 1 - _heightExtend / 50,
+          duration: Duration(milliseconds: 80),
+          child: _heightExtend > 50 ? Container() : Align(
+            alignment: Alignment.topCenter,
+            child: Container(margin: const EdgeInsets.only(top: 120), child: SizedBox(
+              height: 50,
+              width: MediaQuery.of(context).size.width * 0.9,
+              child: Row(
+                children: [
+                  Flexible(child: TextField(
+                    onSubmitted: (val){
+                      context.read<SearchedCouponsCubit>().findCoupons(val);
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                    },
+                    decoration: InputDecoration(
+                      fillColor: Colors.white,
+                        isDense: true,
+                        hintText: 'Busqueda de cupones', suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: SvgPicture.asset(KIcons.search, color: const Color(0xFF595CE6),)), suffixIconConstraints: const BoxConstraints(maxWidth: 32,maxHeight: 32)),)),
+                  const SizedBox(width: 10,),
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => FiltersScreen(inSearchResultsScreen: false,)));
+                    },
+                    child: CircleAvatar(
+                      radius: 24,
+                      backgroundColor: Colors.white, child: SvgPicture.asset(KIcons.filter, color: const Color(0xFF595CE6),),),
+                  )
+                ],
+              ),
+            ),),
+          ),
         ),
       ],
     );

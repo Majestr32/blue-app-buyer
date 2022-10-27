@@ -34,7 +34,7 @@ class _SigningState extends State<Signing> {
         listener: (context, state) async{
           if(state.status == UserStateStatus.authenticated) {
             if(state.user.endedTutorial!){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
             }else{
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => BannersPreview()));
@@ -44,7 +44,7 @@ class _SigningState extends State<Signing> {
         child: BlocListener<AuthBloc,AuthState>(
           listener: (context,state){
             if(state is AuthForgotPasswordState){
-              Navigator.of(context).push(
+              Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (context) => ForgotPassword()));
             }
           },

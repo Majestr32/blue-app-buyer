@@ -4,10 +4,11 @@ import 'package:blue/models/user_coupon/user_coupon.dart';
 import 'package:blue/models/user_fav/user_fav.dart';
 
 import '../../models/cart_coupon/cart_coupon.dart';
+import '../../models/fee/fee.dart';
 
 abstract class IUserServiceContract{
   Future<List<User>> getUsers();
-  Future<User> createUser({required String uid, required String username});
+  Future<User> createUser({required String uid, required String email, required String username});
   Future<User> activateUser({required String uid,required String phone});
   Future<User> endTutorial({required String uid});
   Future<List<int>> getTagIds({required String uid});
@@ -35,4 +36,8 @@ abstract class IUserServiceContract{
 
   Future<List<UserCoupon>> getUserCoupons({required String uid, int? offset, int? count, String? type});
   Future<User?> getUserById({required String uid});
+
+  Future<void> updateSignInDate({required String uid, required DateTime time});
+
+  Future<Fee> getFee();
 }

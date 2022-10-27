@@ -32,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if(event.user == null){
         emit(AuthState.notAuthenticated());
       }else{
-        await _authRepository.addUserToDbIfNeeded(event.user!.uid, event.user!.displayName ?? '');
+        await _authRepository.addUserToDbIfNeeded(event.user!.uid, event.user!.email!, event.user!.displayName ?? '');
         emit(AuthState.authenticated(user: event.user!));
       }
     });

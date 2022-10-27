@@ -49,6 +49,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: [
           ArcWithLogo(withArrow: true, heightExtend: _heightExtend,),
@@ -73,6 +74,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     child: Row(
                       children: [
                         Flexible(child: TextField(
+                          style: TextStyle(color: Colors.black),
                           onSubmitted: (val){
                             context.read<SearchedCouponsCubit>().findCoupons(val);
                           },

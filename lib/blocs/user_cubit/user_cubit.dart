@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:blue/custom_error.dart';
 import 'package:blue/models/cart_coupon/cart_coupon.dart';
+import 'package:blue/models/fee/fee.dart';
 import 'package:blue/models/user/user.dart';
 import 'package:blue/models/user_fav/user_fav.dart';
 import 'package:blue/repositories/payment/payment_repository.dart';
@@ -105,7 +106,7 @@ class UserCubit extends Cubit<UserState> {
   Future<void> init(AuthState event) async{
     User? user = await _userRepository.getUserById(uid: event.user!.uid);
     if(user == null){
-      await _userRepository.createUser(uid: event.user!.uid, username: event.user!.displayName!);
+      await _userRepository.createUser(uid: event.user!.uid, email: event.user!.email!, username: event.user!.displayName!);
       user = await _userRepository.getUserById(uid: event.user!.uid);
     }
     user!.user = event.user;
@@ -117,13 +118,19 @@ class UserCubit extends Cubit<UserState> {
     List<UserCoupon> expiredCoupons = await _userRepository.getUserExpiredCoupons(uid: event.user!.uid);
     List<UserCoupon> usedCoupons = await _userRepository.getUserUsedCoupons(uid: event.user!.uid);
     List<UserCoupon> friendsCoupons = await _userRepository.getUserFriendsCoupons(uid: event.user!.uid);
+    Fee fees = await _userRepository.getFee();
     emit(state.copyWith(
         cartCoupons: cartCoupons,
+        fees: fees,
         user: user, favs: favs, tagsIds: tags, friends: friends, status: UserStateStatus.authenticated,
     friendsCoupons: friendsCoupons, expiredCoupons: expiredCoupons, usedCoupons: usedCoupons, activeCoupons: activeCoupons));
     final customerId = (await _paymentRepository.getOrCreateCustomerByEmail(event.user!.email!))["id"];
     List<dynamic> cards = await _paymentRepository.listCustomerPaymentMethods(customerId);
     emit(state.copyWith(cards: cards));
+  }
+
+  Future<void> updateSignInDate() async{
+    _userRepository.updateSignInDate(uid: state.user.uid!, time: DateTime.now());
   }
   Future<void> addCard(String cardNumber, int expMonth, int expYear, String cvc) async{
     UserStateStatus previousStatus = state.status;

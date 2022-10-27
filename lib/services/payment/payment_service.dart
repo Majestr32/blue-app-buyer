@@ -54,8 +54,11 @@ class PaymentService implements IPaymentService{
 
   @override
   Future<void> checkout(String userUid, double sum, String paymentMethodId, String customerId) async{
-    final paymentIntentId = (await _createPaymentIntent(sum, customerId))["id"];
-    await _dio.post("$hostApi/carts/$userUid/checkout", data: {'customer_id': customerId});
+    try{
+      await _dio.post("$hostApi/carts/$userUid/checkout", data: {'customer_id': customerId, 'payment_method_id': paymentMethodId});
+    }on DioError catch(e){
+      log(e.response.toString());
+    }
   }
 
   Future<dynamic> _createPaymentIntent(double sum, String customerId) async{

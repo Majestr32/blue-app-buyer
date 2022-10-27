@@ -12,12 +12,13 @@ import '../../screens/details/company_details.dart';
 
 class VerticalSmallCouponTile extends StatelessWidget {
   final Coupon coupon;
+  final bool withHeart;
   late final tag = 'vertical_small_coupon_${coupon.id}';
-  VerticalSmallCouponTile({required this.coupon,Key? key}) : super(key: key);
+  VerticalSmallCouponTile({required this.coupon, this.withHeart = true,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: MediaQuery.of(context).size.width * 0.9, height: 160, margin: EdgeInsets.symmetric(horizontal: 15), decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), offset: Offset(-1,4), blurRadius: 5)], color: Theme.of(context).focusColor),
+    return Container(width: MediaQuery.of(context).size.width * 0.9, height: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.6), offset: Offset(-1,4), blurRadius: 5)], color: Theme.of(context).focusColor),
       child: Stack(
         children: [
           Row(
@@ -30,8 +31,8 @@ class VerticalSmallCouponTile extends StatelessWidget {
                       onTap: (){
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => TicketDetails(coupon: coupon, tag: tag,)));
                       },
-                      child: Container(width: MediaQuery.of(context).size.width * 0.3,
-                        height: 160,
+                      child: Container(width: MediaQuery.of(context).size.width * 0.35,
+                        height: 140,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Hero(
@@ -39,15 +40,21 @@ class VerticalSmallCouponTile extends StatelessWidget {
                                 child: Image.network(coupon.posterUrl, fit: BoxFit.cover,))),))),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                          padding: EdgeInsets.only(right: 30),
-                          child: Text(coupon.description, maxLines: 4, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w300),)),
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => TicketDetails(coupon: coupon, tag: tag,)));
+                        },
+                        child: Padding(
+                            padding: EdgeInsets.only(right: 30),
+                            child: Text(coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w500),)),
+                      ),
                       Spacer(),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: withHeart ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                         children: [
                           SvgPicture.asset(KIcons.starFilled),
                           SizedBox(width: 2,),
@@ -56,30 +63,30 @@ class VerticalSmallCouponTile extends StatelessWidget {
                           Text("(${coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontFamily: 'Outfit'),),
                           Spacer(),
                           Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                             coupon.discount == null ? Row(children: [
-                              Text("\$${coupon.price.toStringAsFixed(2)}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                              Text("\$${coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                             ],) :
                             Row(
                               children: [
-                                Text("\$${coupon.price.toStringAsFixed(2)}", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
+                                Text("\$${coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
                                 SizedBox(width: 3,),
-                                Text("\$${(coupon.price - coupon.price * coupon.discount! / 100).toStringAsFixed(2)}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                                Text("\$${coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                               ],),
                             coupon.discount == null ? Container() : Align(
                                 alignment: Alignment.centerRight,
                                 child: Text('${coupon.discount}% dicountos', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),)),
                           ],
                           ),
-                          SizedBox(width: 10,)
                           ],)
                         ],
                       )),
               ),
                   ],
                 ),
-          Align(alignment: Alignment.topRight, child: GestureDetector(
+          !withHeart ? Container() : Align(alignment: Alignment.topRight, child: GestureDetector(
             onTap: (){
               context.read<UserCubit>().toggleFav(coupon.id);
             },

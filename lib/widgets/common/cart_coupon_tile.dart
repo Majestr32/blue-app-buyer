@@ -26,9 +26,9 @@ class CartCouponTile extends StatelessWidget {
                 onTap: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => TicketDetails(coupon: coupon.coupon, tag: 'active_vertical_small_${coupon.id}')));
                 },
-                child: CircleAvatar(radius: 32, backgroundImage: Image.network(coupon.coupon.posterUrl).image, backgroundColor: Colors.grey, child: withCounter ? null : Align(alignment: Alignment.topRight, child: CircleAvatar(radius: 9, backgroundColor: Color(0xFFF9A137), child: Text(coupon.quantity.toString(), style: TextStyle(fontFamily: 'Outfit', fontSize: 8, color: Colors.white, fontWeight: FontWeight.w500),),),),)),
+                child: CircleAvatar(radius: 32, backgroundImage: Image.network(coupon.coupon.posterUrl).image, backgroundColor: Colors.grey, child: withCounter || coupon.quantity == 0 ? null : Align(alignment: Alignment.topRight, child: CircleAvatar(radius: 9, backgroundColor: Color(0xFFF9A137), child: Text(coupon.quantity.toString(), style: TextStyle(fontFamily: 'Outfit', fontSize: 8, color: Colors.white, fontWeight: FontWeight.w500),),),),)),
             SizedBox(width: 10,),
-            Expanded(flex: 2,child: Text(coupon.coupon.description, maxLines: 2, overflow: TextOverflow.ellipsis,)),
+            Expanded(flex: 2,child: Text(coupon.coupon.name, maxLines: 2, style: TextStyle(fontFamily: 'Outfit', fontSize: 15, fontWeight: FontWeight.w500), overflow: TextOverflow.ellipsis,)),
             SizedBox(width: 10,),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -36,18 +36,18 @@ class CartCouponTile extends StatelessWidget {
               children: [
                 coupon.coupon.discount == null ? Row(children: [
                   SizedBox(width: 4,),
-                  Text("\$${coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                  Text("\$${coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                 ],) :
                 Row(
                   children: [
                     SizedBox(width: 4,),
-                    Text("\$${coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
+                    Text("\$${coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: Color(0xFF8F8F8F), decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
                     SizedBox(width: 3,),
-                    Text("\$${(coupon.coupon.price - coupon.coupon.price * coupon.coupon.discount! / 100).roundToDouble()}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                    Text("\$${coupon.coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                   ],),
                 coupon.coupon.discount == null ? Container() : Align(
                     alignment: Alignment.centerRight,
-                    child: Text('${coupon.coupon.discount}% dicountos', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),)),
+                    child: Text('${coupon.coupon.discount}% descuento', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),)),
               ],
             )
           ],),
@@ -62,7 +62,6 @@ class CartCouponTile extends StatelessWidget {
       children: [
         InkWell(
           onTap: (){
-            log("eee boy");
             context.read<UserCubit>().removeCouponFromCart(couponId);
           },
           child: Container(

@@ -60,7 +60,7 @@ class ArcClipper extends CustomClipper<Path>{
   final double endX3 = 1;
   final double endY1 = .1;
   final double endY2 = .3;
-  final double endY3 = .25;
+  final double endY3 = .45;
 
   @override
   Path getClip(Size size) {

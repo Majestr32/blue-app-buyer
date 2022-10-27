@@ -78,9 +78,31 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: Row(
                                 children: [
-                                  Text('Total:', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
+                                  Text('Fee de Servicio:', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
+                                  Spacer(),
+                                  Text('\$${context.watch<UserCubit>().state.fees == null ? 0 : (context.watch<UserCubit>().state.fees!.serviceFee / 100) * context.watch<UserCubit>().state.cartSum}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
+                                ],
+                              )),
+                        ),
+                        Center(
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Row(
+                                children: [
+                                  Text('Subtotal:', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
                                   Spacer(),
                                   Text('\$${context.watch<UserCubit>().state.cartSum}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
+                                ],
+                              )),
+                        ),
+                        Center(
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Row(
+                                children: [
+                                  Text('Total:', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
+                                  Spacer(),
+                                  Text('\$${context.watch<UserCubit>().state.fees == null ? 0 : context.watch<UserCubit>().state.cartSum * (1 + context.watch<UserCubit>().state.fees!.serviceFee / 100)}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
                                 ],
                               )),
                         ),

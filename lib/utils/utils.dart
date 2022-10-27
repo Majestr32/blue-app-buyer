@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 String? validateEmail(String? value) {
   String pattern =
@@ -45,6 +46,11 @@ String? validateUsername(String? value) {
     return null;
   }
 }
+
+String formatDate(DateTime date){
+  return DateFormat.yMMMMd('en_US').format(date);
+}
+
 void showErrorSnackBar(BuildContext context,String error){
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Row(

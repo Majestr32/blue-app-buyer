@@ -16,7 +16,9 @@ import '../../blocs/coupon_cubit/coupon_cubit.dart';
 import '../../blocs/coupon_reviews_cubit/coupon_reviews_cubit.dart';
 import '../../consts/k_icons.dart';
 import '../../widgets/common/arc_with_logo.dart';
+import '../../widgets/common/cart_icon.dart';
 import '../../widgets/common/horizontal_coupon_tile.dart';
+import '../../widgets/common/notification_icon.dart';
 import '../../widgets/common/vertical_small_coupon_tile.dart';
 
 class TicketDetails extends StatefulWidget {
@@ -32,6 +34,7 @@ class _TicketDetailsState extends State<TicketDetails> {
   DateTime _now = DateTime.now();
   final _scrollController = ScrollController();
   double _heightExtend = 0;
+  int _selectedIndex = 0;
   late final Timer _timer;
 
   @override
@@ -85,6 +88,8 @@ class _TicketDetailsState extends State<TicketDetails> {
                           child: Hero(
                               tag: widget.tag,
                               child: Image.network(widget.coupon.posterUrl, fit: BoxFit.cover, errorBuilder: (context,obj,stacktrace) => ErrorImage(),))))),
+                    SizedBox(height: 10,),
+                    _dots(1),
                   SizedBox(height: 10,),
                   Row(
                     children: [
@@ -94,7 +99,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                           },
                           child: CircleAvatar(radius: 18, backgroundColor: Colors.grey, backgroundImage: Image.network(widget.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image)),
                       SizedBox(width: 5,),
-                      Text(widget.coupon.commerce.name, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w700, fontSize: 16),),
+                      Text(widget.coupon.commerce.name, style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12),),
                       Spacer(),
                       SvgPicture.asset(KIcons.starFilled),
                       SizedBox(width: 2,),
@@ -104,8 +109,9 @@ class _TicketDetailsState extends State<TicketDetails> {
                     ],
                   ),
                   SizedBox(height: 15,),
-                  Text(widget.coupon.name, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w700, fontSize: 24),),
-                  Row(
+                  Text(widget.coupon.name, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 20),),
+                    SizedBox(height: 5,),
+                    Row(
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +135,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                               SizedBox(width: 4,),
                               Text("\$${widget.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
                               SizedBox(width: 3,),
-                              Text("\$${(widget.coupon.price - widget.coupon.price * widget.coupon.discount! / 100).roundToDouble()}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                              Text("\$${widget.coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                             ],),
                           widget.coupon.discount == null ? Container() : Align(
                               alignment: Alignment.centerRight,
@@ -142,34 +148,57 @@ class _TicketDetailsState extends State<TicketDetails> {
                     Center(
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.85,
-                          height: 65,
+                          height: 60,
                           child: ElevatedButton(onPressed: () async{
 
-                          }, child: Text('Comprar Ahora', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),))),
+                          }, child: Text('Comprar Ahora', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
                     ),
                   SizedBox(height: 15,),
                     Center(
                       child: SizedBox(
                           width: MediaQuery.of(context).size.width * 0.85,
-                          height: 65,
+                          height: 60,
                           child: OutlinedButton(onPressed: () async{
                             context.read<UserCubit>().addCouponToCart(widget.coupon.id);
                             showInfoSnackBar(context, 'Added to cart');
-                          }, child: Text('Agregar a Carrito', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),))),
+                          }, child: Text('Agregar a Carrito', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
                     ),
                   SizedBox(height: 30,),
                   _companyInformationTab(),
                     SizedBox(height: 10,),
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                        itemCount: context.watch<CouponReviewsCubit>().state.reviews.length,
-                        itemBuilder: (context, i) => ReviewTile(review: context.watch<CouponReviewsCubit>().state.reviews[i]),),
+                    Text('${context.watch<CouponReviewsCubit>().state.reviews.length} Calificaciones', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                          itemCount: context.watch<CouponReviewsCubit>().state.reviews.length,
+                          itemBuilder: (context, i) => ReviewTile(review: context.watch<CouponReviewsCubit>().state.reviews[i]),),
+                    ),
                     SizedBox(height: 30,)
                 ],),
               ),
             ),
-          )
+          ),
+          AnimatedOpacity(
+            opacity: _heightExtend > 50 ? 0 : _heightExtend < 0 ? 1 : 1 - _heightExtend / 50,
+            duration: Duration(milliseconds: 80),
+            child: SafeArea(
+              child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                      margin: const EdgeInsets.only(top: 20, right: 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          NotificationIcon(),
+                          SizedBox(width: 4,),
+                          CartIcon(itemsCount: context.watch<UserCubit>().state.cartCoupons.length),
+                        ],
+                      ))),
+            ),
+          ),
         ],
       ),
     );
@@ -188,6 +217,16 @@ class _TicketDetailsState extends State<TicketDetails> {
     return "$leftInDays dìas $leftInHours h $leftInMinutes m $leftInSeconds s";
   }
 
+  Widget _dots(int elementsCount){
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(elementsCount, (index) => Row(children: [
+          CircleAvatar(radius: 6,backgroundColor: _selectedIndex != index ? const Color(0xFFD9D9D9) : const Color(0xFF3D5BF6)),
+          const SizedBox(width: 5,),
+        ],))
+    );
+  }
+
   Widget _companyInformationTab(){
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.8,
@@ -196,17 +235,20 @@ class _TicketDetailsState extends State<TicketDetails> {
         children: [
           Text('Detalles', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
           SizedBox(height: 10,),
-          Text(widget.coupon.description, style: TextStyle(fontWeight: FontWeight.w200, fontFamily: 'Outfit', fontSize: 14),),
+          Text(widget.coupon.description, style: TextStyle(fontWeight: FontWeight.w200, fontFamily: 'Outfit', color: Color(0xFF8B8B8B), fontSize: 14),),
           SizedBox(height: 10,),
           widget.coupon.items!.isEmpty ? Container() : Text('Incluye:', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
           SizedBox(height: 10,),
           Column(
-            children: widget.coupon.items!.map((e) => Row(
-              children: [
-                SvgPicture.asset(KIcons.tick, color: Theme.of(context).highlightColor,),
-                SizedBox(width: 10,),
-                Text(e.trim(), style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w400)),
-              ],
+            children: widget.coupon.items!.map((e) => Container(
+              margin: EdgeInsets.symmetric(vertical: 8),
+              child: Row(
+                children: [
+                  SvgPicture.asset(KIcons.tick, color: Theme.of(context).highlightColor, width: 11.5, height: 8.3,),
+                  SizedBox(width: 17,),
+                  Text(e.trim(), style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w400, color: Color(0xFF8B8B8B))),
+                ],
+              ),
             )).toList()
           )
         ],

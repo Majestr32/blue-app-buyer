@@ -21,7 +21,7 @@ class AuthRepository{
     try{
       final cred = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       await cred.user!.updateDisplayName(username);
-      await _userService.createUser(uid: cred.user!.uid, username: username);
+      await _userService.createUser(uid: cred.user!.uid, email: cred.user!.email!, username: username);
     }on fb.FirebaseAuthException catch(e){
       switch(e.code){
         case 'email-already-in-use':
@@ -40,9 +40,9 @@ class AuthRepository{
     }
   }
 
-  Future<void> addUserToDbIfNeeded(String uid, String username) async{
+  Future<void> addUserToDbIfNeeded(String uid, String email, String username) async{
     if((await _userService.getUserById(uid: uid)) == null){
-      await _userService.createUser(uid: uid, username: username);
+      await _userService.createUser(uid: uid, email: email, username: username);
     }
   }
 

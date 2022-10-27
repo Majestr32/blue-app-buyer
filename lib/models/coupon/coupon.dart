@@ -8,6 +8,8 @@ part 'coupon.freezed.dart';
 @freezed
 class Coupon with _$Coupon{
   const Coupon._();
+
+  double get priceWithDiscount => double.parse((price * (1 - discount! / 100)).toStringAsFixed(2));
   factory Coupon({
     required int id,
     @JsonKey(name: 'commerce_id') required int commerceId,

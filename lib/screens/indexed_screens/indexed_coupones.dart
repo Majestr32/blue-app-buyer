@@ -29,9 +29,10 @@ class _IndexedCouponsState extends State<IndexedCoupons> {
             child: Row(
               children: [
                 'Activos',
-                'Caducado',
+                'Canjeados',
+                'Cancelados',
                 'Amigos/Familia',
-                'Usó'
+                'Vencidos'
               ].asMap().entries.map((e) => GestureDetector(
                   onTap: (){
                     setState((){
@@ -42,8 +43,8 @@ class _IndexedCouponsState extends State<IndexedCoupons> {
                     margin: EdgeInsets.symmetric(horizontal: 25),
                     child: Column(
                       children: [
-                        Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _currentTag == e.key ? Color(0xFF3D5BF6) : null, fontWeight: FontWeight.w400, fontSize: 14),),
-                        _currentTag == e.key ? Container(height: 2, width: 80, color: Color(0xFF3D5BF6)) : Container(),
+                        Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _currentTag == e.key ? Color(0xFF3D5BF6) : Color(0xFFBCBCBC), fontWeight: FontWeight.w400, fontSize: 14),),
+                        _currentTag == e.key ? Container(height: 3, width: 80, color: Color(0xFF3D5BF6)) : Container(),
                       ],
                     ),
                   ))).toList(),
@@ -67,34 +68,36 @@ class _IndexedCouponsState extends State<IndexedCoupons> {
                 return Expanded(
                   child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: context.watch<UserCubit>().state.expiredCoupons.length,
-                      itemBuilder: (context,i){
-                        return Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: ExpiredVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.expiredCoupons[i].coupon));
-                      }),
-                );
-              case 2:
-                return Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: context.watch<UserCubit>().state.friendsCoupons.length,
-                      itemBuilder: (context,i){
-                        return Container(
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            child: FriendVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.friendsCoupons[i]));
-                      }),
-                );
-              case 3:
-                return Expanded(
-                  child: ListView.builder(
-                      shrinkWrap: true,
                       itemCount: context.watch<UserCubit>().state.usedCoupons.length,
                       itemBuilder: (context,i){
                         return Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: UsedVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.usedCoupons[i].coupon));
                       }),
+                );
+              case 2:
+                return Container();
+              case 3:
+                return Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: context.watch<UserCubit>().state.friendsCoupons.length,
+                    itemBuilder: (context,i){
+                      return Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: FriendVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.friendsCoupons[i]));
+                    }),
+                );
+              case 4:
+                return Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: context.watch<UserCubit>().state.expiredCoupons.length,
+                    itemBuilder: (context,i){
+                      return Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          child: ExpiredVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.expiredCoupons[i].coupon));
+                    }),
                 );
               default:
                 return Container();

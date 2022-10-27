@@ -7,6 +7,7 @@ import 'package:blue/screens/indexed_screens/indexed_home.dart';
 import 'package:blue/screens/indexed_screens/indexed_profile.dart';
 import 'package:blue/screens/indexed_screens/indexed_search.dart';
 import 'package:blue/widgets/common/arc_with_logo.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,6 +28,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    FirebaseMessaging.instance.subscribeToTopic("Buyer");
+    context.read<UserCubit>().updateSignInDate();
     if(context.read<UserCubit>().state.status != CouponStateStatus.initial){
       context.read<CouponCubit>().loadStartCoupons(context.read<UserCubit>().state.tagsIds);
     }

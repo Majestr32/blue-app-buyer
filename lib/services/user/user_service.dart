@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:blue/models/cart_coupon/cart_coupon.dart';
 import 'package:blue/models/coupon/coupon.dart';
+import 'package:blue/models/fee/fee.dart';
 import 'package:blue/models/friend/friend.dart';
 import 'package:blue/models/user/user.dart';
 import 'package:blue/models/user_coupon/user_coupon.dart';
@@ -39,10 +40,10 @@ class UserService implements IUserServiceContract{
   }
 
   @override
-  Future<User> createUser({required String uid, required String username}) async{
+  Future<User> createUser({required String uid, required String email, required String username}) async{
     final body = {
       'uid': uid,
-      'email': '',
+      'email': email,
       'username': username
     };
     final response = await _dio.post("${hostApi}buyers", data: body);
@@ -218,10 +219,22 @@ class UserService implements IUserServiceContract{
 
   @override
   Future<void> sendCouponToFriend({required int couponId, required String receiverUid}) async{
-    log(couponId.toString() + " " + receiverUid);
     await _dio.put("${hostApi}coupons/sent_to", data: {
       'coupon_id': couponId,
       'sent_to': receiverUid
     });
+  }
+
+  @override
+  Future<void> updateSignInDate({required String uid, required DateTime time}) async{
+    await _dio.put("${hostApi}buyers/$uid/signed_in", data: {
+      'timestamp': time.toString()
+    });
+  }
+
+  @override
+  Future<Fee> getFee() async{
+    final response = await _dio.get("$hostApi/fees");
+    return Fee.fromJson(response.data);
   }
 }

@@ -20,6 +20,7 @@ class KIcons{
   static String discovery = "${iconsPathBase}Discovery.svg";
   static String bag = "${iconsPathBase}Bag.svg";
   static String discount = "${iconsPathBase}Discount.svg";
+  static String notification = "${iconsPathBase}Notification.svg";
 
   static String home = "${iconsPathBase}Home.svg";
   static String document = "${iconsPathBase}Document.svg";

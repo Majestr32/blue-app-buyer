@@ -15,10 +15,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../blocs/searched_coupons_cubit/searched_coupons_cubit.dart';
+import '../../blocs/user_cubit/user_cubit.dart';
 import '../../consts/k_icons.dart';
 
 import '../../models/coupon/coupon.dart';
 import '../../widgets/common/arc_with_logo.dart';
+import '../../widgets/common/cart_icon.dart';
+import '../../widgets/common/notification_icon.dart';
 import '../search/search_results_screen.dart';
 
 class IndexedSearch extends StatefulWidget {
@@ -40,7 +43,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ArcWithLogo(heightExtend: _heightExtend,),
+        ArcWithLogo(heightExtend: _heightExtend, withArrow: true,),
         IndexedStack(
           index: _selectedTab,
           children: [
@@ -51,16 +54,31 @@ class _IndexedSearchState extends State<IndexedSearch> {
                 child: MapSearchTab(key: _mapUniqueKey))
           ],
         ),
+        _heightExtend > 50 ? Container() : SafeArea(
+          child: Align(
+              alignment: Alignment.topRight,
+              child: Container(
+                  margin: const EdgeInsets.only(top: 20, right: 40),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      NotificationIcon(),
+                      SizedBox(width: 4,),
+                      CartIcon(itemsCount: context.watch<UserCubit>().state.cartCoupons.length),
+                    ],
+                  ))),
+        ),
         SafeArea(
           child: Column(children: [
             SizedBox(height: _heightExtend > 100 ? 0 : 100 - _heightExtend),
             Center(
-              child: Container( child: SizedBox(
+              child: SizedBox(
                 height: 50,
                 width: MediaQuery.of(context).size.width * 0.9,
                 child: Row(
                   children: [
                     Flexible(child: TextField(
+                      style: TextStyle(color: Colors.black),
                       onSubmitted: (val){
                         context.read<SearchedCouponsCubit>().findCoupons(val);
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
@@ -82,13 +100,13 @@ class _IndexedSearchState extends State<IndexedSearch> {
                     )
                   ],
                 ),
-              ),),
+              ),
             ),
             SizedBox(height: 15,),
             ((){
               final _tabs = [
-                _tab('Todas', KIcons.filter2, 24, _selectedTab == 0, () => setState((){_selectedTab = 0;})),
-                _tab('Viajes', KIcons.currentLocation, 18, _selectedTab == 1, () => setState((){_selectedTab = 1;}))
+                _tab('Todas', KIcons.filter2, 16, _selectedTab == 0, () => setState((){_selectedTab = 0;})),
+                _tab('Viajes', KIcons.currentLocation, 16, _selectedTab == 1, () => setState((){_selectedTab = 1;}))
               ].map((e) => Container(margin: EdgeInsets.symmetric(horizontal: 5), child: e,)).toList();
               return SizedBox(
                 height: 40,
@@ -113,7 +131,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           decoration: BoxDecoration(
             color: active ? Color(0xFF5D5FEF) : Colors.white,
             boxShadow: [
@@ -125,7 +143,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
             children: [
               SvgPicture.asset(iconPath, color: active ? Colors.white : Color(0xFF5D5FEF), width: iconSize, height: iconSize,),
               SizedBox(width: 4,),
-              Text(title, style: TextStyle(color: active ? Colors.white : Color(0xFF3E4462), fontFamily: 'Outfit'),),
+              Text(title, style: TextStyle(color: active ? Colors.white : Color(0xFF3E4462), fontFamily: 'Outfit', fontSize: 12),),
             ],
           )),
     );
@@ -216,12 +234,17 @@ class _MapSearchTabState extends State<MapSearchTab> {
                 child: Container(margin: EdgeInsets.only(bottom: 90), height: 140, child: CarouselSlider.builder(
                   itemCount: state.markerCoupons.length,
                   options: CarouselOptions(
-                    viewportFraction: 0.95,
+                    disableCenter: true,
+                    viewportFraction: 0.86,
+                    enlargeCenterPage: false,
+                    padEnds: false,
                     enableInfiniteScroll: false,
                     height: 140
                   ),
                   itemBuilder: (context, i, j){
-                    return VerticalSmallCouponTile(coupon: state.markerCoupons[i]);
+                    return Container(
+                        margin: EdgeInsets.only(left: i == 0 ? 10 : 5, right: i == state.markerCoupons.length - 1 ? 20 : 5),
+                        child: VerticalSmallCouponTile(coupon: state.markerCoupons[i], withHeart: false,));
                   },
                 ),)),
           )
@@ -283,7 +306,8 @@ class _AllSearchTabState extends State<AllSearchTab> {
                     shrinkWrap: true,
                     itemBuilder: (context, i) {
                       return Container(
-                          margin: EdgeInsets.only(bottom: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                          margin: EdgeInsets.only(bottom: 15,),
                           child: VerticalSmallCouponTile(coupon: state.newCoupons[i]));
                     }),
                 SizedBox(height: 60,),

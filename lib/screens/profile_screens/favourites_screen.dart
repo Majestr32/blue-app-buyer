@@ -51,6 +51,7 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                   shrinkWrap: true,
                   itemBuilder: (context, i){
                 return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
                     margin: EdgeInsets.symmetric(vertical: 10),
                     child: VerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.favs[i].coupon));
               })

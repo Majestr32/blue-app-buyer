@@ -25,14 +25,14 @@ class ReviewTile extends StatelessWidget {
           )
         ],),
         SizedBox(height: 10,),
-        review.comment == null ? SizedBox.shrink() : Text(review.comment!, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),)
+        review.comment == null ? SizedBox.shrink() : Text(review.comment!, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w200),)
       ],
     );
   }
 
   Widget _stars(int count){
     return Row(
-        children: List.generate(5, (index) => SvgPicture.asset(count > index ? KIcons.starFilled2 : KIcons.star, width: 12, height: 12,)).toList()
+        children: List.generate(5, (index) => SvgPicture.asset(count > index ? KIcons.starFilled2 : KIcons.star, width: 13, height: 13,)).toList()
       );
   }
 }

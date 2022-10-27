@@ -32,12 +32,12 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(width: MediaQuery.of(context).size.width * 0.9, height: 180, margin: EdgeInsets.symmetric(horizontal: 15), decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.5), offset: Offset(-1,4), blurRadius: 5)], color: Theme.of(context).focusColor),
+        Container(width: MediaQuery.of(context).size.width * 0.9, height: 165, margin: EdgeInsets.symmetric(horizontal: 15), decoration: BoxDecoration(borderRadius: BorderRadius.circular(24), boxShadow: [BoxShadow(color: Colors.blueAccent.withOpacity(0.2), offset: Offset(-1,4), blurRadius: 18)], color: Theme.of(context).focusColor),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 140,
+                height: 132,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -48,8 +48,8 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                             onTap: (){
                               Navigator.of(context).push(MaterialPageRoute(builder: (context) => TicketDetails(coupon: widget.coupon.coupon, tag: tag)));
                             },
-                            child: Container(width: MediaQuery.of(context).size.width * 0.3,
-                              height: 160,
+                            child: Container(width: MediaQuery.of(context).size.width * 0.35,
+                              height: 132,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(16),
                                   child: Hero(
@@ -61,19 +61,19 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(widget.coupon.coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                              Text(widget.coupon.coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF222222) : Colors.white, fontWeight: FontWeight.w500),),
                               SizedBox(height: 10,),
                               Row(
                                 children: [
                                   CircleAvatar(radius: 18, backgroundColor: Colors.grey, backgroundImage: Image.network(widget.coupon.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
                                   SizedBox(width: 5,),
-                                  Flexible(child: Text(widget.coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w700, fontSize: 12),)),
+                                  Flexible(child: Text(widget.coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 12),)),
                                 ],
                               ),
                               Spacer(),
                               Row(
                                 children: [
-                                  Text("\$${widget.coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: Colors.grey, fontWeight: FontWeight.bold),),
+                                  Text("\$${widget.coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF3E4462) : Colors.white, fontWeight: FontWeight.w500),),
                                   Spacer(),
                                   InkWell(
                                       onTap: (){
@@ -88,11 +88,12 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                   ],
                 ),
               ),
+              Spacer(),
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Row(
                     children: [
-                      Text(widget.coupon.coupon.expDate.toString() ,style: TextStyle(fontSize: 10, fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
+                      Text(formatDate(widget.coupon.coupon.expDate) ,style: TextStyle(fontSize: 11, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
                       Spacer(),
                       GestureDetector(
                           onTap: (){
@@ -100,16 +101,17 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                               _openOptions = !_openOptions;
                             });
                           },
-                          child: SvgPicture.asset(KIcons.moreSquare))
+                          child: SvgPicture.asset(KIcons.moreSquare, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,))
                     ],
                   )),
+              SizedBox(height: 8,),
             ],
           ),
         ),
         SizedBox(height: 10,),
         !_openOptions ? Container() : Center(
           child: Container(
-            margin: EdgeInsets.only(bottom: 10),
+              margin: EdgeInsets.only(bottom: 10),
               width: MediaQuery.of(context).size.width * 0.85,
               height: 60,
               child: OutlinedButton(onPressed: () async{

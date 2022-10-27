@@ -2,6 +2,7 @@ import 'package:blue/services/user/user_service_contract.dart';
 
 import '../../models/cart_coupon/cart_coupon.dart';
 import '../../models/coupon/coupon.dart';
+import '../../models/fee/fee.dart';
 import '../../models/friend/friend.dart';
 import '../../models/user/user.dart';
 import '../../models/user_coupon/user_coupon.dart';
@@ -19,11 +20,17 @@ class UserRepository{
   Future<void> sendCouponToFriend({required int couponId, required String receiverUid}) async{
     return _userService.sendCouponToFriend(couponId: couponId, receiverUid: receiverUid);
   }
-  Future<User> createUser({required String uid, required String username}){
-    return _userService.createUser(uid: uid, username: username);
+  Future<User> createUser({required String uid, required String email, required String username}){
+    return _userService.createUser(uid: uid, email: email, username: username);
   }
   Future<User> activateUser({required String uid,required String phone}){
     return _userService.activateUser(uid: uid, phone: phone);
+  }
+  Future<void> updateSignInDate({required String uid, required DateTime time}){
+    return _userService.updateSignInDate(uid: uid, time: time);
+  }
+  Future<Fee> getFee(){
+    return _userService.getFee();
   }
   Future<User> endTutorial({required String uid}){
     return _userService.endTutorial(uid: uid);

@@ -11,6 +11,7 @@ enum UserStateStatus {
 
 class UserState extends Equatable {
   final User user;
+  final Fee? fees;
   final List<UserFav> favs;
   final List<int> tagsIds;
   final List<Friend> friends;
@@ -28,11 +29,11 @@ class UserState extends Equatable {
       element.coupon.discount == null
           ? previousValue + element.quantity * element.coupon.price
           : previousValue + element.quantity * (element.coupon.price -
-          element.coupon.price * element.coupon.discount! / 100).toInt());
+          element.coupon.price * element.coupon.discount! / 100));
 
   factory UserState.initial(){
     return UserState(
-      cards: [],
+        cards: [],
         cartCoupons: [],
         activeCoupons: [],
         expiredCoupons: [],
@@ -57,6 +58,7 @@ class UserState extends Equatable {
 
   const UserState({
     required this.user,
+    this.fees,
     required this.favs,
     required this.tagsIds,
     required this.friends,
@@ -72,6 +74,7 @@ class UserState extends Equatable {
 
   UserState copyWith({
     User? user,
+    Fee? fees,
     List<UserFav>? favs,
     List<int>? tagsIds,
     List<Friend>? friends,
@@ -86,6 +89,7 @@ class UserState extends Equatable {
   }) {
     return UserState(
       user: user ?? this.user,
+      fees: fees ?? this.fees,
       favs: favs ?? this.favs,
       tagsIds: tagsIds ?? this.tagsIds,
       friends: friends ?? this.friends,
@@ -104,6 +108,7 @@ class UserState extends Equatable {
   List<Object?> get props =>
       [
         user,
+        fees,
         favs,
         tagsIds,
         friends,
