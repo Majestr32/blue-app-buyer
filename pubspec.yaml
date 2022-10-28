@@ -43,10 +43,10 @@ dependencies:
   freezed: ^2.1.0+1
   freezed_annotation: ^2.1.0
   json_annotation: ^4.6.0
-  firebase_core: ^2.1.0
-  firebase_storage: ^11.0.2
+  firebase_core: ^2.1.1
+  firebase_storage: ^11.0.3
   google_sign_in: ^5.4.1
-  firebase_auth: ^4.0.2
+  firebase_auth: ^4.1.0
   flutter_facebook_auth: ^4.4.1+1
   sn_progress_dialog: ^1.0.8
   carousel_slider: ^4.1.1
@@ -58,7 +58,7 @@ dependencies:
   syncfusion_flutter_sliders: ^20.2.50
   intl_phone_number_input: ^0.7.1
   flutter_verification_code: ^1.1.6
-  firebase_messaging: ^14.0.2
+  firebase_messaging: ^14.0.3
   sqflite: ^2.1.0+1
 
 dev_dependencies:
