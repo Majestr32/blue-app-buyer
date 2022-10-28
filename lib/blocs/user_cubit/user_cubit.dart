@@ -132,11 +132,16 @@ class UserCubit extends Cubit<UserState> {
   Future<void> updateSignInDate() async{
     _userRepository.updateSignInDate(uid: state.user.uid!, time: DateTime.now());
   }
+
+  Future<void> commentCoupon(int buyerCouponId, int couponId, String comment, int rating) async{
+    _userRepository.addCouponReview(buyerCouponId, couponId, state.user.uid!, comment, rating);
+    emit(state.copyWith(usedCoupons: state.usedCoupons.map((e) => e.id == buyerCouponId ? e.copyWith.call(commented: 1) : e).toList()));
+  }
+
   Future<void> addCard(String cardNumber, int expMonth, int expYear, String cvc) async{
     UserStateStatus previousStatus = state.status;
     try{
       emit(state.copyWith(status: UserStateStatus.loading));
-      log(cardNumber + " " + expMonth.toString() + " " + expYear.toString() + " " + cvc);
       final paymentMethod = await _paymentRepository.createPaymentMethod(cardNumber, expMonth, expYear, cvc);
       final customerId = (await _paymentRepository.getOrCreateCustomerByEmail(state.user.user!.email!))["id"];
       await _paymentRepository.attachPaymentMethod(paymentMethod["id"], customerId);

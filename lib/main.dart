@@ -12,6 +12,8 @@ import 'package:blue/blocs/theme_cubit/theme_cubit.dart';
 import 'package:blue/blocs/user_cubit/user_cubit.dart';
 import 'package:blue/consts/api.dart';
 import 'package:blue/consts/k_icons.dart';
+import 'package:blue/data/data_sources/sqflite_datasource.dart';
+import 'package:blue/data/factories/db_factory.dart';
 import 'package:blue/repositories/auth/auth_repository.dart';
 import 'package:blue/repositories/branch/branch_repository.dart';
 import 'package:blue/repositories/commerce/commerce_repository.dart';
@@ -215,11 +217,17 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc,AuthState>(
-      listener: (context,state){
+      listener: (context,state) async{
         if(state is AuthLoadingState){
           _loadingDialog!.show(max: 2, hideValue: true, msg: 'Cargando ...');
         }
         if(state is AuthAuthenticatedState){
+          final db = await LocalDatabaseFactory().createDatabase(state.user.uid);
+          final data = SqfliteDataSource(db);
+          if(!mounted){
+            return;
+          }
+          context.read<CouponCubit>().initLocalDb(data);
           context.read<UserCubit>().init(state);
         }else if(state is AuthNotAuthenticatedState){
           context.read<UserCubit>().setNotAuthenticated();

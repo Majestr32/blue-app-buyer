@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../blocs/coupon_cubit/coupon_cubit.dart';
 import '../../consts/k_icons.dart';
 import '../../widgets/common/horizontal_coupon_tile.dart';
+import '../../widgets/common/review_tile.dart';
 
 class CompanyDetails extends StatefulWidget {
   final Commerce commerce;
@@ -57,7 +58,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
               controller: _scrollController,
               child: Column(children: [
                 const SizedBox(height: 120,),
-                const Text('COMERCIO', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
+                const Text('COMERCIO', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),),
                 const SizedBox(height: 15,),
                 CircleAvatar(radius: 64, backgroundColor: const Color(0xFF3D5BF6), child: CircleAvatar(radius: 62,backgroundImage: Image.network(widget.commerce.logoUrl).image,),),
                 const SizedBox(height: 15,),
@@ -98,7 +99,7 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                       },
                       child: Column(
                         children: [
-                          Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _currentTag == e.key ? const Color(0xFF3D5BF6) : null, fontWeight: FontWeight.w400, fontSize: 20),),
+                          Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _currentTag == e.key ? const Color(0xFF3D5BF6) : null, fontWeight: FontWeight.w400, fontSize: 18),),
                           _currentTag == e.key ? Container(height: 2, width: 100, color: const Color(0xFF3D5BF6)) : Container(),
                         ],
                       ))).toList(),
@@ -110,6 +111,8 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                       return _companyInformationTab();
                     case 1:
                       return _companyCoupons();
+                    case 2:
+                      return _reviews();
                     default:
                       return Container();
                   }
@@ -118,6 +121,33 @@ class _CompanyDetailsState extends State<CompanyDetails> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _reviews(){
+    return Center(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.9,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 10,),
+            Text('${context.watch<CommerceCubit>().state.reviews.length} reseñas', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: context.watch<CommerceCubit>().state.reviews.length,
+                  itemBuilder: (context, i) => ReviewTile(review: context.watch<CommerceCubit>().state.reviews[i]),),
+              ),
+            ),
+            SizedBox(height: 30,)
+          ],
+        ),
       ),
     );
   }

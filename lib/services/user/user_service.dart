@@ -237,4 +237,15 @@ class UserService implements IUserServiceContract{
     final response = await _dio.get("$hostApi/fees");
     return Fee.fromJson(response.data);
   }
+
+  @override
+  Future<void> addCouponReview(int buyerCouponId, int couponId, String buyerUid, String comment, int rating) async{
+    await _dio.post("$hostApi/reviews", queryParameters: {
+      'buyer_uid': buyerUid,
+      'coupon_id': couponId,
+      'buyer_coupon_id': buyerCouponId,
+      'comment': comment,
+      'rating': rating
+    });
+  }
 }

@@ -1,10 +1,17 @@
+import 'package:blue/blocs/user_cubit/user_cubit.dart';
 import 'package:blue/consts/k_icons.dart';
+import 'package:blue/utils/utils.dart';
 import 'package:blue/widgets/common/arc_with_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../models/user_coupon/user_coupon.dart';
+
 class RatingScreen extends StatefulWidget {
-  const RatingScreen({Key? key}) : super(key: key);
+  final int buyerCouponId;
+  final int couponId;
+  const RatingScreen({Key? key, required this.buyerCouponId, required this.couponId}) : super(key: key);
 
   @override
   State<RatingScreen> createState() => _RatingScreenState();
@@ -89,7 +96,13 @@ class _RatingScreenState extends State<RatingScreen> {
                       width: MediaQuery.of(context).size.width * 0.85,
                       height: 65,
                       child: ElevatedButton(onPressed: () async{
+                        if(_stars <= 0){
+                          showInfoSnackBar(context, 'La calificación mínima es 1');
+                          return;
+                        }
                         String comment = _commentController.text;
+                        context.read<UserCubit>().commentCoupon(widget.buyerCouponId, widget.couponId, comment, _stars);
+                        showInfoSnackBar(context, 'Éxito');
                         Navigator.of(context).pop();
                       }, child: Text('Enviar', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),))),
                 ),

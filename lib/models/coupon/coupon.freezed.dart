@@ -38,6 +38,8 @@ mixin _$Coupon {
   double get avgRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'reviews_count')
   int get reviewsCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'faqs')
+  List<Faq>? get faqs => throw _privateConstructorUsedError;
   List<String>? get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -62,6 +64,7 @@ abstract class $CouponCopyWith<$Res> {
       int sold,
       @JsonKey(name: 'avg_rating') double avgRating,
       @JsonKey(name: 'reviews_count') int reviewsCount,
+      @JsonKey(name: 'faqs') List<Faq>? faqs,
       List<String>? items});
 
   $CommerceCopyWith<$Res> get commerce;
@@ -89,6 +92,7 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
     Object? sold = freezed,
     Object? avgRating = freezed,
     Object? reviewsCount = freezed,
+    Object? faqs = freezed,
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
@@ -140,6 +144,10 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      faqs: faqs == freezed
+          ? _value.faqs
+          : faqs // ignore: cast_nullable_to_non_nullable
+              as List<Faq>?,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -173,6 +181,7 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
       int sold,
       @JsonKey(name: 'avg_rating') double avgRating,
       @JsonKey(name: 'reviews_count') int reviewsCount,
+      @JsonKey(name: 'faqs') List<Faq>? faqs,
       List<String>? items});
 
   @override
@@ -202,6 +211,7 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
     Object? sold = freezed,
     Object? avgRating = freezed,
     Object? reviewsCount = freezed,
+    Object? faqs = freezed,
     Object? items = freezed,
   }) {
     return _then(_$_Coupon(
@@ -253,6 +263,10 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      faqs: faqs == freezed
+          ? _value._faqs
+          : faqs // ignore: cast_nullable_to_non_nullable
+              as List<Faq>?,
       items: items == freezed
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -277,8 +291,10 @@ class _$_Coupon extends _Coupon {
       required this.sold,
       @JsonKey(name: 'avg_rating') required this.avgRating,
       @JsonKey(name: 'reviews_count') required this.reviewsCount,
+      @JsonKey(name: 'faqs') required final List<Faq>? faqs,
       required final List<String>? items})
-      : _items = items,
+      : _faqs = faqs,
+        _items = items,
         super._();
 
   factory _$_Coupon.fromJson(Map<String, dynamic> json) =>
@@ -314,6 +330,16 @@ class _$_Coupon extends _Coupon {
   @override
   @JsonKey(name: 'reviews_count')
   final int reviewsCount;
+  final List<Faq>? _faqs;
+  @override
+  @JsonKey(name: 'faqs')
+  List<Faq>? get faqs {
+    final value = _faqs;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   final List<String>? _items;
   @override
   List<String>? get items {
@@ -325,7 +351,7 @@ class _$_Coupon extends _Coupon {
 
   @override
   String toString() {
-    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, posterUrl: $posterUrl, price: $price, expDate: $expDate, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount, items: $items)';
+    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, posterUrl: $posterUrl, price: $price, expDate: $expDate, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount, faqs: $faqs, items: $items)';
   }
 
   @override
@@ -348,6 +374,7 @@ class _$_Coupon extends _Coupon {
             const DeepCollectionEquality().equals(other.avgRating, avgRating) &&
             const DeepCollectionEquality()
                 .equals(other.reviewsCount, reviewsCount) &&
+            const DeepCollectionEquality().equals(other._faqs, _faqs) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
 
@@ -367,6 +394,7 @@ class _$_Coupon extends _Coupon {
       const DeepCollectionEquality().hash(sold),
       const DeepCollectionEquality().hash(avgRating),
       const DeepCollectionEquality().hash(reviewsCount),
+      const DeepCollectionEquality().hash(_faqs),
       const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
@@ -396,6 +424,7 @@ abstract class _Coupon extends Coupon {
       required final int sold,
       @JsonKey(name: 'avg_rating') required final double avgRating,
       @JsonKey(name: 'reviews_count') required final int reviewsCount,
+      @JsonKey(name: 'faqs') required final List<Faq>? faqs,
       required final List<String>? items}) = _$_Coupon;
   _Coupon._() : super._();
 
@@ -431,6 +460,9 @@ abstract class _Coupon extends Coupon {
   @override
   @JsonKey(name: 'reviews_count')
   int get reviewsCount;
+  @override
+  @JsonKey(name: 'faqs')
+  List<Faq>? get faqs;
   @override
   List<String>? get items;
   @override

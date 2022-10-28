@@ -19,6 +19,9 @@ _$_Coupon _$$_CouponFromJson(Map<String, dynamic> json) => _$_Coupon(
       sold: json['sold'] as int,
       avgRating: (json['avg_rating'] as num).toDouble(),
       reviewsCount: json['reviews_count'] as int,
+      faqs: (json['faqs'] as List<dynamic>?)
+          ?.map((e) => Faq.fromJson(e as Map<String, dynamic>))
+          .toList(),
       items:
           (json['items'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
@@ -36,5 +39,6 @@ Map<String, dynamic> _$$_CouponToJson(_$_Coupon instance) => <String, dynamic>{
       'sold': instance.sold,
       'avg_rating': instance.avgRating,
       'reviews_count': instance.reviewsCount,
+      'faqs': instance.faqs?.map((e) => e.toJson()).toList(),
       'items': instance.items,
     };

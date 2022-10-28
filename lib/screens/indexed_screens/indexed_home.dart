@@ -56,7 +56,7 @@ class _IndexedHomeState extends State<IndexedHome> {
             child: Column(
               children: [
                 const SizedBox(height: 210,),
-                SizedBox(
+                context.watch<CouponCubit>().state.status != CouponStateStatus.initial && context.watch<CouponCubit>().state.popularCoupons.isNotEmpty ? SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
                   child: Row(
                     children: [
@@ -64,24 +64,24 @@ class _IndexedHomeState extends State<IndexedHome> {
                       Spacer(),
                       GestureDetector(
                           onTap: (){
-                            context.read<SearchedCouponsCubit>().findCoupons('');
+                            context.read<SearchedCouponsCubit>().setCategory('popular');
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
                           },
                           child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
                     ],
                   ),
-                ),
+                ) : Container(),
                 const SizedBox(height: 23,),
                 context.watch<CouponCubit>().state.status == CouponStateStatus.initial? CarouselSlider(items: const [FakeFeaturedTile(),FakeFeaturedTile(),FakeFeaturedTile()], options: CarouselOptions(viewportFraction: 1, enableInfiniteScroll: false, clipBehavior: Clip.none, onPageChanged: (i,cause) => setState((){_recommendedIndex = i;})),)
-                : CarouselSlider.builder(
-                  itemCount: context.watch<CouponCubit>().state.recommendedCoupons.length,
-                  itemBuilder:  (context, i, j) => FeaturedTile(coupon: context.watch<CouponCubit>().state.recommendedCoupons[i]), options: CarouselOptions(
+                : context.watch<CouponCubit>().state.popularCoupons.isEmpty ? Container() : CarouselSlider.builder(
+                  itemCount: context.watch<CouponCubit>().state.popularCoupons.length,
+                  itemBuilder:  (context, i, j) => FeaturedTile(coupon: context.watch<CouponCubit>().state.popularCoupons[i]), options: CarouselOptions(
                   aspectRatio: 16/8,
                     clipBehavior: Clip.none,
                     enableInfiniteScroll: false,
                     viewportFraction: 1, onPageChanged: (i,cause) => setState((){_recommendedIndex = i;})),),
                 const SizedBox(height: 20,),
-                _dots(context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? 3 : context.watch<CouponCubit>().state.recommendedCoupons.length),
+                _dots(context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? 3 : context.watch<CouponCubit>().state.popularCoupons.length),
                 const SizedBox(height: 25,),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
@@ -91,6 +91,59 @@ class _IndexedHomeState extends State<IndexedHome> {
                       Spacer(),
                       GestureDetector(
                           onTap: (){
+                            context.read<SearchedCouponsCubit>().setCategory('new');
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                          },
+                          child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15,),
+                SizedBox(
+                  height: 310,
+                  child: ListView.builder(
+                      clipBehavior: Clip.none,
+                      itemCount: context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? 3 : context.watch<CouponCubit>().state.newCoupons.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, i) => context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? const FakeHorizontalCouponTile() : HorizontalCouponTile(coupon: context.watch<CouponCubit>().state.newCoupons[i],)),
+                ),
+                SizedBox(height: 35,),
+                context.watch<CouponCubit>().state.history.isEmpty ? Container() : Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    children: [
+                      Text('Vistos Recientemente', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                      Spacer(),
+                      GestureDetector(
+                          onTap: (){
+                            context.read<SearchedCouponsCubit>().setCategory('history');
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                          },
+                          child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
+                    ],
+                  ),
+                ),
+                context.watch<CouponCubit>().state.history.isEmpty ? Container() : SizedBox(
+                  height: 310,
+                  child: ListView.builder(
+                      clipBehavior: Clip.none,
+                      itemCount: context.watch<CouponCubit>().state.history.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, i) => HorizontalCouponTile(coupon: context.watch<CouponCubit>().state.history[i],)),
+                ),
+                SizedBox(height: 35,),
+                context.watch<CouponCubit>().state.recommendedCoupons.isEmpty ? Container() : Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: EdgeInsets.only(bottom: 20),
+                  child: Row(
+                    children: [
+                      Text('Recomendados', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                      Spacer(),
+                      GestureDetector(
+                          onTap: (){
                             context.read<SearchedCouponsCubit>().findCoupons('');
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
                           },
@@ -98,15 +151,14 @@ class _IndexedHomeState extends State<IndexedHome> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 15,),
-                SizedBox(
+                context.watch<CouponCubit>().state.recommendedCoupons.isEmpty ? Container() : SizedBox(
                   height: 310,
                   child: ListView.builder(
-                    clipBehavior: Clip.none,
-                      itemCount: context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? 3 : context.watch<CouponCubit>().state.newCoupons.length,
+                      clipBehavior: Clip.none,
+                      itemCount: context.watch<CouponCubit>().state.recommendedCoupons.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, i) => context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? const FakeHorizontalCouponTile() : HorizontalCouponTile(coupon: context.watch<CouponCubit>().state.newCoupons[i],)),
+                      itemBuilder: (context, i) => HorizontalCouponTile(coupon: context.watch<CouponCubit>().state.recommendedCoupons[i],)),
                 ),
                 const SizedBox(height: 90,)
               ],

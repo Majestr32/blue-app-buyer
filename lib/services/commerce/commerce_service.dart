@@ -1,4 +1,5 @@
 import 'package:blue/models/coupon/coupon.dart';
+import 'package:blue/models/coupon_review/coupon_review.dart';
 import 'package:blue/services/commerce/commerce_service_contract.dart';
 import 'package:dio/dio.dart';
 
@@ -31,6 +32,13 @@ class CommerceService implements ICommerceService{
     final response = await _dio.get("${hostApi}commerces/$commerceId/coupons/top");
     final json = response.data;
     return Coupon.fromJson(json);
+  }
+
+
+  @override
+  Future<List<CouponReview>> getCommerceReviews(int commerceId) async{
+    final response = await _dio.get("${hostApi}commerces/$commerceId/reviews");
+    return (response.data as List).map((e) => CouponReview.fromJson(e)).toList();
   }
 
   const CommerceService({

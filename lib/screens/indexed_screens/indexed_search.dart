@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:blue/blocs/branches_cubit/branches_cubit.dart';
 import 'package:blue/blocs/coupon_cubit/coupon_cubit.dart';
 import 'package:blue/blocs/selected_map_marker_cubit/selected_map_marker_cubit.dart';
+import 'package:blue/blocs/tag_cubit/tag_cubit.dart';
 import 'package:blue/blocs/theme_cubit/theme_cubit.dart';
 import 'package:blue/consts/map_style.dart';
 import 'package:blue/models/commerce/commerce.dart';
@@ -36,6 +37,8 @@ class _IndexedSearchState extends State<IndexedSearch> {
   final _mapUniqueKey = UniqueKey();
   final _allUniqueKey = UniqueKey();
 
+  bool _isMap = false;
+
   double _heightExtend = 0;
 
   int _selectedTab = 0;
@@ -45,7 +48,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
       children: [
         ArcWithLogo(heightExtend: _heightExtend, withArrow: true,),
         IndexedStack(
-          index: _selectedTab,
+          index: _isMap ? 1 : 0,
           children: [
             AllSearchTab(key: _allUniqueKey, onHeightExtendChanged: (height) => setState((){
               _heightExtend = height;}),),
@@ -105,18 +108,51 @@ class _IndexedSearchState extends State<IndexedSearch> {
             SizedBox(height: 15,),
             ((){
               final _tabs = [
-                _tab('Todas', KIcons.filter2, 16, _selectedTab == 0, () => setState((){_selectedTab = 0;})),
-                _tab('Viajes', KIcons.currentLocation, 16, _selectedTab == 1, () => setState((){_selectedTab = 1;}))
-              ].map((e) => Container(margin: EdgeInsets.symmetric(horizontal: 5), child: e,)).toList();
-              return SizedBox(
-                height: 40,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 2,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, i){
-                      return _tabs[i];
-                    }),
+                _tab('Todas', KIcons.filter2, 16, _selectedTab == 0, () {
+                  context.read<CouponCubit>().changeCategoryTo(null);
+                  setState((){_selectedTab = 0;});
+                }),
+                ...List.generate(context.watch<TagCubit>().state.tags.length, (index) => _tab(context.watch<TagCubit>().state.tags[index].name, null, 16, _selectedTab == index + 1, () {
+                  context.read<CouponCubit>().changeCategoryTo(context.read<TagCubit>().state.tags[index].id);
+                  setState((){_selectedTab = index + 1;});
+                }))
+              ].map((e) => Container(margin: EdgeInsets.symmetric(horizontal: 8), child: e,)).toList();
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
+                child: SizedBox(
+                  height: 40,
+                  child: Row(
+                    children: [
+                      SizedBox(width: 20,),
+                      GestureDetector(
+                        onTap: (){
+                          setState((){
+                            _isMap = !_isMap;
+                          });
+                        },
+                        child: Container(width: 40, decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(blurRadius: 18, color: Color(0xFF5D5FEF))
+                            ],
+                            borderRadius: BorderRadius.circular(8), color: _isMap ? Color(0xFF5D5FEF) : Colors.white,),
+                          child: Center(
+                            child: Image.asset('assets/images/compass.png'),
+                          ),
+                        ),
+                      ),
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: _tabs.length,
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, i){
+                            return _tabs[i];
+                          }),
+                      SizedBox(width: 20,)
+                    ],
+                  ),
+                ),
               );
             }()),
             SizedBox(height: 15,),
@@ -126,7 +162,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
     );
   }
 
-  Widget _tab(String title, String iconPath, double iconSize, bool active, VoidCallback onTap){
+  Widget _tab(String title, String? iconPath, double iconSize, bool active, VoidCallback onTap){
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -141,7 +177,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
           ),
           child: Row(
             children: [
-              SvgPicture.asset(iconPath, color: active ? Colors.white : Color(0xFF5D5FEF), width: iconSize, height: iconSize,),
+              iconPath == null ? Container() : SvgPicture.asset(iconPath, color: active ? Colors.white : Color(0xFF5D5FEF), width: iconSize, height: iconSize,),
               SizedBox(width: 4,),
               Text(title, style: TextStyle(color: active ? Colors.white : Color(0xFF3E4462), fontFamily: 'Outfit', fontSize: 12),),
             ],
@@ -229,7 +265,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
             ),
           ),
           _selectedCommerce == null ? Container() : BlocBuilder<SelectedMapMarkerCubit,SelectedMapMarkerState>(
-            builder: (context,state) => Align(
+            builder: (context,state) => state.markerCoupons.isEmpty ? Container() : Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(margin: EdgeInsets.only(bottom: 90), height: 140, child: CarouselSlider.builder(
                   itemCount: state.markerCoupons.length,
@@ -302,13 +338,13 @@ class _AllSearchTabState extends State<AllSearchTab> {
               children: [
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    itemCount: state.newCoupons.length,
+                    itemCount: state.categoryCoupons.length,
                     shrinkWrap: true,
                     itemBuilder: (context, i) {
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                           margin: EdgeInsets.only(bottom: 15,),
-                          child: VerticalSmallCouponTile(coupon: state.newCoupons[i]));
+                          child: VerticalSmallCouponTile(coupon: state.categoryCoupons[i]));
                     }),
                 SizedBox(height: 60,),
               ],

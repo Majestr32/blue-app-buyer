@@ -41,6 +41,9 @@ class UserRepository{
   Future<void> setTags({required String uid, required List<int> tagsIds}){
     return _userService.setTags(uid: uid, tagsIds: tagsIds);
   }
+  Future<void> addCouponReview(int buyerCouponId, int couponId, String buyerUid, String comment, int rating){
+    return _userService.addCouponReview(buyerCouponId, couponId, buyerUid, comment, rating);
+  }
 
   Future<List<UserFav>> getFavs({required String uid}){
     return _userService.getFavs(uid: uid);

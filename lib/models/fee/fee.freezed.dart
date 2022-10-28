@@ -33,38 +33,35 @@ mixin _$Fee {
 /// @nodoc
 abstract class $FeeCopyWith<$Res> {
   factory $FeeCopyWith(Fee value, $Res Function(Fee) then) =
-      _$FeeCopyWithImpl<$Res, Fee>;
-  @useResult
+      _$FeeCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: 'service_fee') double serviceFee,
       @JsonKey(name: 'commission') double commission});
 }
 
 /// @nodoc
-class _$FeeCopyWithImpl<$Res, $Val extends Fee> implements $FeeCopyWith<$Res> {
+class _$FeeCopyWithImpl<$Res> implements $FeeCopyWith<$Res> {
   _$FeeCopyWithImpl(this._value, this._then);
 
+  final Fee _value;
   // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
+  final $Res Function(Fee) _then;
 
-  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? serviceFee = null,
-    Object? commission = null,
+    Object? serviceFee = freezed,
+    Object? commission = freezed,
   }) {
     return _then(_value.copyWith(
-      serviceFee: null == serviceFee
+      serviceFee: serviceFee == freezed
           ? _value.serviceFee
           : serviceFee // ignore: cast_nullable_to_non_nullable
               as double,
-      commission: null == commission
+      commission: commission == freezed
           ? _value.commission
           : commission // ignore: cast_nullable_to_non_nullable
               as double,
-    ) as $Val);
+    ));
   }
 }
 
@@ -73,30 +70,31 @@ abstract class _$$_FeeCopyWith<$Res> implements $FeeCopyWith<$Res> {
   factory _$$_FeeCopyWith(_$_Fee value, $Res Function(_$_Fee) then) =
       __$$_FeeCopyWithImpl<$Res>;
   @override
-  @useResult
   $Res call(
       {@JsonKey(name: 'service_fee') double serviceFee,
       @JsonKey(name: 'commission') double commission});
 }
 
 /// @nodoc
-class __$$_FeeCopyWithImpl<$Res> extends _$FeeCopyWithImpl<$Res, _$_Fee>
+class __$$_FeeCopyWithImpl<$Res> extends _$FeeCopyWithImpl<$Res>
     implements _$$_FeeCopyWith<$Res> {
   __$$_FeeCopyWithImpl(_$_Fee _value, $Res Function(_$_Fee) _then)
-      : super(_value, _then);
+      : super(_value, (v) => _then(v as _$_Fee));
 
-  @pragma('vm:prefer-inline')
+  @override
+  _$_Fee get _value => super._value as _$_Fee;
+
   @override
   $Res call({
-    Object? serviceFee = null,
-    Object? commission = null,
+    Object? serviceFee = freezed,
+    Object? commission = freezed,
   }) {
     return _then(_$_Fee(
-      serviceFee: null == serviceFee
+      serviceFee: serviceFee == freezed
           ? _value.serviceFee
           : serviceFee // ignore: cast_nullable_to_non_nullable
               as double,
-      commission: null == commission
+      commission: commission == freezed
           ? _value.commission
           : commission // ignore: cast_nullable_to_non_nullable
               as double,
@@ -130,19 +128,21 @@ class _$_Fee implements _Fee {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Fee &&
-            (identical(other.serviceFee, serviceFee) ||
-                other.serviceFee == serviceFee) &&
-            (identical(other.commission, commission) ||
-                other.commission == commission));
+            const DeepCollectionEquality()
+                .equals(other.serviceFee, serviceFee) &&
+            const DeepCollectionEquality()
+                .equals(other.commission, commission));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, serviceFee, commission);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(serviceFee),
+      const DeepCollectionEquality().hash(commission));
 
   @JsonKey(ignore: true)
   @override
-  @pragma('vm:prefer-inline')
   _$$_FeeCopyWith<_$_Fee> get copyWith =>
       __$$_FeeCopyWithImpl<_$_Fee>(this, _$identity);
 

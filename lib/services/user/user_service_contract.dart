@@ -38,6 +38,7 @@ abstract class IUserServiceContract{
   Future<User?> getUserById({required String uid});
 
   Future<void> updateSignInDate({required String uid, required DateTime time});
+  Future<void> addCouponReview(int buyerCouponId, int couponId, String buyerUid, String comment, int rating);
 
   Future<Fee> getFee();
 }

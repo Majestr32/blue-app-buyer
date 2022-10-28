@@ -7,6 +7,8 @@ part 'user_coupon.freezed.dart';
 @freezed
 class UserCoupon with _$UserCoupon{
   const UserCoupon._();
+
+  bool get isCommented => commented == 1;
   factory UserCoupon({
     required int id,
     @JsonKey(name: 'coupon_id') required int couponId,
@@ -15,6 +17,7 @@ class UserCoupon with _$UserCoupon{
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'transaction_id') required String transactionId,
     @JsonKey(name: 'sent_to') required String? sentTo,
+    @JsonKey(name: 'commented') required int commented,
     @JsonKey(name: 'coupon') required Coupon coupon,
   }) = _UserCoupon;
 

@@ -16,6 +16,7 @@ import '../../blocs/coupon_cubit/coupon_cubit.dart';
 import '../../blocs/coupon_reviews_cubit/coupon_reviews_cubit.dart';
 import '../../consts/k_icons.dart';
 import '../../widgets/common/arc_with_logo.dart';
+import '../../widgets/common/branch_tile.dart';
 import '../../widgets/common/cart_icon.dart';
 import '../../widgets/common/horizontal_coupon_tile.dart';
 import '../../widgets/common/notification_icon.dart';
@@ -35,12 +36,17 @@ class _TicketDetailsState extends State<TicketDetails> {
   final _scrollController = ScrollController();
   double _heightExtend = 0;
   int _selectedIndex = 0;
+
+  bool _showBranches = false;
+  bool _showFaqs = false;
+
   late final Timer _timer;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    context.read<CouponCubit>().addCouponToHistory(widget.coupon.id);
     context.read<CouponReviewsCubit>().loadComments(widget.coupon.id);
     _timer = Timer.periodic(Duration(seconds: 1), (_) {
       setState((){
@@ -68,117 +74,136 @@ class _TicketDetailsState extends State<TicketDetails> {
       body: Stack(
         children: [
           ArcWithLogo(withArrow: true, heightExtend: _heightExtend,),
-          Align(
-            alignment: Alignment.topCenter,
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                  SizedBox(height: 120,),
-                  Container(width: MediaQuery.of(context).size.width * 0.9, height: 240, decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(24)
-                  ), child: Padding(
-                      padding: EdgeInsets.all(5),
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Hero(
-                              tag: widget.tag,
-                              child: Image.network(widget.coupon.posterUrl, fit: BoxFit.cover, errorBuilder: (context,obj,stacktrace) => ErrorImage(),))))),
-                    SizedBox(height: 10,),
-                    _dots(1),
-                  SizedBox(height: 10,),
-                  Row(
-                    children: [
-                      InkWell(
-                          onTap: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyDetails(commerce: widget.coupon.commerce)));
-                          },
-                          child: CircleAvatar(radius: 18, backgroundColor: Colors.grey, backgroundImage: Image.network(widget.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image)),
-                      SizedBox(width: 5,),
-                      Text(widget.coupon.commerce.name, style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12),),
-                      Spacer(),
-                      SvgPicture.asset(KIcons.starFilled),
-                      SizedBox(width: 2,),
-                      Text(widget.coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
-                      SizedBox(width: 2,),
-                      Text("(${widget.coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontFamily: 'Outfit'),),
-                    ],
-                  ),
-                  SizedBox(height: 15,),
-                  Text(widget.coupon.name, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 20),),
-                    SizedBox(height: 5,),
-                    Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      SizedBox(height: 120,),
+                      Container(width: MediaQuery.of(context).size.width * 0.9, height: 240, decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24)
+                      ), child: Padding(
+                          padding: EdgeInsets.all(5),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Hero(
+                                  tag: widget.tag,
+                                  child: Image.network(widget.coupon.posterUrl, fit: BoxFit.cover, errorBuilder: (context,obj,stacktrace) => ErrorImage(),))))),
+                        SizedBox(height: 10,),
+                        _dots(1),
+                      SizedBox(height: 10,),
+                      Row(
                         children: [
-                          Text('${widget.coupon.commerce.couponsSold} Vendidos', style: TextStyle(color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFFB5B5B5) : Colors.white, fontFamily: 'Outfit', fontWeight: FontWeight.w400, fontSize: 16),),
-                          ((){
-                            return Text('Termina en: ${_formattedDate(widget.coupon.expDate, _now)}', style: TextStyle(fontFamily: 'Outfit', color: Colors.red, fontWeight: FontWeight.w400, fontSize: 12),);
-                          }()),
+                          InkWell(
+                              onTap: (){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyDetails(commerce: widget.coupon.commerce)));
+                              },
+                              child: CircleAvatar(radius: 18, backgroundColor: Colors.grey, backgroundImage: Image.network(widget.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image)),
+                          SizedBox(width: 5,),
+                          Text(widget.coupon.commerce.name, style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12),),
+                          Spacer(),
+                          SvgPicture.asset(KIcons.starFilled),
+                          SizedBox(width: 2,),
+                          Text(widget.coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
+                          SizedBox(width: 2,),
+                          Text("(${widget.coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontFamily: 'Outfit'),),
                         ],
                       ),
-                      Spacer(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                      SizedBox(height: 15,),
+                      Text(widget.coupon.name, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 20),),
+                        SizedBox(height: 5,),
+                        Row(
                         children: [
-                          widget.coupon.discount == null ? Row(children: [
-                            SizedBox(width: 4,),
-                            Text("\$${widget.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
-                          ],) :
-                          Row(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(width: 4,),
-                              Text("\$${widget.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
-                              SizedBox(width: 3,),
-                              Text("\$${widget.coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
-                            ],),
-                          widget.coupon.discount == null ? Container() : Align(
-                              alignment: Alignment.centerRight,
-                              child: Text('${widget.coupon.discount}% dicountos', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),))
+                              Text('${widget.coupon.commerce.couponsSold} Vendidos', style: TextStyle(color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFFB5B5B5) : Colors.white, fontFamily: 'Outfit', fontWeight: FontWeight.w400, fontSize: 16),),
+                              ((){
+                                return Text('Termina en: ${_formattedDate(widget.coupon.expDate, _now)}', style: TextStyle(fontFamily: 'Outfit', color: Colors.red, fontWeight: FontWeight.w400, fontSize: 12),);
+                              }()),
+                            ],
+                          ),
+                          Spacer(),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              widget.coupon.discount == null ? Row(children: [
+                                SizedBox(width: 4,),
+                                Text("\$${widget.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                              ],) :
+                              Row(
+                                children: [
+                                  SizedBox(width: 4,),
+                                  Text("\$${widget.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
+                                  SizedBox(width: 3,),
+                                  Text("\$${widget.coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                                ],),
+                              widget.coupon.discount == null ? Container() : Align(
+                                  alignment: Alignment.centerRight,
+                                  child: Text('${widget.coupon.discount}% dicountos', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),))
+                            ],
+                          )
                         ],
-                      )
-                    ],
-                  ),
-                  SizedBox(height: 30,),
-                    Center(
-                      child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          height: 60,
-                          child: ElevatedButton(onPressed: () async{
+                      ),
+                      SizedBox(height: 30,),
+                        Center(
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              height: 60,
+                              child: ElevatedButton(onPressed: () async{
 
-                          }, child: Text('Comprar Ahora', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
+                              }, child: Text('Comprar Ahora', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
+                        ),
+                      SizedBox(height: 15,),
+                        Center(
+                          child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              height: 60,
+                              child: OutlinedButton(onPressed: () async{
+                                context.read<UserCubit>().addCouponToCart(widget.coupon.id);
+                                showInfoSnackBar(context, 'Added to cart');
+                              }, child: Text('Agregar a Carrito', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
+                        ),
+                      SizedBox(height: 30,),
+                      _companyInformationTab(),
+                        SizedBox(height: 100,),
+                    ],),
+                  ),
+                ),
+                _dropdownFaqs(),
+                SizedBox(height: 20,),
+                _dropdownBranches(),
+                Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 35,),
+                        Text('${context.watch<CouponReviewsCubit>().state.reviews.length} Calificaciones', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                        SizedBox(height: 10,),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: context.watch<CouponReviewsCubit>().state.reviews.length,
+                            itemBuilder: (context, i) => ReviewTile(review: context.watch<CouponReviewsCubit>().state.reviews[i]),),
+                        ),
+                        SizedBox(height: 30,)
+                      ],
                     ),
-                  SizedBox(height: 15,),
-                    Center(
-                      child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          height: 60,
-                          child: OutlinedButton(onPressed: () async{
-                            context.read<UserCubit>().addCouponToCart(widget.coupon.id);
-                            showInfoSnackBar(context, 'Added to cart');
-                          }, child: Text('Agregar a Carrito', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
-                    ),
-                  SizedBox(height: 30,),
-                  _companyInformationTab(),
-                    SizedBox(height: 10,),
-                    Text('${context.watch<CouponReviewsCubit>().state.reviews.length} Calificaciones', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
-                    SizedBox(height: 10,),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                          itemCount: context.watch<CouponReviewsCubit>().state.reviews.length,
-                          itemBuilder: (context, i) => ReviewTile(review: context.watch<CouponReviewsCubit>().state.reviews[i]),),
-                    ),
-                    SizedBox(height: 30,)
-                ],),
-              ),
+                  ),
+                )
+              ],
             ),
           ),
           AnimatedOpacity(
@@ -199,6 +224,104 @@ class _TicketDetailsState extends State<TicketDetails> {
                       ))),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+
+  Widget _dropdownFaqs(){
+    return Container(
+      width: double.infinity,
+      color: Theme.of(context).splashColor,
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('Preguntas Frecuentes', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+              Spacer(),
+              SizedBox(width: 10,),
+              InkWell(
+                onTap: (){
+                  setState((){
+                    _showFaqs = !_showFaqs;
+                  });
+                },
+                child: Container(
+                  width: 16,
+                  height: 16,
+                  child: AnimatedRotation(
+                      turns: _showFaqs ? 0.25 : 0.75,
+                      duration: Duration(milliseconds: 300),
+                      child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
+                ),
+              )
+            ],
+          ),
+          !_showFaqs ? Container() : ListView.builder(
+              itemCount: widget.coupon.faqs!.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, i){
+                return Container(
+                  margin: const EdgeInsets.symmetric(vertical: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(widget.coupon.faqs![i].question, style: const TextStyle(color: Colors.black, fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                      SizedBox(height: 30,),
+                      Text(widget.coupon.faqs![i].answer, style: const TextStyle(color: Colors.black, fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
+                    ],
+                  ),
+                );
+              }),
+        ],
+      ),
+    );
+  }
+
+  Widget _dropdownBranches(){
+    return Container(
+      width: double.infinity,
+      color: Theme.of(context).splashColor,
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('Ubicación en Mapa', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+              Spacer(),
+              Text('(${context.watch<CouponReviewsCubit>().state.branches.length} Sucursales)', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
+              SizedBox(width: 10,),
+              InkWell(
+                onTap: (){
+                  setState((){
+                    _showBranches = !_showBranches;
+                  });
+                },
+                child: Container(
+                  width: 16,
+                  height: 16,
+                  child: AnimatedRotation(
+                      turns: _showBranches ? 0.25 : 0.75,
+                      duration: Duration(milliseconds: 300),
+                      child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
+                ),
+              )
+            ],
+          ),
+          !_showBranches ? Container() : ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: context.watch<CouponReviewsCubit>().state.branches.length,
+              itemBuilder: (context,i) {
+                return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: BranchTile(branch: context.watch<CouponReviewsCubit>().state.branches[i],));
+              })
         ],
       ),
     );

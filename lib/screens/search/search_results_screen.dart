@@ -115,6 +115,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                   shrinkWrap: true,
                   itemBuilder: (context, i) {
                     return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                         margin: EdgeInsets.only(bottom: 20),
                         child: VerticalSmallCouponTile(coupon: state.searchedCoupons[i]));
                   }),

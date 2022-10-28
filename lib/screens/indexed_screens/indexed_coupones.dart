@@ -72,7 +72,7 @@ class _IndexedCouponsState extends State<IndexedCoupons> {
                       itemBuilder: (context,i){
                         return Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
-                            child: UsedVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.usedCoupons[i].coupon));
+                            child: UsedVerticalSmallCouponTile(userCoupon: context.watch<UserCubit>().state.usedCoupons[i]));
                       }),
                 );
               case 2:

@@ -8,23 +8,26 @@ enum SearchedCouponsStateStatus {
 class SearchedCouponsState extends Equatable {
   final SearchedCouponsStateStatus status;
   final List<Coupon> searchedCoupons;
+  final String? category;
   final String query;
   final double minPrice;
   final double maxPrice;
   final List<int> tags;
 
   factory SearchedCouponsState.initial(){
-    return SearchedCouponsState(
-      minPrice: 0,
+    return const SearchedCouponsState(
+        minPrice: 0,
         maxPrice: 0,
         tags: [],
         query: "",
-        status: SearchedCouponsStateStatus.initial, searchedCoupons: []);
+        status: SearchedCouponsStateStatus.initial,
+        searchedCoupons: []);
   }
 
   const SearchedCouponsState({
     required this.status,
     required this.searchedCoupons,
+    this.category,
     required this.query,
     required this.minPrice,
     required this.maxPrice,
@@ -34,6 +37,7 @@ class SearchedCouponsState extends Equatable {
   SearchedCouponsState copyWith({
     SearchedCouponsStateStatus? status,
     List<Coupon>? searchedCoupons,
+    String? category,
     String? query,
     double? minPrice,
     double? maxPrice,
@@ -42,6 +46,7 @@ class SearchedCouponsState extends Equatable {
     return SearchedCouponsState(
       status: status ?? this.status,
       searchedCoupons: searchedCoupons ?? this.searchedCoupons,
+      category: category ?? this.category,
       query: query ?? this.query,
       minPrice: minPrice ?? this.minPrice,
       maxPrice: maxPrice ?? this.maxPrice,
@@ -50,6 +55,6 @@ class SearchedCouponsState extends Equatable {
   }
 
   @override
-  List<Object> get props =>
-      [status, searchedCoupons, query, minPrice, maxPrice, tags,];
+  List<Object?> get props =>
+      [status, searchedCoupons, category, query, minPrice, maxPrice, tags,];
 }

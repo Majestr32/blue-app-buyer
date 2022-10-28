@@ -1,3 +1,4 @@
+import 'package:blue/models/faq/faq.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../commerce/commerce.dart';
@@ -23,6 +24,7 @@ class Coupon with _$Coupon{
     required int sold,
     @JsonKey(name: 'avg_rating') required double avgRating,
     @JsonKey(name: 'reviews_count') required int reviewsCount,
+    @JsonKey(name: 'faqs') required List<Faq>? faqs,
     required List<String>? items
   }) = _Coupon;
 
