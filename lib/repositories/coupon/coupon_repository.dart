@@ -19,9 +19,6 @@ class CouponRepository{
   Future<List<Coupon>> getCoupons(int offset, int count) async{
     return _couponService.getCoupons(offset, count);
   }
-  Future<List<Coupon>> getSearchedCoupons(int offset,int count, String query) async{
-    return _couponService.getSearchedCoupons(offset, count, query);
-  }
   Future<List<Coupon>> getCouponHistory(int offset, int count) async{
     assert(_data != null);
 
@@ -60,8 +57,8 @@ class CouponRepository{
     final coupon = await _couponService.getCouponsByIds([id]);
     return coupon.first;
   }
-  Future<List<Coupon>> getFilteredCoupons(int offset, int count, {List<int>? tagsIds, double? minPrice, double? maxPrice}){
-    return _couponService.getFilteredCoupons(offset, count, tagsIds: tagsIds, minPrice: minPrice, maxPrice: maxPrice);
+  Future<List<Coupon>> getFilteredCoupons(int offset, int count, {List<int>? tagsIds, double? minPrice, double? maxPrice, String? searchQuery}){
+    return _couponService.getFilteredCoupons(offset, count, tagsIds: tagsIds, minPrice: minPrice, maxPrice: maxPrice, searchQuery: searchQuery);
   }
   Future<List<CouponReview>> getCouponReviews(int couponId){
     return _couponService.getCouponReviews(couponId);

@@ -14,48 +14,44 @@ class IndexedCoupons extends StatefulWidget {
   State<IndexedCoupons> createState() => _IndexedCouponsState();
 }
 
-class _IndexedCouponsState extends State<IndexedCoupons> {
-  int _currentTag = 0;
+class _IndexedCouponsState extends State<IndexedCoupons> with SingleTickerProviderStateMixin{
+  final _tabs = [
+    'Activos',
+    'Canjeados',
+    'Cancelados',
+    'Amigos/Familia',
+    'Vencidos'
+  ];
+  late final _tabController = TabController(length: _tabs.length, vsync: this);
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController.addListener(_updateTab);
+  }
+
+  void _updateTab(){
+    setState((){
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
+      child: Stack(
         children: [
-          SizedBox(height: 20,),
-          Text('CUPONES', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
-          SizedBox(height: 20,),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                'Activos',
-                'Canjeados',
-                'Cancelados',
-                'Amigos/Familia',
-                'Vencidos'
-              ].asMap().entries.map((e) => GestureDetector(
-                  onTap: (){
-                    setState((){
-                      _currentTag = e.key;
-                    });
-                  },
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 25),
-                    child: Column(
-                      children: [
-                        Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _currentTag == e.key ? Color(0xFF3D5BF6) : Color(0xFFBCBCBC), fontWeight: FontWeight.w400, fontSize: 14),),
-                        _currentTag == e.key ? Container(height: 3, width: 80, color: Color(0xFF3D5BF6)) : Container(),
-                      ],
-                    ),
-                  ))).toList(),
-            ),
-          ),
-          SizedBox(height: 10,),
-          ((){
-            switch(_currentTag){
-              case 0:
-                return Expanded(
-                  child: ListView.builder(
+          Container(
+            margin: EdgeInsets.only(top: 80),
+            child: TabBarView(
+                controller: _tabController,
+                children: [
+                  ListView.builder(
                       shrinkWrap: true,
                       itemCount: context.watch<UserCubit>().state.activeCoupons.length,
                       itemBuilder: (context,i){
@@ -63,10 +59,7 @@ class _IndexedCouponsState extends State<IndexedCoupons> {
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: ActiveVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.activeCoupons[i]));
                       }),
-                );
-              case 1:
-                return Expanded(
-                  child: ListView.builder(
+                  ListView.builder(
                       shrinkWrap: true,
                       itemCount: context.watch<UserCubit>().state.usedCoupons.length,
                       itemBuilder: (context,i){
@@ -74,36 +67,53 @@ class _IndexedCouponsState extends State<IndexedCoupons> {
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: UsedVerticalSmallCouponTile(userCoupon: context.watch<UserCubit>().state.usedCoupons[i]));
                       }),
-                );
-              case 2:
-                return Container();
-              case 3:
-                return Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: context.watch<UserCubit>().state.friendsCoupons.length,
-                    itemBuilder: (context,i){
-                      return Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: FriendVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.friendsCoupons[i]));
-                    }),
-                );
-              case 4:
-                return Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: context.watch<UserCubit>().state.expiredCoupons.length,
-                    itemBuilder: (context,i){
-                      return Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          child: ExpiredVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.expiredCoupons[i].coupon));
-                    }),
-                );
-              default:
-                return Container();
-            }
-          }()),
-          SizedBox(height: 90,)
+                  Container(),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: context.watch<UserCubit>().state.friendsCoupons.length,
+                      itemBuilder: (context,i){
+                        return Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: FriendVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.friendsCoupons[i]));
+                      }),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: context.watch<UserCubit>().state.expiredCoupons.length,
+                      itemBuilder: (context,i){
+                        return Container(
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            child: ExpiredVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.expiredCoupons[i].coupon));
+                      })
+                ]),
+          ),
+          Column(
+            children: [
+              SizedBox(height: 10,),
+              Text('CUPONES', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
+              SizedBox(height: 15,),
+              Theme(
+                data: ThemeData(
+                    splashColor: Colors.grey.withOpacity(0.3)
+                ),
+                child: TabBar(
+                  isScrollable: true,
+                  controller: _tabController,
+                  indicatorColor: const Color(0xFF3D5BF6),
+                  indicatorPadding: EdgeInsets.symmetric(horizontal: 5),
+                  tabs: [
+                    'Activos',
+                    'Canjeados',
+                    'Cancelados',
+                    'Amigos/Familia',
+                    'Vencidos'
+                  ].asMap().entries.map((e) => Tab(
+                    height: 23,
+                    child: Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _tabController.index == e.key ? Color(0xFF3D5BF6) : Color(0xFFBCBCBC), fontWeight: FontWeight.w400, fontSize: 14),),
+                  )).toList(),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );

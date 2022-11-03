@@ -248,4 +248,10 @@ class UserService implements IUserServiceContract{
       'rating': rating
     });
   }
+
+  @override
+  Future<int> deleteAllItemsFromCart({required String uid}) async{
+    final response = await _dio.delete("$hostApi/carts/$uid");
+    return int.parse(response.data.toString());
+  }
 }

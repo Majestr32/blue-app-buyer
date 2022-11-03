@@ -32,7 +32,7 @@ class ReviewTile extends StatelessWidget {
 
   Widget _stars(int count){
     return Row(
-        children: List.generate(5, (index) => SvgPicture.asset(count > index ? KIcons.starFilled2 : KIcons.star, width: 13, height: 13,)).toList()
+        children: List.generate(5, (index) => SvgPicture.asset(count > index ? KIcons.starFilled2 : KIcons.star, width: 13, height: 13, color: Colors.yellow,)).toList()
       );
   }
 }

@@ -38,6 +38,9 @@ class UserRepository{
   Future<List<int>> getTagIds({required String uid}){
     return _userService.getTagIds(uid: uid);
   }
+  Future<int> deleteAllItemsFromCart({required String uid}){
+    return _userService.deleteAllItemsFromCart(uid: uid);
+  }
   Future<void> setTags({required String uid, required List<int> tagsIds}){
     return _userService.setTags(uid: uid, tagsIds: tagsIds);
   }

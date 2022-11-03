@@ -69,7 +69,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                           style: Theme.of(context).elevatedButtonTheme.style,
                           onPressed: (){
                             if(active.where((element) => element == true).length < 3){
-                              showInfoSnackBar(context, 'Choose at least 3 categories');
+                              StandardSnackBar.instance.showInfoSnackBar(context, 'Elige al menos 3 categorías');
                               return;
                             }
                             List<int> tagsIds = [];

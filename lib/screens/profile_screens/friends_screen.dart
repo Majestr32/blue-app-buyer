@@ -28,7 +28,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     return BlocListener<UserCubit,UserState>(
       listener: (context,state){
         if(state.status == UserStateStatus.error){
-          showErrorSnackBar(context, state.error!);
+          StandardSnackBar.instance.showErrorSnackBar(context, state.error!);
         }
       },
       child: Scaffold(
@@ -66,7 +66,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         child: ElevatedButton(onPressed: () async{
                           String uid = _uidController.text;
                           if(uid.isEmpty){
-                            showInfoSnackBar(context, 'UID is empty');
+                            StandardSnackBar.instance.showInfoSnackBar(context, 'El UID está vacío');
                             return;
                           }
                           context.read<UserCubit>().addFriend(uid);

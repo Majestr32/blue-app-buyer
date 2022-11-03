@@ -97,12 +97,12 @@ class _RatingScreenState extends State<RatingScreen> {
                       height: 65,
                       child: ElevatedButton(onPressed: () async{
                         if(_stars <= 0){
-                          showInfoSnackBar(context, 'La calificación mínima es 1');
+                          StandardSnackBar.instance.showInfoSnackBar(context, 'La calificación mínima es 1');
                           return;
                         }
                         String comment = _commentController.text;
                         context.read<UserCubit>().commentCoupon(widget.buyerCouponId, widget.couponId, comment, _stars);
-                        showInfoSnackBar(context, 'Éxito');
+                        StandardSnackBar.instance.showInfoSnackBar(context, 'Éxito');
                         Navigator.of(context).pop();
                       }, child: Text('Enviar', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),))),
                 ),

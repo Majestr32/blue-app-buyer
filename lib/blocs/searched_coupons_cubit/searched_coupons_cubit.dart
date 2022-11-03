@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -14,15 +16,21 @@ class SearchedCouponsCubit extends Cubit<SearchedCouponsState> {
   }) : _couponRepository = couponRepository, super(SearchedCouponsState.initial());
 
   Future<void> findCoupons(String query) async{
-    emit(SearchedCouponsState.initial());
-    final searchedCoupons = await _couponRepository.getSearchedCoupons(0, 10, query);
-    emit(state.copyWith(searchedCoupons: searchedCoupons, status: SearchedCouponsStateStatus.loaded, query: query));
+    emit(state.copyWith(searchedCoupons: [], query: query));
+    loadMoreCoupons();
   }
 
-  Future<void> filterCoupons(double? minPrice, double? maxPrice, List<int>? tagsIds) async{
-    emit(SearchedCouponsState.initial());
-    final filteredCoupons = await _couponRepository.getFilteredCoupons(0, 10, tagsIds: tagsIds, minPrice: minPrice, maxPrice: maxPrice);
-    emit(state.copyWith(searchedCoupons: filteredCoupons, status: SearchedCouponsStateStatus.loaded, minPrice: minPrice, maxPrice: maxPrice, tags: tagsIds));
+  Future<void> filterCoupons(List<int> tagsIds) async{
+    emit(state.copyWith(searchedCoupons: []));
+    final filteredCoupons = await _couponRepository.getFilteredCoupons(0, 10, tagsIds: tagsIds, minPrice: state.minPrice, maxPrice: state.maxPrice);
+    emit(state.copyWith(searchedCoupons: filteredCoupons, status: SearchedCouponsStateStatus.loaded, minPrice: state.minPrice, maxPrice: state.maxPrice, tags: tagsIds));
+  }
+
+  Future<void> setPriceRange(double minPrice, double maxPrice) async{
+    emit(state.copyWith(searchedCoupons: []));
+    log("tags: " + state.tags.toString());
+    final filteredCoupons = await _couponRepository.getFilteredCoupons(0, 10, tagsIds: state.tags, minPrice: minPrice, maxPrice: maxPrice);
+    emit(state.copyWith(searchedCoupons: filteredCoupons, status: SearchedCouponsStateStatus.loaded, minPrice: minPrice, maxPrice: maxPrice));
   }
 
   Future<void> setCategory(String category) async{
@@ -50,12 +58,8 @@ class SearchedCouponsCubit extends Cubit<SearchedCouponsState> {
       emit(state.copyWith(searchedCoupons: [...state.searchedCoupons,...coupons]));
       return;
     }
-    if(state.query.isNotEmpty){
-      final newSearchedCoupons = await _couponRepository.getSearchedCoupons(state.searchedCoupons.length, 10, state.query);
-      emit(state.copyWith(searchedCoupons: [...state.searchedCoupons,...newSearchedCoupons]));
-    }else{
-      final newFilteredCoupons = await _couponRepository.getFilteredCoupons(state.searchedCoupons.length, 10, tagsIds: state.tags, minPrice: state.minPrice, maxPrice: state.maxPrice);
-      emit(state.copyWith(searchedCoupons: [...state.searchedCoupons,...newFilteredCoupons]));
-    }
+
+    final newFilteredCoupons = await _couponRepository.getFilteredCoupons(state.searchedCoupons.length, 10, tagsIds: state.tags, minPrice: state.minPrice, maxPrice: state.maxPrice, searchQuery: state.query.isEmpty ? null : state.query);
+    emit(state.copyWith(searchedCoupons: [...state.searchedCoupons,...newFilteredCoupons]));
   }
 }

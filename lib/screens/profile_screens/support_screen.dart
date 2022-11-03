@@ -89,7 +89,7 @@ class _SupportScreenState extends State<SupportScreen> {
                   String subject = _subjectKey.text;
                   String text = _textKey.text;
                   if(subject.isEmpty || text.isEmpty){
-                    showInfoSnackBar(context, 'Subject and text can`t be empty');
+                    StandardSnackBar.instance.showInfoSnackBar(context, 'El asunto y el texto no pueden estar vacíos');
                     return;
                   }
                   final Uri uri = Uri(
@@ -101,7 +101,7 @@ class _SupportScreenState extends State<SupportScreen> {
                   if(await canLaunchUrl(uri)){
                     await launchUrl(uri);
                   }else{
-                    showInfoSnackBar(context, 'Can`t send email from your account');
+                    StandardSnackBar.instance.showInfoSnackBar(context, 'No se puede enviar correo electrónico desde su cuenta');
                   }
                 }, child: Text('Enviar')))
           ],)

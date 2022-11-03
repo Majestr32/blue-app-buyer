@@ -25,4 +25,18 @@ class BranchService implements IBranchService{
   const BranchService({
     required Dio dio,
   }) : _dio = dio;
+
+  @override
+  Future<List<Branch>> getFilteredBranches({String? query, List<int>? favs, double? minPrice, double? maxPrice}) async{
+    final queryParams = {
+      'favs[]': favs,
+      'query': query,
+      'min_price': minPrice,
+      'max_price': maxPrice
+    };
+    queryParams.removeWhere((key, value) => value == null);
+    final response = await _dio.get("$hostApi/branches", queryParameters: queryParams);
+    final jsonArr = response.data as List;
+    return jsonArr.map((e) => Branch.fromJson(e)).toList();
+  }
 }

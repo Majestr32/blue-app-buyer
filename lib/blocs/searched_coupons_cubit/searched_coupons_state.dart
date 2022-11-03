@@ -10,14 +10,14 @@ class SearchedCouponsState extends Equatable {
   final List<Coupon> searchedCoupons;
   final String? category;
   final String query;
-  final double minPrice;
-  final double maxPrice;
+  final double? minPrice;
+  final double? maxPrice;
   final List<int> tags;
 
   factory SearchedCouponsState.initial(){
     return const SearchedCouponsState(
-        minPrice: 0,
-        maxPrice: 0,
+        minPrice: null,
+        maxPrice: null,
         tags: [],
         query: "",
         status: SearchedCouponsStateStatus.initial,
@@ -29,8 +29,8 @@ class SearchedCouponsState extends Equatable {
     required this.searchedCoupons,
     this.category,
     required this.query,
-    required this.minPrice,
-    required this.maxPrice,
+    this.minPrice,
+    this.maxPrice,
     required this.tags,
   });
 

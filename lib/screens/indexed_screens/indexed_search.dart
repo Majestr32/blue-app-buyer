@@ -10,6 +10,7 @@ import 'package:blue/consts/map_style.dart';
 import 'package:blue/models/commerce/commerce.dart';
 import 'package:blue/screens/filter/filters_screen.dart';
 import 'package:blue/widgets/common/vertical_small_coupon_tile.dart';
+import 'package:blue/widgets/loading_indicator/standard_loading_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,19 +35,47 @@ class IndexedSearch extends StatefulWidget {
 
 class _IndexedSearchState extends State<IndexedSearch> {
 
+  final ScrollController _categoriesScrollController = ScrollController();
+
   final _mapUniqueKey = UniqueKey();
   final _allUniqueKey = UniqueKey();
 
-  bool _isMap = false;
+  bool get _isMap => _selectedTab == 0;
 
   double _heightExtend = 0;
+  String _search = "";
 
   int _selectedTab = 0;
+
+  @override
+  void initState() {
+    _categoriesScrollController.addListener(_setCategory);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _categoriesScrollController.dispose();
+    super.dispose();
+  }
+
+  void _setCategory(){
+    double extendAfter = _categoriesScrollController.position.extentBefore;
+    double maxExtend = _categoriesScrollController.position.maxScrollExtent;
+    int resultingTab = ((context.read<TagCubit>().state.tags.length + 1) * extendAfter) ~/ maxExtend;
+    if(_selectedTab == resultingTab){
+      return;
+    }
+    context.read<CouponCubit>().changeCategoryTo(resultingTab);
+    setState((){
+      _selectedTab = resultingTab;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ArcWithLogo(heightExtend: _heightExtend, withArrow: true,),
         IndexedStack(
           index: _isMap ? 1 : 0,
           children: [
@@ -57,7 +86,8 @@ class _IndexedSearchState extends State<IndexedSearch> {
                 child: MapSearchTab(key: _mapUniqueKey))
           ],
         ),
-        _heightExtend > 50 ? Container() : SafeArea(
+        ArcWithLogo(heightExtend: _heightExtend, withArrow: true,),
+        SafeArea(
           child: Align(
               alignment: Alignment.topRight,
               child: Container(
@@ -73,7 +103,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
         ),
         SafeArea(
           child: Column(children: [
-            SizedBox(height: _heightExtend > 100 ? 0 : 100 - _heightExtend),
+            SizedBox(height: _heightExtend > 30 ? 70 : 120 - _heightExtend),
             Center(
               child: SizedBox(
                 height: 50,
@@ -82,20 +112,27 @@ class _IndexedSearchState extends State<IndexedSearch> {
                   children: [
                     Flexible(child: TextField(
                       style: TextStyle(color: Colors.black),
-                      onSubmitted: (val){
-                        context.read<SearchedCouponsCubit>().findCoupons(val);
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                      onChanged: (val){
+                        if(_search == val){
+                          return;
+                        }
+                        _search = val;
+                        context.read<CouponCubit>().setSearchQuery(val);
                       },
                       decoration: InputDecoration(
                           fillColor: Colors.white,
+                          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)), borderRadius: BorderRadius.circular(16)),
+                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)), borderRadius: BorderRadius.circular(16)),
                           isDense: true,
                           hintText: 'Busqueda de cupones', suffixIcon: Padding(
                           padding: EdgeInsets.only(right: 10),
                           child: SvgPicture.asset(KIcons.search, color: Color(0xFF595CE6),)), suffixIconConstraints: BoxConstraints(maxWidth: 32,maxHeight: 32)),)),
                     SizedBox(width: 10,),
                     InkWell(
+                      highlightColor: Colors.transparent,
+                      focusColor: Colors.transparent,
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => FiltersScreen(inSearchResultsScreen: false,)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => FiltersScreen(inSearchResultsScreen: true,)));
                       },
                       child: CircleAvatar(
                           radius: 24,
@@ -108,39 +145,40 @@ class _IndexedSearchState extends State<IndexedSearch> {
             SizedBox(height: 15,),
             ((){
               final _tabs = [
-                _tab('Todas', KIcons.filter2, 16, _selectedTab == 0, () {
-                  context.read<CouponCubit>().changeCategoryTo(null);
-                  setState((){_selectedTab = 0;});
+                GestureDetector(
+                  onTap: (){
+                    setState((){
+                      _selectedTab = 0;
+                      _heightExtend = 0;
+                    });
+                  },
+                  child: Container(width: 40, decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(blurRadius: 18, color: Color(0xFF5D5FEF))
+                      ],
+                      borderRadius: BorderRadius.circular(8), color: _isMap ? Color(0xFF5D5FEF) : Colors.white),
+                    child: Center(
+                      child: Image.asset('assets/images/compass.png', width: 24, height: 24, color: _isMap ? Colors.white : Colors.black),
+                    ),
+                  ),
+                ),
+                _tab('Todas', KIcons.filter2, 16, _selectedTab == 1, () {
+                  context.read<CouponCubit>().changeCategoryTo(0);
+                  setState((){_selectedTab = 1;});
                 }),
-                ...List.generate(context.watch<TagCubit>().state.tags.length, (index) => _tab(context.watch<TagCubit>().state.tags[index].name, null, 16, _selectedTab == index + 1, () {
+                ...List.generate(context.watch<TagCubit>().state.tags.length, (index) => _tab(context.watch<TagCubit>().state.tags[index].name, null, 16, _selectedTab == index + 2, () {
                   context.read<CouponCubit>().changeCategoryTo(context.read<TagCubit>().state.tags[index].id);
-                  setState((){_selectedTab = index + 1;});
+                  setState((){_selectedTab = index + 2;});
                 }))
               ].map((e) => Container(margin: EdgeInsets.symmetric(horizontal: 8), child: e,)).toList();
               return SingleChildScrollView(
+                controller: _categoriesScrollController,
                 scrollDirection: Axis.horizontal,
                 clipBehavior: Clip.none,
                 child: SizedBox(
                   height: 40,
                   child: Row(
                     children: [
-                      SizedBox(width: 20,),
-                      GestureDetector(
-                        onTap: (){
-                          setState((){
-                            _isMap = !_isMap;
-                          });
-                        },
-                        child: Container(width: 40, decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(blurRadius: 18, color: Color(0xFF5D5FEF))
-                            ],
-                            borderRadius: BorderRadius.circular(8), color: _isMap ? Color(0xFF5D5FEF) : Colors.white,),
-                          child: Center(
-                            child: Image.asset('assets/images/compass.png'),
-                          ),
-                        ),
-                      ),
                       ListView.builder(
                           shrinkWrap: true,
                           itemCount: _tabs.length,
@@ -196,7 +234,7 @@ class MapSearchTab extends StatefulWidget {
 
 class _MapSearchTabState extends State<MapSearchTab> {
   GoogleMapController? _mapController;
-  Commerce? _selectedCommerce;
+  int? _selectedCommerce;
   Set<Marker> _markers = <Marker>{};
 
   @override
@@ -213,13 +251,16 @@ class _MapSearchTabState extends State<MapSearchTab> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<BranchesCubit,BranchesState>(
+    return BlocListener<CouponCubit,CouponState>(
       listener: (context,state){
-        if(state.status == BranchesStateStatus.loaded){
+        if(state.status == CouponStateStatus.loaded){
           setState((){
-            _markers.addAll(state.branches.map((e) => Marker(markerId: MarkerId(e.id.toString()), position: LatLng(e.lat,e.ln), onTap: (){
+            _markers.clear();
+            _markers.addAll(state.markerBranches.map((e) => Marker(
+                icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+                markerId: MarkerId(e.id.toString()), position: LatLng(e.lat,e.ln), onTap: (){
               setState((){
-                _selectedCommerce = e.commerce;
+                _selectedCommerce = e.commerceId;
                 context.read<SelectedMapMarkerCubit>().loadBranchMarkers(e.id!);
               });
             })));
@@ -231,7 +272,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
           Align(
             alignment: Alignment.bottomCenter,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.6,
               child: BlocListener<ThemeCubit, ThemeState>(
                 listener: (context,state){
                   if(state.theme == ThemeMode.light){
@@ -267,11 +308,11 @@ class _MapSearchTabState extends State<MapSearchTab> {
           _selectedCommerce == null ? Container() : BlocBuilder<SelectedMapMarkerCubit,SelectedMapMarkerState>(
             builder: (context,state) => state.markerCoupons.isEmpty ? Container() : Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(margin: EdgeInsets.only(bottom: 90), height: 140, child: CarouselSlider.builder(
+                child: Container(margin: EdgeInsets.only(bottom: 90), height: 130, child: CarouselSlider.builder(
                   itemCount: state.markerCoupons.length,
                   options: CarouselOptions(
                     disableCenter: true,
-                    viewportFraction: 0.86,
+                    viewportFraction: 0.9,
                     enlargeCenterPage: false,
                     padEnds: false,
                     enableInfiniteScroll: false,
@@ -279,7 +320,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
                   ),
                   itemBuilder: (context, i, j){
                     return Container(
-                        margin: EdgeInsets.only(left: i == 0 ? 10 : 5, right: i == state.markerCoupons.length - 1 ? 20 : 5),
+                        margin: state.markerCoupons.length == 1 ? EdgeInsets.only(left: 10) : EdgeInsets.only(left: i == 0 ? 10 : 5, right: i == state.markerCoupons.length - 1 ? 20 : 5),
                         child: VerticalSmallCouponTile(coupon: state.markerCoupons[i], withHeart: false,));
                   },
                 ),)),
@@ -332,9 +373,11 @@ class _AllSearchTabState extends State<AllSearchTab> {
       controller: _allScrollController,
       child: Column(
         children: [
-          SizedBox(height: 220,),
+          SizedBox(height: 250,),
           BlocBuilder<CouponCubit,CouponState>(
-            builder: (context,state) => Column(
+            builder: (context,state) => state.status == CouponStateStatus.loading ? Container(
+                margin: EdgeInsets.only(top: 20),
+                child: StandardLoadingIndicator()) : Column(
               children: [
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),

@@ -9,6 +9,8 @@ class UserCoupon with _$UserCoupon{
   const UserCoupon._();
 
   bool get isCommented => commented == 1;
+
+  bool get fromFriend => sentTo != null;
   factory UserCoupon({
     required int id,
     @JsonKey(name: 'coupon_id') required int couponId,

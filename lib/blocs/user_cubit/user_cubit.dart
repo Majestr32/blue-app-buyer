@@ -41,6 +41,13 @@ class UserCubit extends Cubit<UserState> {
       emit(state.copyWith(tagsIds: tagsIds, user: state.user.copyWith.call(endedTutorial: true)));
     }
   }
+  Future<void> emptyCart() async{
+    int deletedElements = await _userRepository.deleteAllItemsFromCart(uid: state.user.uid!);
+    if(deletedElements != state.cartCoupons.length){
+      return;
+    }
+    emit(state.copyWith(cartCoupons: []));
+  }
   Future<void> sendCouponToFriend(int couponId, String receiverUid) async{
     await _userRepository.sendCouponToFriend(couponId: couponId, receiverUid: receiverUid);
     List<UserCoupon> activeCoupons = await _userRepository.getUserActiveCoupons(uid: state.user.uid!);

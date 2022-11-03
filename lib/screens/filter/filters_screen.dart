@@ -1,3 +1,4 @@
+import 'package:blue/blocs/coupon_cubit/coupon_cubit.dart';
 import 'package:blue/blocs/tag_cubit/tag_cubit.dart';
 import 'package:blue/screens/search/search_results_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +19,9 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  SfRangeValues _values = SfRangeValues(1.0, 100.0);
-  final double _minValue = 1;
-  final double _maxValue = 300;
+  late SfRangeValues _values = SfRangeValues(context.read<CouponCubit>().state.minPrice ?? 1, context.read<CouponCubit>().state.maxPrice ?? 100);
+  late final double _minValue = 1;
+  late final double _maxValue = 300;
   late List<bool> active;
 
   @override
@@ -32,7 +33,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWithArrow(
-        title: 'Filters',
+        title: 'Filtros',
       ),
       body: Center(
         child: SizedBox(
@@ -41,7 +42,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 10,),
-              Text('Price range', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+              Text('Rango de precio', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
               SizedBox(height: 10,),
               SfRangeSlider(
                   activeColor: Color(0xFF5D5FEF),
@@ -58,58 +59,24 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   _values = values;
                 });
               }),
-              SizedBox(height: 20,),
-              Text('Tags', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
-              SizedBox(height: 20,),
-              ((){
-                final localCategories = context.watch<TagCubit>().state.tags;
-                return Wrap(
-                    alignment: WrapAlignment.start,
-                    runAlignment: WrapAlignment.start,
-                    spacing: 20,
-                    runSpacing: 5,
-                    children: List.generate(localCategories.length, (i) => GestureDetector(
-                        onTap: (){
-                          setState((){
-                            active[i] = !active[i];
-                          });
-                        },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: active[i] ? Color(0xFF5D5FEF) : Colors.white,
-                          boxShadow: [
-                            BoxShadow(color: Colors.grey.withOpacity(0.4))
-                          ],
-                          borderRadius: BorderRadius.circular(16)
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                        child: Text(localCategories[i].name,style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w400),)),
-                    ))
-                );
-              }()),
               Spacer(),
               Center(child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.8,
-                height: 65,
+                height: 60,
                 child: ElevatedButton(
                     onPressed: (){
 
                   double? minPrice = _values.start;
                   double? maxPrice = _values.end;
-                  List<int> tagsIds = [];
-                  for(int i = 0; i < active.length; i++){
-                    if(active[i]){
-                      tagsIds.add(i + 1);
-                    }
-                  }
 
-                  context.read<SearchedCouponsCubit>().filterCoupons(minPrice, maxPrice, tagsIds);
+                  context.read<SearchedCouponsCubit>().setPriceRange(minPrice!, maxPrice!);
+                  context.read<CouponCubit>().setPriceRange(minPrice, maxPrice);
                   if(widget.inSearchResultsScreen){
                     Navigator.of(context).pop();
                   }else{
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
                   }
-                }, child: Text('Apply')),
+                }, child: Text('Aplicar')),
               )),
               SizedBox(height: 20,)
             ],

@@ -31,6 +31,15 @@ class UserState extends Equatable {
           : previousValue + element.quantity * (element.coupon.price -
           element.coupon.price * element.coupon.discount! / 100));
 
+  String getFriendNameFromUid(String uid){
+    final foundFriends = friends.where((friend) => friend.receiverUid == uid);
+    if(foundFriends.isEmpty){
+      return 'Eliminado de amigos';
+    }else{
+      return foundFriends.first.friend.username!;
+    }
+  }
+
   factory UserState.initial(){
     return UserState(
         cards: [],

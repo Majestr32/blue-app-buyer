@@ -30,6 +30,9 @@ abstract class IUserServiceContract{
   Future<CartCoupon> addItemToCart({required String uid, required int couponId});
   Future<bool> removeItemToCart({required String uid, required int couponId});
 
+  ///Deletes elements from user cart and returns number of deleted items
+  Future<int> deleteAllItemsFromCart({required String uid});
+
   Future<List<UserFav>> getFavs({required String uid});
   Future<bool> removeFav({required String uid, required int couponId});
   Future<UserFav> addCouponToFavs({required String uid, required int couponId});

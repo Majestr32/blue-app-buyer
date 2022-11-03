@@ -64,12 +64,12 @@ Future<void> main() async{
           BlocProvider(create: (context) => AuthBloc(authRepository: context.read<AuthRepository>())),
           BlocProvider(create: (context) => UserCubit(userRepository: context.read<UserRepository>(), paymentRepository: context.read<PaymentRepository>())),
           BlocProvider(create: (context) => TagCubit(tagRepository: context.read<TagRepository>())),
-          BlocProvider(create: (context) => CouponCubit(couponRepository: context.read<CouponRepository>())),
+          BlocProvider(create: (context) => CouponCubit(couponRepository: context.read<CouponRepository>(), branchRepository: context.read<BranchRepository>())),
           BlocProvider(create: (context) => SearchedCouponsCubit(couponRepository: context.read<CouponRepository>())),
           BlocProvider(create: (context) => ThemeCubit(),),
+          BlocProvider(create: (context) => SelectedMapMarkerCubit(branchRepository: context.read<BranchRepository>())),
           BlocProvider(create: (context) => CommerceCubit(commerceRepository: context.read<CommerceRepository>())),
           BlocProvider(create: (context) => BranchesCubit(branchRepository: context.read<BranchRepository>())),
-          BlocProvider(create: (context) => SelectedMapMarkerCubit(branchRepository: context.read<BranchRepository>())),
           BlocProvider(create: (context) => CouponReviewsCubit(couponRepository: context.read<CouponRepository>()))],
         child: const MyApp()),
   ));
@@ -236,7 +236,7 @@ class _MainState extends State<Main> {
           _loadingDialog?.close();
         }
         if(state is AuthErrorState){
-          showErrorSnackBar(context, state.error.error);
+          StandardSnackBar.instance.showErrorSnackBar(context, state.error.error);
         }
       },
       child: Scaffold(

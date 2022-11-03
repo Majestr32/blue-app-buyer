@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
           },
           child: Scaffold(
             backgroundColor: Theme.of(context).backgroundColor,
+            resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
                 IndexedStack(
@@ -82,15 +83,34 @@ class _HomeState extends State<Home> {
                       KIcons.search,
                       KIcons.document,
                       KIcons.profile
-                    ].asMap().entries.map((e) => Stack(children: [Center(child: InkWell(
-                        onTap: (){
-                          setState((){
-                            _currentPage = e.key;
-                          });
-                        },
-                        child: SvgPicture.asset(e.value, color: _currentPage == e.key ? Theme.of(context).highlightColor : Color(0xFF5A5F6B),))), e.key == _currentPage ? Center(child: Container(
-                        margin: EdgeInsets.only(left: 15, top: 12),
-                        child: CircleAvatar(radius: 5, backgroundColor: Color(0xFFF9A137),))) : Container()],)).toList(),
+                    ].asMap().entries.map((e) => Expanded(
+                        child: Material(
+                          borderRadius: e.key == 0 ? BorderRadius.only(topLeft: Radius.circular(24)) : e.key == 3 ? BorderRadius.only(topRight: Radius.circular(24)) : null,
+                          color: Theme.of(context).splashColor,
+                          child: InkWell(
+                            borderRadius: e.key == 0 ? BorderRadius.only(topLeft: Radius.circular(24)) : e.key == 3 ? BorderRadius.only(topRight: Radius.circular(24)) : null,
+                            splashColor: Colors.grey[200],
+                            highlightColor: Colors.grey,
+                            onTap: (){
+                              setState((){
+                                _currentPage = e.key;
+                              });
+                            },
+                            child: Center(
+                              child: Container(
+                                  width: 20,
+                                  height: 20,
+                                  child: Stack(
+                                    children: [
+                                      Center(child: SvgPicture.asset(e.value, fit: BoxFit.none, color: _currentPage == e.key ? Theme.of(context).highlightColor : Color(0xFF5A5F6B),)),
+                                      e.key == _currentPage ? Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: CircleAvatar(radius: 5, backgroundColor: Color(0xFFF9A137),)) : Container()
+                                    ],
+                                  )),
+                            ),
+                          ),
+                        ))).toList(),
                   ),
                 ),)
               ],

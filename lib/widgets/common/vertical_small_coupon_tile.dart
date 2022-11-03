@@ -18,21 +18,21 @@ class VerticalSmallCouponTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: MediaQuery.of(context).size.width * 0.9, height: 140, decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.6), offset: Offset(-1,4), blurRadius: 5)], color: Theme.of(context).focusColor),
+    return Container(width: MediaQuery.of(context).size.width * 0.9, height: 130, decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.6), offset: Offset(-1,4), blurRadius: 5)], color: Theme.of(context).focusColor),
       child: Stack(
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(width: 10,),
+              SizedBox(width: 12,),
               Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: 15),
                   child: InkWell(
                       onTap: (){
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => TicketDetails(coupon: coupon, tag: tag,)));
                       },
-                      child: Container(width: MediaQuery.of(context).size.width * 0.35,
-                        height: 140,
+                      child: Container(width: MediaQuery.of(context).size.width * 0.33,
+                        height: 120,
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
                             child: Hero(
@@ -40,7 +40,7 @@ class VerticalSmallCouponTile extends StatelessWidget {
                                 child: Image.network(coupon.posterUrl, fit: BoxFit.cover,))),))),
               Expanded(
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -50,17 +50,26 @@ class VerticalSmallCouponTile extends StatelessWidget {
                         },
                         child: Padding(
                             padding: EdgeInsets.only(right: 30),
-                            child: Text(coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w500),)),
+                            child: Text(coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w400),)),
                       ),
                       Spacer(),
                       Row(
                         crossAxisAlignment: withHeart ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                         children: [
-                          SvgPicture.asset(KIcons.starFilled),
-                          SizedBox(width: 2,),
-                          Text(coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
-                          SizedBox(width: 2,),
-                          Text("(${coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontFamily: 'Outfit'),),
+                          Container(
+                            margin: EdgeInsets.only(top: 3),
+                            child: Row(
+                              children: [
+                                Container(
+                                    margin: EdgeInsets.only(bottom: withHeart ? 3 : 0, top: withHeart ? 3 : 0),
+                                    child: SvgPicture.asset(KIcons.starFilled)),
+                                SizedBox(width: 2,),
+                                Text(coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
+                                SizedBox(width: 2,),
+                                Text("(${coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontFamily: 'Outfit'),),
+                              ],
+                            ),
+                          ),
                           Spacer(),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -77,7 +86,7 @@ class VerticalSmallCouponTile extends StatelessWidget {
                               ],),
                             coupon.discount == null ? Container() : Align(
                                 alignment: Alignment.centerRight,
-                                child: Text('${coupon.discount}% dicountos', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),)),
+                                child: Text('${coupon.discount}% descuento', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),)),
                           ],
                           ),
                           ],)

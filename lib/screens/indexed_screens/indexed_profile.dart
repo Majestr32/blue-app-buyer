@@ -95,7 +95,7 @@ class _IndexedProfileState extends State<IndexedProfile> {
                   SizedBox(width: 5,),
                   InkWell(
                       onTap: (){
-                        showInfoSnackBar(context, 'Saved to clipboard');
+                        StandardSnackBar.instance.showInfoSnackBar(context, 'Guardado en portapapeles');
                         Clipboard.setData(ClipboardData(text: context.read<UserCubit>().state.user.uid!));
                       },
                       child: SvgPicture.asset(KIcons.link))
@@ -127,7 +127,7 @@ class _IndexedProfileState extends State<IndexedProfile> {
                     //style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: (){
                       context.read<AuthBloc>().add(AuthEvent.signOut());
-                    }, child: Text('Lout out')),
+                    }, child: Text('Cerra Sesión')),
               ),
               Spacer(flex: 1,),
               SizedBox(height: 80,)

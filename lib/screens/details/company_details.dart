@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:blue/blocs/commerce_cubit/commerce_cubit.dart';
 import 'package:blue/models/commerce/commerce.dart';
 import 'package:blue/repositories/commerce/commerce_repository.dart';
@@ -9,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../blocs/coupon_cubit/coupon_cubit.dart';
+import '../../blocs/theme_cubit/theme_cubit.dart';
 import '../../consts/k_icons.dart';
 import '../../widgets/common/horizontal_coupon_tile.dart';
 import '../../widgets/common/review_tile.dart';
@@ -21,24 +24,36 @@ class CompanyDetails extends StatefulWidget {
   State<CompanyDetails> createState() => _CompanyDetailsState();
 }
 
-class _CompanyDetailsState extends State<CompanyDetails> {
+class _CompanyDetailsState extends State<CompanyDetails> with SingleTickerProviderStateMixin{
 
-  int _currentTag = 0;
   double _heightExtend = 0;
   final _scrollController = ScrollController();
+  List<String> _tabs = [
+    'Sobre',
+    'Cupones',
+    'Reseñas'
+  ];
+  late final _tabController = TabController(length: _tabs.length, vsync: this);
   bool _showItems = false;
 
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scroll);
+    _tabController.addListener(_updateTab);
     context.read<CommerceCubit>().loadCommerceDetails(widget.commerce.id);
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _tabController.dispose();
     super.dispose();
+  }
+
+  void _updateTab(){
+    setState((){
+    });
   }
   void _scroll(){
     setState((){
@@ -51,15 +66,11 @@ class _CompanyDetailsState extends State<CompanyDetails> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: [
-          ArcWithLogo(withArrow: true, heightExtend: _heightExtend,),
-          Align(
-            alignment: Alignment.topCenter,
-            child: SingleChildScrollView(
-              controller: _scrollController,
+          NestedScrollView(
+            controller: _scrollController,
+            headerSliverBuilder: (context,value) => [SliverToBoxAdapter(
               child: Column(children: [
-                const SizedBox(height: 120,),
-                const Text('COMERCIO', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),),
-                const SizedBox(height: 15,),
+                const SizedBox(height: 170,),
                 CircleAvatar(radius: 64, backgroundColor: const Color(0xFF3D5BF6), child: CircleAvatar(radius: 62,backgroundImage: Image.network(widget.commerce.logoUrl).image,),),
                 const SizedBox(height: 15,),
                 Text(widget.commerce.name, style: const TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w700, fontSize: 24),),
@@ -85,173 +96,182 @@ class _CompanyDetailsState extends State<CompanyDetails> {
                   ],
                 ),
                 const SizedBox(height: 10,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    'Sobre',
-                    'Cupones',
-                    'Reseñas',
-                  ].asMap().entries.map((e) => GestureDetector(
-                      onTap: (){
-                        setState((){
-                          _currentTag = e.key;
-                        });
-                      },
-                      child: Column(
-                        children: [
-                          Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _currentTag == e.key ? const Color(0xFF3D5BF6) : null, fontWeight: FontWeight.w400, fontSize: 18),),
-                          _currentTag == e.key ? Container(height: 2, width: 100, color: const Color(0xFF3D5BF6)) : Container(),
-                        ],
-                      ))).toList(),
+                Theme(
+                  data: ThemeData(
+                    splashColor: Colors.grey.withOpacity(0.3)
+                  ),
+                  child: TabBar(
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 20),
+                    indicatorColor: const Color(0xFF3D5BF6),
+                    controller: _tabController,
+                    tabs: _tabs.asMap().entries.map((e) => Tab(
+                      height: 23,
+                      child: Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _tabController.index == e.key ? const Color(0xFF3D5BF6) : Theme.of(context).highlightColor, fontWeight: FontWeight.w400, fontSize: 18),),
+                    )).toList(),
+                  ),
                 ),
                 const SizedBox(height: 30,),
-                ((){
-                  switch(_currentTag){
-                    case 0:
-                      return _companyInformationTab();
-                    case 1:
-                      return _companyCoupons();
-                    case 2:
-                      return _reviews();
-                    default:
-                      return Container();
-                  }
-                }())
-              ],),
-            ),
-          )
+    ]),
+            ),],
+            body: TabBarView(
+                controller: _tabController,
+                children: [
+                  _companyInformationTab(),
+                  _companyCoupons(),
+                  _reviews()
+                ]),
+          ),
+          ArcWithLogo(withArrow: true, heightExtend: _heightExtend,),
+          _heightExtend > 20 ? Container() : Align(
+              alignment: Alignment.topCenter,
+              child: Container(margin: EdgeInsets.only(top: 120), child: const Text('COMERCIO', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, color: Colors.white, fontSize: 16),),))
         ],
       ),
     );
   }
 
   Widget _reviews(){
-    return Center(
+    return Align(
+      alignment: Alignment.topCenter,
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 10,),
-            Text('${context.watch<CommerceCubit>().state.reviews.length} reseñas', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: context.watch<CommerceCubit>().state.reviews.length,
-                  itemBuilder: (context, i) => ReviewTile(review: context.watch<CommerceCubit>().state.reviews[i]),),
+        width: MediaQuery.of(context).size.width * 0.85,
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 10,),
+              Text('${context.watch<CommerceCubit>().state.reviews.length} reseñas', style: TextStyle(fontSize: 18, fontFamily: 'Outfit', fontWeight: FontWeight.w400),),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: context.watch<CommerceCubit>().state.reviews.length,
+                    itemBuilder: (context, i) => ReviewTile(review: context.watch<CommerceCubit>().state.reviews[i]),),
+                ),
               ),
-            ),
-            SizedBox(height: 30,)
-          ],
+              SizedBox(height: 30,)
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _companyCoupons(){
-    return context.watch<CommerceCubit>().state.status == CommerceStateStatus.initial ? Container() : Column(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: const Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Cupón Más Vendido', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),)),
-        ),
-        const SizedBox(height: 15,),
-        VerticalSmallCouponTile(coupon: context.watch<CommerceCubit>().state.mostRatedCoupon!),
-        const SizedBox(height: 15,),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: const Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Otros cupones', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),)),
-        ),
-        const SizedBox(height: 15,),
-        SizedBox(
-          height: 300,
-          child: ListView.builder(
-            clipBehavior: Clip.none,
-              itemCount: context.watch<CommerceCubit>().state.coupons.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, i) => HorizontalCouponTile(coupon: context.watch<CommerceCubit>().state.coupons[i],)),
-        ),
-        const SizedBox(height: 15,),
-      ],
+    return context.watch<CommerceCubit>().state.status == CommerceStateStatus.initial ? Container() : SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Cupón Más Vendido', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w400),)),
+          ),
+          const SizedBox(height: 15,),
+          VerticalSmallCouponTile(coupon: context.watch<CommerceCubit>().state.mostRatedCoupon!),
+          const SizedBox(height: 15,),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: const Align(
+                alignment: Alignment.centerLeft,
+                child: Text('Otros cupones', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w400),)),
+          ),
+          const SizedBox(height: 15,),
+          SizedBox(
+            height: 300,
+            child: ListView.builder(
+              clipBehavior: Clip.none,
+                itemCount: context.watch<CommerceCubit>().state.coupons.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, i) => HorizontalCouponTile(coupon: context.watch<CommerceCubit>().state.coupons[i],)),
+          ),
+          const SizedBox(height: 15,),
+        ],
+      ),
     );
   }
 
   Widget _companyInformationTab(){
-    return Column(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.8,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Información del comercio', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
-              Text(widget.commerce.description, style: const TextStyle(fontWeight: FontWeight.w200, fontFamily: 'Outfit', fontSize: 14),),
-              const SizedBox(height: 20,),
-              _infoTile(KIcons.location, 'Locación', widget.commerce.location),
-              const SizedBox(height: 10,),
-              _infoTile(KIcons.profile, 'Miembro desde', widget.commerce.createdAt.toString()),
-              const SizedBox(height: 10,),
-              _infoTile(KIcons.send, 'Cupones canjeados', widget.commerce.couponsSold.toString()),
-            ],
+    return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.85,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Información del comercio', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
+                Text(widget.commerce.description, style: const TextStyle(fontWeight: FontWeight.w200, fontFamily: 'Outfit', fontSize: 14),),
+                const SizedBox(height: 20,),
+                _infoTile(KIcons.location, 'Locación', widget.commerce.location),
+                const SizedBox(height: 10,),
+                _infoTile(KIcons.profile, 'Miembro desde', widget.commerce.createdAt.toString()),
+                const SizedBox(height: 10,),
+                _infoTile(KIcons.send, 'Cupones canjeados', widget.commerce.couponsSold.toString()),
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 15,),
-        _dropdown(context),
-        SizedBox(height: 30,),
-      ],
+          SizedBox(height: 15,),
+          _dropdown(context),
+          SizedBox(height: 30,),
+        ],
+      ),
     );
   }
 
   Widget _dropdown(BuildContext context){
-    return Container(
-      width: double.infinity,
-      color: Theme.of(context).splashColor,
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('Sucursales', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
-              Spacer(),
-              Text('(${context.watch<CommerceCubit>().state.branches.length} Sucursales)', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
-              SizedBox(width: 10,),
-              InkWell(
-                onTap: (){
-                  setState((){
-                    _showItems = !_showItems;
-                  });
-                },
-                child: Container(
+    return context.watch<CommerceCubit>().state.branches.isEmpty ? Container() : GestureDetector(
+      onTap: (){
+        setState((){
+          _showItems = !_showItems;
+        });
+        if(_showItems){
+          _scrollController.animateTo(_scrollController.offset + 200, duration: Duration(seconds: 1), curve: Curves.decelerate);
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.white : Theme.of(context).splashColor,
+        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Sucursales', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                Spacer(),
+                Text('(${context.watch<CommerceCubit>().state.branches.length} Sucursales)', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
+                SizedBox(width: 10,),
+                Container(
                   width: 16,
                   height: 16,
                   child: AnimatedRotation(
                       turns: _showItems ? 0.25 : 0.75,
                       duration: Duration(milliseconds: 300),
                       child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
-                ),
-              )
-            ],
-          ),
-          !_showItems ? Container() : ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: context.watch<CommerceCubit>().state.branches.length,
-              itemBuilder: (context,i) {
-                return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: BranchTile(branch: context.watch<CommerceCubit>().state.branches[i],));
-              })
-        ],
+                )
+              ],
+            ),
+            SizedBox(height: 15,),
+            Divider(),
+            !_showItems ? Container() : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: context.watch<CommerceCubit>().state.branches.length,
+                itemBuilder: (context,i) {
+                  return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: BranchTile(branch: context.watch<CommerceCubit>().state.branches[i],));
+                })
+          ],
+        ),
       ),
     );
   }

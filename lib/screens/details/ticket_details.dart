@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:blue/blocs/theme_cubit/theme_cubit.dart';
 import 'package:blue/blocs/user_cubit/user_cubit.dart';
 import 'package:blue/models/coupon/coupon.dart';
+import 'package:blue/screens/cart/cart_screen.dart';
 import 'package:blue/screens/details/company_details.dart';
 import 'package:blue/screens/rating/rating_screen.dart';
 import 'package:blue/utils/utils.dart';
@@ -73,7 +74,6 @@ class _TicketDetailsState extends State<TicketDetails> {
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: [
-          ArcWithLogo(withArrow: true, heightExtend: _heightExtend,),
           SingleChildScrollView(
             controller: _scrollController,
             child: Column(
@@ -86,7 +86,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                      SizedBox(height: 120,),
+                      SizedBox(height: 200,),
                       Container(width: MediaQuery.of(context).size.width * 0.9, height: 240, decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(24)
@@ -99,7 +99,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                                   child: Image.network(widget.coupon.posterUrl, fit: BoxFit.cover, errorBuilder: (context,obj,stacktrace) => ErrorImage(),))))),
                         SizedBox(height: 10,),
                         _dots(1),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 20,),
                       Row(
                         children: [
                           InkWell(
@@ -107,28 +107,27 @@ class _TicketDetailsState extends State<TicketDetails> {
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyDetails(commerce: widget.coupon.commerce)));
                               },
                               child: CircleAvatar(radius: 18, backgroundColor: Colors.grey, backgroundImage: Image.network(widget.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image)),
-                          SizedBox(width: 5,),
+                          SizedBox(width: 10,),
                           Text(widget.coupon.commerce.name, style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 12),),
                           Spacer(),
-                          SvgPicture.asset(KIcons.starFilled),
+                          SvgPicture.asset(KIcons.starFilled, width: 16, height: 16,),
                           SizedBox(width: 2,),
-                          Text(widget.coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
+                          Text(widget.coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
                           SizedBox(width: 2,),
-                          Text("(${widget.coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontFamily: 'Outfit'),),
+                          Text("(${widget.coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontSize: 12, fontFamily: 'Outfit'),),
                         ],
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(height: 10,),
                       Text(widget.coupon.name, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 20),),
-                        SizedBox(height: 5,),
+                        SizedBox(height: 24,),
                         Row(
                         children: [
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('${widget.coupon.commerce.couponsSold} Vendidos', style: TextStyle(color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFFB5B5B5) : Colors.white, fontFamily: 'Outfit', fontWeight: FontWeight.w400, fontSize: 16),),
-                              ((){
-                                return Text('Termina en: ${_formattedDate(widget.coupon.expDate, _now)}', style: TextStyle(fontFamily: 'Outfit', color: Colors.red, fontWeight: FontWeight.w400, fontSize: 12),);
-                              }()),
+                              SizedBox(height: 3,),
+                              Text('Termina en: \n${_formattedDate(widget.coupon.expDate, _now)}', style: TextStyle(fontFamily: 'Outfit', color: Colors.red, fontWeight: FontWeight.w400, fontSize: 12),)
                             ],
                           ),
                           Spacer(),
@@ -146,9 +145,10 @@ class _TicketDetailsState extends State<TicketDetails> {
                                   SizedBox(width: 3,),
                                   Text("\$${widget.coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: 16, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                                 ],),
+                              SizedBox(height: 4,),
                               widget.coupon.discount == null ? Container() : Align(
                                   alignment: Alignment.centerRight,
-                                  child: Text('${widget.coupon.discount}% dicountos', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),))
+                                  child: Text('${widget.coupon.discount}% descuento', style: TextStyle(fontFamily: 'Poppins', fontSize: 12, color: Color(0xFF41BF71)),))
                             ],
                           )
                         ],
@@ -159,7 +159,8 @@ class _TicketDetailsState extends State<TicketDetails> {
                               width: MediaQuery.of(context).size.width * 0.85,
                               height: 60,
                               child: ElevatedButton(onPressed: () async{
-
+                                context.read<UserCubit>().addCouponToCart(widget.coupon.id);
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartScreen()));
                               }, child: Text('Comprar Ahora', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
                         ),
                       SizedBox(height: 15,),
@@ -169,7 +170,8 @@ class _TicketDetailsState extends State<TicketDetails> {
                               height: 60,
                               child: OutlinedButton(onPressed: () async{
                                 context.read<UserCubit>().addCouponToCart(widget.coupon.id);
-                                showInfoSnackBar(context, 'Added to cart');
+                                StandardSnackBar.instance.showInfoSnackBar(context, 'Añadido al carrito');
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartScreen()));
                               }, child: Text('Agregar a Carrito', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
                         ),
                       SizedBox(height: 30,),
@@ -206,23 +208,20 @@ class _TicketDetailsState extends State<TicketDetails> {
               ],
             ),
           ),
-          AnimatedOpacity(
-            opacity: _heightExtend > 50 ? 0 : _heightExtend < 0 ? 1 : 1 - _heightExtend / 50,
-            duration: Duration(milliseconds: 80),
-            child: SafeArea(
-              child: Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                      margin: const EdgeInsets.only(top: 20, right: 40),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          NotificationIcon(),
-                          SizedBox(width: 4,),
-                          CartIcon(itemsCount: context.watch<UserCubit>().state.cartCoupons.length),
-                        ],
-                      ))),
-            ),
+          ArcWithLogo(withArrow: true, heightExtend: _heightExtend,),
+          SafeArea(
+            child: Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                    margin: const EdgeInsets.only(top: 20, right: 40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        NotificationIcon(),
+                        SizedBox(width: 4,),
+                        CartIcon(itemsCount: context.watch<UserCubit>().state.cartCoupons.length),
+                      ],
+                    ))),
           ),
         ],
       ),
@@ -231,98 +230,106 @@ class _TicketDetailsState extends State<TicketDetails> {
 
 
   Widget _dropdownFaqs(){
-    return Container(
-      width: double.infinity,
-      color: Theme.of(context).splashColor,
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('Preguntas Frecuentes', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
-              Spacer(),
-              SizedBox(width: 10,),
-              InkWell(
-                onTap: (){
-                  setState((){
-                    _showFaqs = !_showFaqs;
-                  });
-                },
-                child: Container(
+    return widget.coupon.faqs!.isEmpty ? Container() : GestureDetector(
+      onTap: (){
+        setState((){
+          _showFaqs = !_showFaqs;
+        });
+        if(_showFaqs){
+          _scrollController.animateTo(_scrollController.offset + 200, duration: Duration(seconds: 1), curve: Curves.decelerate);
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Preguntas Frecuentes', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                Spacer(),
+                SizedBox(width: 10,),
+                Container(
                   width: 16,
                   height: 16,
                   child: AnimatedRotation(
                       turns: _showFaqs ? 0.25 : 0.75,
                       duration: Duration(milliseconds: 300),
                       child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
-                ),
-              )
-            ],
-          ),
-          !_showFaqs ? Container() : ListView.builder(
-              itemCount: widget.coupon.faqs!.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, i){
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(widget.coupon.faqs![i].question, style: const TextStyle(color: Colors.black, fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
-                      SizedBox(height: 30,),
-                      Text(widget.coupon.faqs![i].answer, style: const TextStyle(color: Colors.black, fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
-                    ],
-                  ),
-                );
-              }),
-        ],
+                )
+              ],
+            ),
+            SizedBox(height: 15,),
+            Divider(),
+            !_showFaqs ? Container() : ListView.builder(
+                itemCount: widget.coupon.faqs!.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, i){
+                  return Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(widget.coupon.faqs![i].question, style: const TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                        SizedBox(height: 30,),
+                        Text(widget.coupon.faqs![i].answer, style: const TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
+                      ],
+                    ),
+                  );
+                }),
+          ],
+        ),
       ),
     );
   }
 
   Widget _dropdownBranches(){
-    return Container(
-      width: double.infinity,
-      color: Theme.of(context).splashColor,
-      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('Ubicación en Mapa', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
-              Spacer(),
-              Text('(${context.watch<CouponReviewsCubit>().state.branches.length} Sucursales)', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
-              SizedBox(width: 10,),
-              InkWell(
-                onTap: (){
-                  setState((){
-                    _showBranches = !_showBranches;
-                  });
-                },
-                child: Container(
+    return context.watch<CouponReviewsCubit>().state.branches.isEmpty ? Container() : GestureDetector(
+      onTap: (){
+        setState((){
+          _showBranches = !_showBranches;
+        });
+        if(_showBranches){
+          _scrollController.animateTo(_scrollController.offset + 200, duration: Duration(seconds: 1), curve: Curves.decelerate);
+        }
+      },
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Ubicación en Mapa', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                Spacer(),
+                Text('(${context.watch<CouponReviewsCubit>().state.branches.length} Sucursales)', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
+                SizedBox(width: 10,),
+                Container(
                   width: 16,
                   height: 16,
                   child: AnimatedRotation(
                       turns: _showBranches ? 0.25 : 0.75,
                       duration: Duration(milliseconds: 300),
                       child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
-                ),
-              )
-            ],
-          ),
-          !_showBranches ? Container() : ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: context.watch<CouponReviewsCubit>().state.branches.length,
-              itemBuilder: (context,i) {
-                return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: BranchTile(branch: context.watch<CouponReviewsCubit>().state.branches[i],));
-              })
-        ],
+                )
+              ],
+            ),
+            SizedBox(height: 15,),
+            Divider(),
+            !_showBranches ? Container() : ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: context.watch<CouponReviewsCubit>().state.branches.length,
+                itemBuilder: (context,i) {
+                  return Container(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: BranchTile(branch: context.watch<CouponReviewsCubit>().state.branches[i],));
+                })
+          ],
+        ),
       ),
     );
   }

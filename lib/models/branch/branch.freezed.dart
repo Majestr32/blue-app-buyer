@@ -27,6 +27,8 @@ mixin _$Branch {
   String get location => throw _privateConstructorUsedError;
   double get lat => throw _privateConstructorUsedError;
   double get ln => throw _privateConstructorUsedError;
+  @JsonKey(name: 'commerce_id')
+  int get commerceId => throw _privateConstructorUsedError;
   Commerce? get commerce => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,6 +48,7 @@ abstract class $BranchCopyWith<$Res> {
       String location,
       double lat,
       double ln,
+      @JsonKey(name: 'commerce_id') int commerceId,
       Commerce? commerce});
 
   $CommerceCopyWith<$Res>? get commerce;
@@ -68,6 +71,7 @@ class _$BranchCopyWithImpl<$Res> implements $BranchCopyWith<$Res> {
     Object? location = freezed,
     Object? lat = freezed,
     Object? ln = freezed,
+    Object? commerceId = freezed,
     Object? commerce = freezed,
   }) {
     return _then(_value.copyWith(
@@ -99,6 +103,10 @@ class _$BranchCopyWithImpl<$Res> implements $BranchCopyWith<$Res> {
           ? _value.ln
           : ln // ignore: cast_nullable_to_non_nullable
               as double,
+      commerceId: commerceId == freezed
+          ? _value.commerceId
+          : commerceId // ignore: cast_nullable_to_non_nullable
+              as int,
       commerce: commerce == freezed
           ? _value.commerce
           : commerce // ignore: cast_nullable_to_non_nullable
@@ -131,6 +139,7 @@ abstract class _$$_BranchCopyWith<$Res> implements $BranchCopyWith<$Res> {
       String location,
       double lat,
       double ln,
+      @JsonKey(name: 'commerce_id') int commerceId,
       Commerce? commerce});
 
   @override
@@ -155,6 +164,7 @@ class __$$_BranchCopyWithImpl<$Res> extends _$BranchCopyWithImpl<$Res>
     Object? location = freezed,
     Object? lat = freezed,
     Object? ln = freezed,
+    Object? commerceId = freezed,
     Object? commerce = freezed,
   }) {
     return _then(_$_Branch(
@@ -186,6 +196,10 @@ class __$$_BranchCopyWithImpl<$Res> extends _$BranchCopyWithImpl<$Res>
           ? _value.ln
           : ln // ignore: cast_nullable_to_non_nullable
               as double,
+      commerceId: commerceId == freezed
+          ? _value.commerceId
+          : commerceId // ignore: cast_nullable_to_non_nullable
+              as int,
       commerce: commerce == freezed
           ? _value.commerce
           : commerce // ignore: cast_nullable_to_non_nullable
@@ -205,6 +219,7 @@ class _$_Branch extends _Branch {
       required this.location,
       required this.lat,
       required this.ln,
+      @JsonKey(name: 'commerce_id') required this.commerceId,
       required this.commerce})
       : super._();
 
@@ -226,11 +241,14 @@ class _$_Branch extends _Branch {
   @override
   final double ln;
   @override
+  @JsonKey(name: 'commerce_id')
+  final int commerceId;
+  @override
   final Commerce? commerce;
 
   @override
   String toString() {
-    return 'Branch(id: $id, username: $username, phone: $phone, whatsapp: $whatsapp, location: $location, lat: $lat, ln: $ln, commerce: $commerce)';
+    return 'Branch(id: $id, username: $username, phone: $phone, whatsapp: $whatsapp, location: $location, lat: $lat, ln: $ln, commerceId: $commerceId, commerce: $commerce)';
   }
 
   @override
@@ -245,6 +263,8 @@ class _$_Branch extends _Branch {
             const DeepCollectionEquality().equals(other.location, location) &&
             const DeepCollectionEquality().equals(other.lat, lat) &&
             const DeepCollectionEquality().equals(other.ln, ln) &&
+            const DeepCollectionEquality()
+                .equals(other.commerceId, commerceId) &&
             const DeepCollectionEquality().equals(other.commerce, commerce));
   }
 
@@ -259,6 +279,7 @@ class _$_Branch extends _Branch {
       const DeepCollectionEquality().hash(location),
       const DeepCollectionEquality().hash(lat),
       const DeepCollectionEquality().hash(ln),
+      const DeepCollectionEquality().hash(commerceId),
       const DeepCollectionEquality().hash(commerce));
 
   @JsonKey(ignore: true)
@@ -283,6 +304,7 @@ abstract class _Branch extends Branch {
       required final String location,
       required final double lat,
       required final double ln,
+      @JsonKey(name: 'commerce_id') required final int commerceId,
       required final Commerce? commerce}) = _$_Branch;
   _Branch._() : super._();
 
@@ -302,6 +324,9 @@ abstract class _Branch extends Branch {
   double get lat;
   @override
   double get ln;
+  @override
+  @JsonKey(name: 'commerce_id')
+  int get commerceId;
   @override
   Commerce? get commerce;
   @override

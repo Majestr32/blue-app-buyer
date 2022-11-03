@@ -46,7 +46,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         }
         if(state.status == UserStateStatus.error){
           Navigator.of(context).pop();
-          showErrorSnackBar(context, state.error!);
+          StandardSnackBar.instance.showErrorSnackBar(context, state.error!);
         }
         if(state.status == UserStateStatus.successOperation){
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => OrderCompleted()));
@@ -65,6 +65,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 15,),
                         _dropdown(context),
                         SizedBox(height: 20,),
                         Center(
@@ -78,31 +79,33 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: Row(
                                 children: [
-                                  Text('Fee de Servicio:', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
+                                  Text('Fee de Servicio    :', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14, color: Colors.grey),),
                                   Spacer(),
-                                  Text('\$${context.watch<UserCubit>().state.fees == null ? 0 : (context.watch<UserCubit>().state.fees!.serviceFee / 100) * context.watch<UserCubit>().state.cartSum}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
+                                  Text('\$${context.watch<UserCubit>().state.fees == null ? 0 : ((context.watch<UserCubit>().state.fees!.serviceFee / 100) * context.watch<UserCubit>().state.cartSum).toStringAsFixed(2)}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16, color: Colors.grey),),
                                 ],
                               )),
                         ),
+                        SizedBox(height: 5,),
                         Center(
                           child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: Row(
                                 children: [
-                                  Text('Subtotal:', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
+                                  Text('Subtotal                   :', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14, color: Colors.grey),),
                                   Spacer(),
-                                  Text('\$${context.watch<UserCubit>().state.cartSum}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
+                                  Text('\$${context.watch<UserCubit>().state.cartSum.toStringAsFixed(2)}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16, color: Colors.grey),),
                                 ],
                               )),
                         ),
+                        SizedBox(height: 5,),
                         Center(
                           child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: Row(
                                 children: [
-                                  Text('Total:', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
+                                  Text('Total                          :', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 14),),
                                   Spacer(),
-                                  Text('\$${context.watch<UserCubit>().state.fees == null ? 0 : context.watch<UserCubit>().state.cartSum * (1 + context.watch<UserCubit>().state.fees!.serviceFee / 100)}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
+                                  Text('\$${context.watch<UserCubit>().state.fees == null ? 0 : (context.watch<UserCubit>().state.cartSum * (1 + context.watch<UserCubit>().state.fees!.serviceFee / 100)).toStringAsFixed(2)}', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 16),),
                                 ],
                               )),
                         ),
@@ -143,13 +146,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     height: 120,
+                    margin: EdgeInsets.only(bottom: 15),
                     child: Column(
                       children: [
                         Row(
                           children: [
                             SvgPicture.asset(KIcons.shieldTick),
                             SizedBox(width: 5,),
-                            Flexible(child: Text('  Todas las transacciones son rápidas y seguras, al continuar usted acepta nuestros terminos y condiciones ', maxLines: 3, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w400, fontSize: 12, height: 1.5, color: Color(0xFF97999B)),))
+                            Flexible(child: Text('  Todas las transacciones son rápidas y seguras, al continuar usted acepta nuestros terminos y condiciones ', maxLines: 3, textAlign: TextAlign.center, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w400, fontSize: 12, height: 1.5, color: Color(0xFF97999B)),))
                           ],
                         ),
                         SizedBox(height: 10,),
@@ -166,7 +170,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           outerColor: const Color(0xFFDEDEDE),
                           onSubmit: () async{
                             if(_selectPaymentMethod.isEmpty){
-                              showInfoSnackBar(context, 'No tienes tarjetas de pago');
+                              StandardSnackBar.instance.showInfoSnackBar(context, 'No tienes tarjetas de pago');
                               _sliderKey.currentState!.reset();
                               return;
                             }
@@ -186,43 +190,43 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   Widget _dropdown(BuildContext context){
-    return Container(
-      width: double.infinity,
-      color: Theme.of(context).splashColor,
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text('Mostrar resumen del pedido', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
-              InkWell(
-                onTap: (){
-                  setState((){
-                    _showItems = !_showItems;
-                  });
-                },
-                child: Container(
+    return GestureDetector(
+      onTap: (){
+        setState((){
+          _showItems = !_showItems;
+        });
+      },
+      child: Container(
+        width: double.infinity,
+        color: Theme.of(context).splashColor,
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text('Mostrar resumen del pedido', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                Container(
                   width: 16,
                   height: 16,
                   child: AnimatedRotation(
                       turns: _showItems ? 0.25 : 0.75,
                       duration: Duration(milliseconds: 300),
                       child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
-                ),
-              )
-            ],
-          ),
-          !_showItems ? Container() : ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: context.watch<UserCubit>().state.cartCoupons.length,
-              itemBuilder: (context,i) {
-            return Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: CartCouponTile(coupon: context.watch<UserCubit>().state.cartCoupons[i], withCounter: false,));
-          })
-        ],
+                )
+              ],
+            ),
+            !_showItems ? Container() : ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: context.watch<UserCubit>().state.cartCoupons.length,
+                itemBuilder: (context,i) {
+              return Container(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: CartCouponTile(coupon: context.watch<UserCubit>().state.cartCoupons[i], withCounter: false,));
+            })
+          ],
+        ),
       ),
     );
   }

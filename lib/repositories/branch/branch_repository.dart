@@ -17,4 +17,7 @@ class BranchRepository{
   Future<List<Coupon>> getBranchCoupons(int branchId) async{
     return _branchService.getBranchCoupons(branchId);
   }
+  Future<List<Branch>> getFilteredBranches({String? query, List<int>? favs, double? minPrice, double? maxPrice}){
+    return _branchService.getFilteredBranches(query: query, favs: favs, minPrice: minPrice, maxPrice: maxPrice);
+  }
 }

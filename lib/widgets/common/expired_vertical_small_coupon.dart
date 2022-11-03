@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../blocs/theme_cubit/theme_cubit.dart';
 import '../../consts/k_icons.dart';
 import '../../models/coupon/coupon.dart';
+import '../../screens/details/company_details.dart';
 import '../../screens/details/ticket_details.dart';
 import '../../utils/utils.dart';
 import '../error/error_image.dart';
@@ -41,18 +42,23 @@ class ExpiredVerticalSmallCouponTile extends StatelessWidget {
                                   child: Image.network(coupon.posterUrl, fit: BoxFit.cover,))),))),
                 Expanded(
                   child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF222222) : Colors.white, fontWeight: FontWeight.w500),),
                           SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              CircleAvatar(radius: 18, backgroundColor: Colors.grey, backgroundImage: Image.network(coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
-                              SizedBox(width: 5,),
-                              Flexible(child: Text(coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 12),)),
-                            ],
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyDetails(commerce: coupon.commerce)));
+                            },
+                            child: Row(
+                              children: [
+                                CircleAvatar(radius: 15, backgroundColor: Colors.grey, backgroundImage: Image.network(coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
+                                SizedBox(width: 5,),
+                                Flexible(child: Text(coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 11),)),
+                              ],
+                            ),
                           ),
                           Spacer(),
                           Row(
@@ -65,7 +71,7 @@ class ExpiredVerticalSmallCouponTile extends StatelessWidget {
                                       color: Color(0xFFF26C6C)
                                   ),
                                   padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
-                                  child: Text("Vencido".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold),)),
+                                  child: Text("Vencido".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Colors.white, fontWeight: FontWeight.bold),)),
                             ],
                           ),
                         ],

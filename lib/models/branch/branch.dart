@@ -16,6 +16,7 @@ class Branch with _$Branch{
     required String location,
     required double lat,
     required double ln,
+    @JsonKey(name: 'commerce_id') required int commerceId,
     required Commerce? commerce
   }) = _Branch;
 

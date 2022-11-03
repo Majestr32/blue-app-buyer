@@ -1,3 +1,4 @@
+import 'package:blue/blocs/user_cubit/user_cubit.dart';
 import 'package:blue/models/coupon/coupon.dart';
 import 'package:blue/models/user_coupon/user_coupon.dart';
 import 'package:blue/widgets/error/error_image.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../blocs/theme_cubit/theme_cubit.dart';
 import '../../consts/k_icons.dart';
+import '../../screens/details/company_details.dart';
 import '../../screens/details/ticket_details.dart';
 import '../../utils/utils.dart';
 
@@ -48,12 +50,17 @@ class FriendVerticalSmallCouponTile extends StatelessWidget {
                         children: [
                           Text(coupon.coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF222222) : Colors.white, fontWeight: FontWeight.w500),),
                           SizedBox(height: 10,),
-                          Row(
-                            children: [
-                              CircleAvatar(radius: 15, backgroundColor: Colors.grey, backgroundImage: Image.network(coupon.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
-                              SizedBox(width: 5,),
-                              Flexible(child: Text(coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 12),)),
-                            ],
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyDetails(commerce: coupon.coupon.commerce)));
+                            },
+                            child: Row(
+                              children: [
+                                CircleAvatar(radius: 15, backgroundColor: Colors.grey, backgroundImage: Image.network(coupon.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
+                                SizedBox(width: 5,),
+                                Flexible(child: Text(coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 11),)),
+                              ],
+                            ),
                           ),
                           Spacer(),
                           Row(
@@ -70,10 +77,10 @@ class FriendVerticalSmallCouponTile extends StatelessWidget {
                                           color: Color(0xFF5D5FEF).withOpacity(0.08)
                                       ),
                                       padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
-                                      child: Text("TRANSFERIDO A:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 10, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
+                                      child: Text("TRANSFERIDO A:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
                                   SizedBox(
                                       width: 120,
-                                      child: Text(coupon.sentTo.toString(), maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
+                                      child: Text(context.watch<UserCubit>().state.getFriendNameFromUid(coupon.sentTo!), textAlign: TextAlign.right, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
                                 ],
                               ),
                             ],

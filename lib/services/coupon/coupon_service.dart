@@ -26,17 +26,6 @@ class CouponService implements ICouponService{
     required Dio dio,
   }) : _dio = dio;
 
-  @override
-  Future<List<Coupon>> getSearchedCoupons(int offset, int count, String query) async{
-    final response = await _dio.get("$hostApi/coupons", queryParameters: {
-      'offset': offset,
-      'count': count,
-      'query': query,
-      'status': 'active'
-    });
-    final jsonArr = response.data as List<dynamic>;
-    return jsonArr.map((e) => Coupon.fromJson(e)).toList();
-  }
 
   @override
   Future<List<Coupon>> getRecommendedCoupons(int offset, int count, List<int> tagsIds) async{
@@ -51,14 +40,15 @@ class CouponService implements ICouponService{
   }
 
   @override
-  Future<List<Coupon>> getFilteredCoupons(int offset, int count, {List<int>? tagsIds, double? minPrice, double? maxPrice}) async{
+  Future<List<Coupon>> getFilteredCoupons(int offset, int count, {List<int>? tagsIds, double? minPrice, double? maxPrice, String? searchQuery}) async{
     var queryParams = {
       'offset': offset,
       'count': count,
       'status': 'active',
       'favs[]': tagsIds,
       'min_price': minPrice,
-      'max_price': maxPrice
+      'max_price': maxPrice,
+      'query': searchQuery
     };
     queryParams.removeWhere((key, value) => value == null);
     final response = await _dio.get("$hostApi/coupons", queryParameters: queryParams);

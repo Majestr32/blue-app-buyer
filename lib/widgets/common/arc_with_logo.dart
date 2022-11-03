@@ -38,7 +38,7 @@ class ArcWithLogo extends StatelessWidget {
           ),
         ) : Container(),
         withArrow ? Container(
-            margin: const EdgeInsets.only(top: 70, left: 15),
+            margin: const EdgeInsets.only(top: 60, left: 10),
             child: const BackArrow(color: Colors.white,)) : Container(),
       ],
     );

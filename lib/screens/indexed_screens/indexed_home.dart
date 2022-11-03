@@ -198,11 +198,15 @@ class _IndexedHomeState extends State<IndexedHome> {
                     decoration: InputDecoration(
                       fillColor: Colors.white,
                         isDense: true,
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)), borderRadius: BorderRadius.circular(16)),
+                        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)), borderRadius: BorderRadius.circular(16)),
                         hintText: 'Busqueda de cupones', suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: SvgPicture.asset(KIcons.search, color: const Color(0xFF595CE6),)), suffixIconConstraints: const BoxConstraints(maxWidth: 32,maxHeight: 32)),)),
                   const SizedBox(width: 10,),
                   InkWell(
+                    highlightColor: Colors.transparent,
+                    focusColor: Colors.transparent,
                     onTap: (){
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => FiltersScreen(inSearchResultsScreen: false,)));
                     },
