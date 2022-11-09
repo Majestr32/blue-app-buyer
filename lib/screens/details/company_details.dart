@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:blue/blocs/commerce_cubit/commerce_cubit.dart';
 import 'package:blue/models/commerce/commerce.dart';
 import 'package:blue/repositories/commerce/commerce_repository.dart';
+import 'package:blue/utils/utils.dart';
 import 'package:blue/widgets/common/arc_with_logo.dart';
 import 'package:blue/widgets/common/branch_tile.dart';
 import 'package:blue/widgets/common/vertical_small_coupon_tile.dart';
@@ -73,7 +74,7 @@ class _CompanyDetailsState extends State<CompanyDetails> with SingleTickerProvid
                 const SizedBox(height: 170,),
                 CircleAvatar(radius: 64, backgroundColor: const Color(0xFF3D5BF6), child: CircleAvatar(radius: 62,backgroundImage: Image.network(widget.commerce.logoUrl).image,),),
                 const SizedBox(height: 15,),
-                Text(widget.commerce.name, style: const TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w700, fontSize: 24),),
+                Text(widget.commerce.name, textAlign: TextAlign.center, style: const TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w700, fontSize: 24),),
                 const SizedBox(height: 30,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -212,7 +213,7 @@ class _CompanyDetailsState extends State<CompanyDetails> with SingleTickerProvid
                 const SizedBox(height: 20,),
                 _infoTile(KIcons.location, 'Locación', widget.commerce.location),
                 const SizedBox(height: 10,),
-                _infoTile(KIcons.profile, 'Miembro desde', widget.commerce.createdAt.toString()),
+                _infoTile(KIcons.profile, 'Miembro desde', formatDate(widget.commerce.createdAt)),
                 const SizedBox(height: 10,),
                 _infoTile(KIcons.send, 'Cupones canjeados', widget.commerce.couponsSold.toString()),
               ],
@@ -236,41 +237,45 @@ class _CompanyDetailsState extends State<CompanyDetails> with SingleTickerProvid
           _scrollController.animateTo(_scrollController.offset + 200, duration: Duration(seconds: 1), curve: Curves.decelerate);
         }
       },
-      child: Container(
-        width: double.infinity,
-        color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.white : Theme.of(context).splashColor,
-        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text('Sucursales', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
-                Spacer(),
-                Text('(${context.watch<CommerceCubit>().state.branches.length} Sucursales)', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
-                SizedBox(width: 10,),
-                Container(
-                  width: 16,
-                  height: 16,
-                  child: AnimatedRotation(
-                      turns: _showItems ? 0.25 : 0.75,
-                      duration: Duration(milliseconds: 300),
-                      child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
-                )
-              ],
-            ),
-            SizedBox(height: 15,),
-            Divider(),
-            !_showItems ? Container() : ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: context.watch<CommerceCubit>().state.branches.length,
-                itemBuilder: (context,i) {
-                  return Container(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: BranchTile(branch: context.watch<CommerceCubit>().state.branches[i],));
-                })
-          ],
+      child: Material(
+        color: Colors.transparent,
+        elevation: 0,
+        child: Container(
+          width: double.infinity,
+          color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.white : Theme.of(context).splashColor,
+          padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text('Sucursales', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                  Spacer(),
+                  Text('(${context.watch<CommerceCubit>().state.branches.length} Sucursales)', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w300),),
+                  SizedBox(width: 10,),
+                  Container(
+                    width: 16,
+                    height: 16,
+                    child: AnimatedRotation(
+                        turns: _showItems ? 0.25 : 0.75,
+                        duration: Duration(milliseconds: 300),
+                        child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
+                  )
+                ],
+              ),
+              SizedBox(height: 15,),
+              Divider(),
+              !_showItems ? Container() : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: context.watch<CommerceCubit>().state.branches.length,
+                  itemBuilder: (context,i) {
+                    return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: BranchTile(branch: context.watch<CommerceCubit>().state.branches[i],));
+                  })
+            ],
+          ),
         ),
       ),
     );

@@ -58,7 +58,7 @@ class FriendVerticalSmallCouponTile extends StatelessWidget {
                               children: [
                                 CircleAvatar(radius: 15, backgroundColor: Colors.grey, backgroundImage: Image.network(coupon.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
                                 SizedBox(width: 5,),
-                                Flexible(child: Text(coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 11),)),
+                                Flexible(child: Text(coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 10),)),
                               ],
                             ),
                           ),
@@ -80,7 +80,7 @@ class FriendVerticalSmallCouponTile extends StatelessWidget {
                                       child: Text("TRANSFERIDO A:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
                                   SizedBox(
                                       width: 120,
-                                      child: Text(context.watch<UserCubit>().state.getFriendNameFromUid(coupon.sentTo!), textAlign: TextAlign.right, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
+                                      child: Text(coupon.sentToName!, textAlign: TextAlign.right, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
                                 ],
                               ),
                             ],

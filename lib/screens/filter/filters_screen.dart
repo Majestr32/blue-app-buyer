@@ -19,9 +19,9 @@ class FiltersScreen extends StatefulWidget {
 }
 
 class _FiltersScreenState extends State<FiltersScreen> {
-  late SfRangeValues _values = SfRangeValues(context.read<CouponCubit>().state.minPrice ?? 1, context.read<CouponCubit>().state.maxPrice ?? 100);
-  late final double _minValue = 1;
-  late final double _maxValue = 300;
+  late SfRangeValues _values = SfRangeValues(context.read<CouponCubit>().state.minPrice ?? 1.0, context.read<CouponCubit>().state.maxPrice ?? 100.0);
+  late final double _minValue = 1.0;
+  late final double _maxValue = 300.0;
   late List<bool> active;
 
   @override

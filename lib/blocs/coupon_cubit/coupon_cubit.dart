@@ -18,8 +18,9 @@ class CouponCubit extends Cubit<CouponState> {
   CancelableOperation? searchOperation;
   CancelableOperation? mapSearchOperation;
 
+
   Future<void> loadStartCoupons(List<int> tagsIds) async{
-    List<Coupon> newCoupons = await _couponRepository.getCoupons(0, 8);
+    List<Coupon> newCoupons = await _couponRepository.getNewCoupons(0, 8);
     List<Coupon> categoryCoupons = newCoupons;
     List<Coupon> recommendedCoupons = await _couponRepository.getRecommendedCoupons(0, 3, tagsIds);
     List<Coupon> history = await _couponRepository.getCouponHistory(0, 5);
@@ -77,8 +78,8 @@ class CouponCubit extends Cubit<CouponState> {
   }
 
   Future<void> loadCoupons() async{
-    int newCouponsCount = state.categoryCoupons.length;
-    List<Coupon> newCoupons = await _couponRepository.getFilteredCoupons(newCouponsCount, 8, tagsIds: state.selectedCategory == 0 ? [] : [state.selectedCategory], searchQuery: state.searchQuery.isEmpty ? null : state.searchQuery, minPrice: state.minPrice, maxPrice: state.maxPrice);
+    List<Coupon> newCoupons = await _couponRepository.getFilteredCoupons(0, 8, tagsIds: state.selectedCategory == 0 ? [] : [state.selectedCategory], searchQuery: state.searchQuery.isEmpty ? null : state.searchQuery, minPrice: state.minPrice, maxPrice: state.maxPrice);
+    log("tag is ${state.selectedCategory} \nfound ${newCoupons.length} coupons");
     emit(state.copyWith(status: CouponStateStatus.loaded, categoryCoupons: newCoupons));
   }
 

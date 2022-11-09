@@ -9,9 +9,10 @@ part 'tag_state.dart';
 class TagCubit extends Cubit<TagState> {
   final TagRepository _tagRepository;
 
-  Future<void> loadFavs() async{
+  Future<void> loadTags() async{
     List<Tag> tags = await _tagRepository.getTags();
-    emit(state.copyWith(tags: tags,status: FavStateStatus.loaded));
+    List<Tag> activeTags = await _tagRepository.getTagsWithCoupons();
+    emit(state.copyWith(tags: tags, activeTags: activeTags,status: TagStateStatus.loaded));
   }
   TagCubit({
     required TagRepository tagRepository,

@@ -1,5 +1,6 @@
 import 'package:blue/blocs/user_cubit/user_cubit.dart';
 import 'package:blue/consts/k_icons.dart';
+import 'package:blue/models/coupon/coupon.dart';
 import 'package:blue/utils/utils.dart';
 import 'package:blue/widgets/common/arc_with_logo.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../models/user_coupon/user_coupon.dart';
 
 class RatingScreen extends StatefulWidget {
-  final int buyerCouponId;
-  final int couponId;
-  const RatingScreen({Key? key, required this.buyerCouponId, required this.couponId}) : super(key: key);
+  final UserCoupon coupon;
+  const RatingScreen({Key? key, required this.coupon}) : super(key: key);
 
   @override
   State<RatingScreen> createState() => _RatingScreenState();
@@ -45,30 +45,52 @@ class _RatingScreenState extends State<RatingScreen> {
                     children: [
                       Align(
                           alignment: Alignment.bottomCenter,
-                          child: Container(height: 400, decoration: BoxDecoration(color: Theme.of(context).focusColor, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.4), blurRadius: 6, offset: Offset(0,2))]),)),
+                          child: Container(height: 400, decoration: BoxDecoration(color: Theme.of(context).focusColor, boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.4), blurRadius: 6, offset: Offset(0,4))]),)),
                       Align(alignment: Alignment.topCenter, child: Column(
                         children: [
                           Image.asset('assets/images/trophy.png', scale: 1.1,),
                           SizedBox(height: 10,),
                           Center(child: Text('¡Escribe tu reseña!', style: TextStyle(fontFamily: 'Outfit', fontSize: 24, fontWeight: FontWeight.w500),),),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 15,),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            child: TextField(
-                              controller: _commentController,
-                              style: TextStyle(
-                                fontFamily: 'Outfit'
-                              ),
-                              maxLines: null,
-                              minLines: 7,
-                              decoration: InputDecoration(
-                                hintText: 'Comentario',
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none
+                            height: 185,
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width * 0.7,
+                                    height: 160,
+                                    child: Material(
+                                      elevation: 5,
+                                      child: TextField(
+                                        controller: _commentController,
+                                        style: TextStyle(
+                                          fontFamily: 'Outfit'
+                                        ),
+                                        maxLines: null,
+                                        minLines: 7,
+                                        decoration: InputDecoration(
+                                          hintText: 'Comentario',
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide.none
+                                          ),
+                                          filled: true,
+                                          fillColor: Theme.of(context).splashColor,
+                                        ),),
+                                    ),
+                                  ),
                                 ),
-                                filled: true,
-                                fillColor: Theme.of(context).splashColor,
-                              ),),
+                                Align(
+                                  alignment: Alignment.topCenter,
+                                  child: CircleAvatar(
+                                    radius: 22,
+                                    backgroundColor: Colors.grey,
+                                    backgroundImage: Image.network(widget.coupon.coupon.posterUrl).image,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(height: 20,)
                         ],
@@ -101,7 +123,7 @@ class _RatingScreenState extends State<RatingScreen> {
                           return;
                         }
                         String comment = _commentController.text;
-                        context.read<UserCubit>().commentCoupon(widget.buyerCouponId, widget.couponId, comment, _stars);
+                        context.read<UserCubit>().commentCoupon(widget.coupon.id, widget.coupon.couponId, comment, _stars);
                         StandardSnackBar.instance.showInfoSnackBar(context, 'Éxito');
                         Navigator.of(context).pop();
                       }, child: Text('Enviar', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),))),

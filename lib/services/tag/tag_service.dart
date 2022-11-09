@@ -9,7 +9,14 @@ class TagService implements ITagService{
 
   @override
   Future<List<Tag>> getTags() async{
-    final response = await _dio.get(hostApi+"tags");
+    final response = await _dio.get("${hostApi}tags");
+    final jsonArr = response.data as List<dynamic>;
+    return jsonArr.map((e) => Tag.fromJson(e)).toList();
+  }
+
+  @override
+  Future<List<Tag>> getTagsWithCoupons() async{
+    final response = await _dio.get("${hostApi}tags/with_coupons");
     final jsonArr = response.data as List<dynamic>;
     return jsonArr.map((e) => Tag.fromJson(e)).toList();
   }

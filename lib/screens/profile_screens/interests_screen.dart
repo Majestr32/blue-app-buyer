@@ -55,7 +55,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                     const Text('Por categoría', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, fontFamily: 'Poppins'),),
                     const SizedBox(height: 15,),
                     BlocBuilder<TagCubit,TagState>(
-                      builder: (context,state) => state.status == FavStateStatus.initial ? Container() : Wrap(
+                      builder: (context,state) => state.status == TagStateStatus.initial ? Container() : Wrap(
                           spacing: 15,
                           runSpacing: 10,
                           children: List.generate(state.tags.length, (index) => _choice(state.tags[index].name, active[index], () => setState((){active[index] = !active[index];})))

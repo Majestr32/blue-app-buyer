@@ -19,6 +19,7 @@ class Coupon with _$Coupon{
     @JsonKey(name: 'poster_url') required String posterUrl,
     required double price,
     @JsonKey(name: 'exp_date') required DateTime expDate,
+    @JsonKey(name: 'campaign_ending') required DateTime campaignEnding,
     required int? discount,
     @JsonKey(name: 'commerce') required Commerce commerce,
     required int sold,

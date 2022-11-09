@@ -32,6 +32,10 @@ mixin _$UserCoupon {
   String get transactionId => throw _privateConstructorUsedError;
   @JsonKey(name: 'sent_to')
   String? get sentTo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sent_to_name')
+  String? get sentToName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'sent_from_name')
+  String? get sentFromName => throw _privateConstructorUsedError;
   @JsonKey(name: 'commented')
   int get commented => throw _privateConstructorUsedError;
   @JsonKey(name: 'coupon')
@@ -56,6 +60,8 @@ abstract class $UserCouponCopyWith<$Res> {
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'transaction_id') String transactionId,
       @JsonKey(name: 'sent_to') String? sentTo,
+      @JsonKey(name: 'sent_to_name') String? sentToName,
+      @JsonKey(name: 'sent_from_name') String? sentFromName,
       @JsonKey(name: 'commented') int commented,
       @JsonKey(name: 'coupon') Coupon coupon});
 
@@ -79,6 +85,8 @@ class _$UserCouponCopyWithImpl<$Res> implements $UserCouponCopyWith<$Res> {
     Object? createdAt = freezed,
     Object? transactionId = freezed,
     Object? sentTo = freezed,
+    Object? sentToName = freezed,
+    Object? sentFromName = freezed,
     Object? commented = freezed,
     Object? coupon = freezed,
   }) {
@@ -110,6 +118,14 @@ class _$UserCouponCopyWithImpl<$Res> implements $UserCouponCopyWith<$Res> {
       sentTo: sentTo == freezed
           ? _value.sentTo
           : sentTo // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sentToName: sentToName == freezed
+          ? _value.sentToName
+          : sentToName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sentFromName: sentFromName == freezed
+          ? _value.sentFromName
+          : sentFromName // ignore: cast_nullable_to_non_nullable
               as String?,
       commented: commented == freezed
           ? _value.commented
@@ -145,6 +161,8 @@ abstract class _$$_UserCouponCopyWith<$Res>
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'transaction_id') String transactionId,
       @JsonKey(name: 'sent_to') String? sentTo,
+      @JsonKey(name: 'sent_to_name') String? sentToName,
+      @JsonKey(name: 'sent_from_name') String? sentFromName,
       @JsonKey(name: 'commented') int commented,
       @JsonKey(name: 'coupon') Coupon coupon});
 
@@ -171,6 +189,8 @@ class __$$_UserCouponCopyWithImpl<$Res> extends _$UserCouponCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? transactionId = freezed,
     Object? sentTo = freezed,
+    Object? sentToName = freezed,
+    Object? sentFromName = freezed,
     Object? commented = freezed,
     Object? coupon = freezed,
   }) {
@@ -203,6 +223,14 @@ class __$$_UserCouponCopyWithImpl<$Res> extends _$UserCouponCopyWithImpl<$Res>
           ? _value.sentTo
           : sentTo // ignore: cast_nullable_to_non_nullable
               as String?,
+      sentToName: sentToName == freezed
+          ? _value.sentToName
+          : sentToName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      sentFromName: sentFromName == freezed
+          ? _value.sentFromName
+          : sentFromName // ignore: cast_nullable_to_non_nullable
+              as String?,
       commented: commented == freezed
           ? _value.commented
           : commented // ignore: cast_nullable_to_non_nullable
@@ -226,6 +254,8 @@ class _$_UserCoupon extends _UserCoupon {
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'transaction_id') required this.transactionId,
       @JsonKey(name: 'sent_to') required this.sentTo,
+      @JsonKey(name: 'sent_to_name') required this.sentToName,
+      @JsonKey(name: 'sent_from_name') required this.sentFromName,
       @JsonKey(name: 'commented') required this.commented,
       @JsonKey(name: 'coupon') required this.coupon})
       : super._();
@@ -253,6 +283,12 @@ class _$_UserCoupon extends _UserCoupon {
   @JsonKey(name: 'sent_to')
   final String? sentTo;
   @override
+  @JsonKey(name: 'sent_to_name')
+  final String? sentToName;
+  @override
+  @JsonKey(name: 'sent_from_name')
+  final String? sentFromName;
+  @override
   @JsonKey(name: 'commented')
   final int commented;
   @override
@@ -261,7 +297,7 @@ class _$_UserCoupon extends _UserCoupon {
 
   @override
   String toString() {
-    return 'UserCoupon(id: $id, couponId: $couponId, qr: $qr, buyerUid: $buyerUid, createdAt: $createdAt, transactionId: $transactionId, sentTo: $sentTo, commented: $commented, coupon: $coupon)';
+    return 'UserCoupon(id: $id, couponId: $couponId, qr: $qr, buyerUid: $buyerUid, createdAt: $createdAt, transactionId: $transactionId, sentTo: $sentTo, sentToName: $sentToName, sentFromName: $sentFromName, commented: $commented, coupon: $coupon)';
   }
 
   @override
@@ -277,6 +313,10 @@ class _$_UserCoupon extends _UserCoupon {
             const DeepCollectionEquality()
                 .equals(other.transactionId, transactionId) &&
             const DeepCollectionEquality().equals(other.sentTo, sentTo) &&
+            const DeepCollectionEquality()
+                .equals(other.sentToName, sentToName) &&
+            const DeepCollectionEquality()
+                .equals(other.sentFromName, sentFromName) &&
             const DeepCollectionEquality().equals(other.commented, commented) &&
             const DeepCollectionEquality().equals(other.coupon, coupon));
   }
@@ -292,6 +332,8 @@ class _$_UserCoupon extends _UserCoupon {
       const DeepCollectionEquality().hash(createdAt),
       const DeepCollectionEquality().hash(transactionId),
       const DeepCollectionEquality().hash(sentTo),
+      const DeepCollectionEquality().hash(sentToName),
+      const DeepCollectionEquality().hash(sentFromName),
       const DeepCollectionEquality().hash(commented),
       const DeepCollectionEquality().hash(coupon));
 
@@ -317,6 +359,8 @@ abstract class _UserCoupon extends UserCoupon {
       @JsonKey(name: 'created_at') required final DateTime createdAt,
       @JsonKey(name: 'transaction_id') required final String transactionId,
       @JsonKey(name: 'sent_to') required final String? sentTo,
+      @JsonKey(name: 'sent_to_name') required final String? sentToName,
+      @JsonKey(name: 'sent_from_name') required final String? sentFromName,
       @JsonKey(name: 'commented') required final int commented,
       @JsonKey(name: 'coupon') required final Coupon coupon}) = _$_UserCoupon;
   _UserCoupon._() : super._();
@@ -343,6 +387,12 @@ abstract class _UserCoupon extends UserCoupon {
   @override
   @JsonKey(name: 'sent_to')
   String? get sentTo;
+  @override
+  @JsonKey(name: 'sent_to_name')
+  String? get sentToName;
+  @override
+  @JsonKey(name: 'sent_from_name')
+  String? get sentFromName;
   @override
   @JsonKey(name: 'commented')
   int get commented;

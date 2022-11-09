@@ -72,7 +72,7 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.coupon.coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF222222) : Colors.white, fontWeight: FontWeight.w500),),
+                            Text(widget.coupon.coupon.name, maxLines: 3, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF222222) : Colors.white, fontWeight: FontWeight.w400),),
                             SizedBox(height: 10,),
                             GestureDetector(
                               onTap: (){
@@ -86,7 +86,7 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                                 children: [
                                   CircleAvatar(radius: 15, backgroundColor: Colors.grey, backgroundImage: Image.network(widget.coupon.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
                                   SizedBox(width: 5,),
-                                  Flexible(child: Text(widget.coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 11),)),
+                                  Flexible(child: Text(widget.coupon.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 10),)),
                                 ],
                               ),
                             ),
@@ -95,6 +95,22 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                               children: [
                                 Text("\$${widget.coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF3E4462) : Colors.white, fontWeight: FontWeight.w500),),
                                 Spacer(),
+                                widget.coupon.sentToName == null ? Container() : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(8),
+                                            color: Color(0xFF5D5FEF).withOpacity(0.08)
+                                        ),
+                                        padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
+                                        child: Text("TRANSFERIDO POR:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
+                                    SizedBox(
+                                        width: 80,
+                                        child: Text(widget.coupon.sentFromName!, textAlign: TextAlign.right, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
+                                  ],
+                                ),
+                                SizedBox(width: 10,),
                                 InkWell(
                                     onTap: (){
                                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => CouponQrDetails(coupon: widget.coupon,)));
@@ -145,6 +161,23 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
     );
   }
 
+  void _showConfirmationScreen(VoidCallback onSuccess){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(title: Text('¿Estás seguro de que quieres transferir el cupón?'),
+      actions: [
+        ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red
+            ),
+            onPressed: (){Navigator.of(context)..pop()..pop()..pop();}, child: Text('NO')),
+        SizedBox(width: 10,),
+        ElevatedButton(onPressed: (){
+          onSuccess.call();
+          Navigator.of(context)..pop()..pop()..pop();}, child: Text('SI')),
+      ],);
+    });
+  }
+
   void _openTransferToFriendDialog(){
     showDialog(context: context, builder: (context){
       return StatefulBuilder(
@@ -155,11 +188,13 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                   width: MediaQuery.of(context).size.width * 0.85,
                   height: 65,
                   child: ElevatedButton(onPressed: () async{
-                    log(context.read<UserCubit>().state.activeCoupons.toString());
-                    String receiverUid = context.read<UserCubit>().state.friends.firstWhere((element) => element.friend.username == _friend).receiverUid;
-                    context.read<UserCubit>().sendCouponToFriend(widget.coupon.id, receiverUid);
-                    Navigator.of(context).pop();
-                    StandardSnackBar.instance.showInfoSnackBar(context, 'Enviado');
+                    _showConfirmationScreen(
+                        (){
+                          String receiverUid = context.read<UserCubit>().state.friends.firstWhere((element) => element.friend.username == _friend).receiverUid;
+                          context.read<UserCubit>().sendCouponToFriend(widget.coupon.id, receiverUid);
+                          StandardSnackBar.instance.showInfoSnackBar(context, 'Enviado');
+                        }
+                    );
                   }, child: Text('Enviar cupón', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),))),
             ),
           ],

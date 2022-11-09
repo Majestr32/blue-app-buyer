@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -7,7 +8,6 @@ import 'package:blue/blocs/selected_map_marker_cubit/selected_map_marker_cubit.d
 import 'package:blue/blocs/tag_cubit/tag_cubit.dart';
 import 'package:blue/blocs/theme_cubit/theme_cubit.dart';
 import 'package:blue/consts/map_style.dart';
-import 'package:blue/models/commerce/commerce.dart';
 import 'package:blue/screens/filter/filters_screen.dart';
 import 'package:blue/widgets/common/vertical_small_coupon_tile.dart';
 import 'package:blue/widgets/loading_indicator/standard_loading_indicator.dart';
@@ -16,15 +16,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../blocs/searched_coupons_cubit/searched_coupons_cubit.dart';
 import '../../blocs/user_cubit/user_cubit.dart';
 import '../../consts/k_icons.dart';
+import 'package:blue/utils/utils.dart';
 
-import '../../models/coupon/coupon.dart';
 import '../../widgets/common/arc_with_logo.dart';
 import '../../widgets/common/cart_icon.dart';
 import '../../widgets/common/notification_icon.dart';
-import '../search/search_results_screen.dart';
 
 class IndexedSearch extends StatefulWidget {
   const IndexedSearch({Key? key}) : super(key: key);
@@ -33,43 +31,38 @@ class IndexedSearch extends StatefulWidget {
   State<IndexedSearch> createState() => _IndexedSearchState();
 }
 
-class _IndexedSearchState extends State<IndexedSearch> {
-
-  final ScrollController _categoriesScrollController = ScrollController();
-
+class _IndexedSearchState extends State<IndexedSearch> with SingleTickerProviderStateMixin{
   final _mapUniqueKey = UniqueKey();
   final _allUniqueKey = UniqueKey();
 
-  bool get _isMap => _selectedTab == 0;
+  late final _tabController = TabController(length: context.read<TagCubit>().state.activeTags.length + 2, vsync: this);
+
+  bool get _isMap => _tabController.index == 0;
 
   double _heightExtend = 0;
   String _search = "";
 
-  int _selectedTab = 0;
-
   @override
   void initState() {
-    _categoriesScrollController.addListener(_setCategory);
     super.initState();
+    _tabController.addListener(_updateTab);
   }
 
   @override
   void dispose() {
-    _categoriesScrollController.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
-  void _setCategory(){
-    double extendAfter = _categoriesScrollController.position.extentBefore;
-    double maxExtend = _categoriesScrollController.position.maxScrollExtent;
-    int resultingTab = ((context.read<TagCubit>().state.tags.length + 1) * extendAfter) ~/ maxExtend;
-    if(_selectedTab == resultingTab){
+  void _updateTab(){
+    if(_tabController.index == 0){
       return;
+    }else if(_tabController.index == 1){
+      context.read<CouponCubit>().changeCategoryTo(0);
+    }else{
+      context.read<CouponCubit>().changeCategoryTo(context.read<TagCubit>().state.activeTags[_tabController.index - 2].id);
     }
-    context.read<CouponCubit>().changeCategoryTo(resultingTab);
-    setState((){
-      _selectedTab = resultingTab;
-    });
+    setState((){});
   }
 
   @override
@@ -79,7 +72,7 @@ class _IndexedSearchState extends State<IndexedSearch> {
         IndexedStack(
           index: _isMap ? 1 : 0,
           children: [
-            AllSearchTab(key: _allUniqueKey, onHeightExtendChanged: (height) => setState((){
+            AllSearchTab(key: _allUniqueKey, tabController: _tabController, onHeightExtendChanged: (height) => setState((){
               _heightExtend = height;}),),
             Align(
                 alignment: Alignment.bottomCenter,
@@ -142,15 +135,20 @@ class _IndexedSearchState extends State<IndexedSearch> {
                 ),
               ),
             ),
-            SizedBox(height: 15,),
             ((){
               final _tabs = [
                 GestureDetector(
                   onTap: (){
-                    setState((){
-                      _selectedTab = 0;
-                      _heightExtend = 0;
-                    });
+                    if(_tabController.index == 0){
+                      setState((){
+                        _tabController.index = 1;
+                      });
+                    }else{
+                      setState((){
+                        _tabController.index = 0;
+                        _heightExtend = 0;
+                      });
+                    }
                   },
                   child: Container(width: 40, decoration: BoxDecoration(
                       boxShadow: [
@@ -162,35 +160,20 @@ class _IndexedSearchState extends State<IndexedSearch> {
                     ),
                   ),
                 ),
-                _tab('Todas', KIcons.filter2, 16, _selectedTab == 1, () {
-                  context.read<CouponCubit>().changeCategoryTo(0);
-                  setState((){_selectedTab = 1;});
+                _tab('Todas', KIcons.filter2, 16, _tabController.index == 1, () {
+                  setState((){_tabController.index = 1;});
                 }),
-                ...List.generate(context.watch<TagCubit>().state.tags.length, (index) => _tab(context.watch<TagCubit>().state.tags[index].name, null, 16, _selectedTab == index + 2, () {
-                  context.read<CouponCubit>().changeCategoryTo(context.read<TagCubit>().state.tags[index].id);
-                  setState((){_selectedTab = index + 2;});
+                ...List.generate(context.watch<TagCubit>().state.activeTags.length, (index) => _tab(context.watch<TagCubit>().state.activeTags[index].name, null, 16, _tabController.index == index + 2, () {
+                  setState((){_tabController.index = index + 2;});
                 }))
-              ].map((e) => Container(margin: EdgeInsets.symmetric(horizontal: 8), child: e,)).toList();
-              return SingleChildScrollView(
-                controller: _categoriesScrollController,
-                scrollDirection: Axis.horizontal,
-                clipBehavior: Clip.none,
-                child: SizedBox(
-                  height: 40,
-                  child: Row(
-                    children: [
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _tabs.length,
-                          physics: NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, i){
-                            return _tabs[i];
-                          }),
-                      SizedBox(width: 20,)
-                    ],
-                  ),
-                ),
+              ].map((e) => Tab(
+                  child: e)).toList();
+              return TabBar(
+                padding: EdgeInsets.symmetric(vertical: 25),
+                indicatorColor: Colors.transparent,
+                controller: _tabController,
+                tabs: _tabs,
+                isScrollable: true,
               );
             }()),
             SizedBox(height: 15,),
@@ -205,7 +188,8 @@ class _IndexedSearchState extends State<IndexedSearch> {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        height: 40,
+          padding: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             color: active ? Color(0xFF5D5FEF) : Colors.white,
             boxShadow: [
@@ -225,7 +209,6 @@ class _IndexedSearchState extends State<IndexedSearch> {
 }
 
 class MapSearchTab extends StatefulWidget {
-
   const MapSearchTab({Key? key}) : super(key: key);
 
   @override
@@ -235,18 +218,81 @@ class MapSearchTab extends StatefulWidget {
 class _MapSearchTabState extends State<MapSearchTab> {
   GoogleMapController? _mapController;
   int? _selectedCommerce;
-  Set<Marker> _markers = <Marker>{};
+
+  //To count if user applied filters
+  int previousMarkersCount = 0;
+
+  final Set<Marker> _markers = <Marker>{};
+
+  double posX = 0;
+  double posY = 0;
+  double diffX = 0;
+  double diffY = 0;
+
+  double zoom = 2;
+
+  double get rangeMinX => posX - diffX / 2;
+  double get rangeMaxX => posX + diffX / 2;
+  double get rangeMinY => posY - diffY / 2;
+  double get rangeMaxY => posY + diffY / 2;
+
+  late final Timer _mapUpdateCoolDown;
 
   @override
   void initState() {
     super.initState();
     context.read<BranchesCubit>().loadBranches();
+    _mapUpdateCoolDown = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if(previousMarkersCount != _markers.length){
+        _scrollToNearestResult();
+        previousMarkersCount = _markers.length;
+      }
+      final foundMarkers = _markers.where((element) => (element.position.longitude <= rangeMaxX && element.position.longitude >= rangeMinX) && (element.position.latitude <= rangeMaxY && element.position.latitude >= rangeMinY));
+      if(foundMarkers.isEmpty){
+        setState((){
+          _selectedCommerce = null;
+        });
+        return;
+      }
+      final foundMarker = foundMarkers.first;
+      setState((){
+        _selectedCommerce = 0;
+        final branches = context.read<CouponCubit>().state.markerBranches;
+        final marker = branches.firstWhere((element) => element.lat == foundMarker.position.latitude && element.ln == foundMarker.position.longitude);
+        context.read<SelectedMapMarkerCubit>().loadBranchMarkers(marker.id!);
+      });
+    });
   }
 
   @override
   void dispose() {
     _mapController?.dispose();
+    _mapUpdateCoolDown.cancel();
     super.dispose();
+  }
+
+  void _scrollToNearestResult(){
+    if(_markers.isEmpty){
+      return;
+    }
+    final userPos = context.read<SelectedMapMarkerCubit>().state.currentPosition;
+    if(userPos == null){
+      _mapController?.moveCamera(CameraUpdate.newLatLngZoom(_markers.first.position, 12));
+      return;
+    }
+    final userLatLng = LatLng(userPos.latitude, userPos.longitude);
+    double minDist = distanceBetweenMapMarkers(userLatLng,_markers.first.position);
+    LatLng moveTo = _markers.first.position;
+
+    for (var marker in _markers){
+      final distance = distanceBetweenMapMarkers(marker.position, userLatLng);
+      if(distance < minDist){
+        minDist = distance;
+        moveTo = marker.position;
+      }
+    }
+
+    _mapController?.moveCamera(CameraUpdate.newLatLngZoom(moveTo, 12));
   }
 
   @override
@@ -259,10 +305,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
             _markers.addAll(state.markerBranches.map((e) => Marker(
                 icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
                 markerId: MarkerId(e.id.toString()), position: LatLng(e.lat,e.ln), onTap: (){
-              setState((){
-                _selectedCommerce = e.commerceId;
-                context.read<SelectedMapMarkerCubit>().loadBranchMarkers(e.id!);
-              });
+              log("marker: (${e.ln},${e.lat})");
             })));
           });
         }
@@ -284,6 +327,14 @@ class _MapSearchTabState extends State<MapSearchTab> {
                 child: SizedBox(
                   child: GoogleMap(
                     markers: _markers,
+                    onCameraMove: (pos){
+                      log("X ($rangeMinX,$rangeMaxX) Y ($rangeMinY,$rangeMaxY)");
+                      posX = pos.target.longitude;
+                      posY = pos.target.latitude;
+                      diffX = 180 / pos.zoom;
+                      diffY = 90 / pos.zoom;
+                      zoom = zoom;
+                    },
                     onTap: (_){
                       setState((){
                         _selectedCommerce = null;
@@ -334,7 +385,8 @@ class _MapSearchTabState extends State<MapSearchTab> {
 
 class AllSearchTab extends StatefulWidget {
   final Function(double) onHeightExtendChanged;
-  const AllSearchTab({Key? key, required this.onHeightExtendChanged}) : super(key: key);
+  final TabController tabController;
+  const AllSearchTab({Key? key, required this.onHeightExtendChanged, required this.tabController}) : super(key: key);
 
   @override
   State<AllSearchTab> createState() => _AllSearchTabState();
@@ -364,37 +416,41 @@ class _AllSearchTabState extends State<AllSearchTab> {
   @override
   void dispose() {
     _allScrollController.dispose();
+    widget.tabController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: _allScrollController,
-      child: Column(
-        children: [
-          SizedBox(height: 250,),
-          BlocBuilder<CouponCubit,CouponState>(
-            builder: (context,state) => state.status == CouponStateStatus.loading ? Container(
-                margin: EdgeInsets.only(top: 20),
-                child: StandardLoadingIndicator()) : Column(
-              children: [
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: state.categoryCoupons.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, i) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                          margin: EdgeInsets.only(bottom: 15,),
-                          child: VerticalSmallCouponTile(coupon: state.categoryCoupons[i]));
-                    }),
-                SizedBox(height: 60,),
-              ],
+    return TabBarView(
+      controller: widget.tabController,
+      children: List.generate(widget.tabController.length, (index) => SingleChildScrollView(
+        controller: _allScrollController,
+        child: Column(
+          children: [
+            SizedBox(height: 250,),
+            BlocBuilder<CouponCubit,CouponState>(
+              builder: (context,state) => state.status == CouponStateStatus.loading ? Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: StandardLoadingIndicator()) : Column(
+                children: [
+                  ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: state.categoryCoupons.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, i) {
+                        return Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            margin: EdgeInsets.only(bottom: 15,),
+                            child: VerticalSmallCouponTile(coupon: state.categoryCoupons[i]));
+                      }),
+                  SizedBox(height: 60,),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ),)
     );
   }
 }

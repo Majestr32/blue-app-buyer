@@ -2,59 +2,72 @@ part of 'searched_coupons_cubit.dart';
 
 enum SearchedCouponsStateStatus {
   initial,
+  loading,
   loaded
 }
 
 class SearchedCouponsState extends Equatable {
   final SearchedCouponsStateStatus status;
-  final List<Coupon> searchedCoupons;
+  final List<Coupon> categoryCoupons;
+  final List<int>? tagsIds;
   final String? category;
-  final String query;
+  final String searchQuery;
   final double? minPrice;
   final double? maxPrice;
-  final List<int> tags;
+  final int selectedCategory;
 
   factory SearchedCouponsState.initial(){
     return const SearchedCouponsState(
-        minPrice: null,
-        maxPrice: null,
-        tags: [],
-        query: "",
         status: SearchedCouponsStateStatus.initial,
-        searchedCoupons: []);
+        categoryCoupons: [],
+        searchQuery: "",
+        selectedCategory: 0
+    );
   }
 
   const SearchedCouponsState({
     required this.status,
-    required this.searchedCoupons,
+    required this.categoryCoupons,
+    this.tagsIds,
     this.category,
-    required this.query,
+    required this.searchQuery,
     this.minPrice,
     this.maxPrice,
-    required this.tags,
+    required this.selectedCategory,
   });
 
   SearchedCouponsState copyWith({
     SearchedCouponsStateStatus? status,
-    List<Coupon>? searchedCoupons,
+    List<Coupon>? categoryCoupons,
+    List<int>? tagsIds,
     String? category,
-    String? query,
+    String? searchQuery,
     double? minPrice,
     double? maxPrice,
-    List<int>? tags,
+    int? selectedCategory,
   }) {
     return SearchedCouponsState(
       status: status ?? this.status,
-      searchedCoupons: searchedCoupons ?? this.searchedCoupons,
+      categoryCoupons: categoryCoupons ?? this.categoryCoupons,
+      tagsIds: tagsIds ?? this.tagsIds,
       category: category ?? this.category,
-      query: query ?? this.query,
+      searchQuery: searchQuery ?? this.searchQuery,
       minPrice: minPrice ?? this.minPrice,
       maxPrice: maxPrice ?? this.maxPrice,
-      tags: tags ?? this.tags,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
     );
   }
 
   @override
   List<Object?> get props =>
-      [status, searchedCoupons, category, query, minPrice, maxPrice, tags,];
+      [
+        status,
+        categoryCoupons,
+        tagsIds,
+        category,
+        searchQuery,
+        minPrice,
+        maxPrice,
+        selectedCategory,
+      ];
 }

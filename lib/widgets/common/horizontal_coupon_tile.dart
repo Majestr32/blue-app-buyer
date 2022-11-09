@@ -41,7 +41,7 @@ class HorizontalCouponTile extends StatelessWidget {
                 width: 220,
                 height: 130,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 child: Hero(
                   tag: tag,
                   child: Image.network(
@@ -71,7 +71,7 @@ class HorizontalCouponTile extends StatelessWidget {
                       },
                       child: SizedBox(
                           width: 130,
-                          child: Text(coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, fontFamily: 'Poppins'),)),
+                          child: Text(coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 10, fontFamily: 'Poppins'),)),
                     ),
                     Spacer(),
                     GestureDetector(
@@ -92,7 +92,10 @@ class HorizontalCouponTile extends StatelessWidget {
                 if (coupon.discount == null) Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SvgPicture.asset(KIcons.starFilled),
+                    Container(
+                      margin: EdgeInsets.only(bottom: 3),
+                      child: SvgPicture.asset(KIcons.starFilled),
+                    ),
                     SizedBox(width: 2,),
                     Text(coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
                     SizedBox(width: 2,),
@@ -103,7 +106,10 @@ class HorizontalCouponTile extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SvgPicture.asset(KIcons.starFilled),
+                      Container(
+                        margin: EdgeInsets.only(bottom: 3),
+                        child: SvgPicture.asset(KIcons.starFilled),
+                      ),
                       SizedBox(width: 2,),
                       Text(coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
                       SizedBox(width: 2,),

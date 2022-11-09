@@ -1,33 +1,37 @@
 part of 'tag_cubit.dart';
 
-enum FavStateStatus {
+enum TagStateStatus {
   initial,
   loaded
 }
 
 class TagState extends Equatable {
   final List<Tag> tags;
-  final FavStateStatus status;
+  final List<Tag> activeTags;
+  final TagStateStatus status;
 
   factory TagState.initial(){
-    return TagState(tags: [], status: FavStateStatus.initial);
+    return TagState(tags: [], activeTags: [], status: TagStateStatus.initial);
   }
 
   const TagState({
     required this.tags,
+    required this.activeTags,
     required this.status,
   });
 
   TagState copyWith({
     List<Tag>? tags,
-    FavStateStatus? status,
+    List<Tag>? activeTags,
+    TagStateStatus? status,
   }) {
     return TagState(
       tags: tags ?? this.tags,
+      activeTags: activeTags ?? this.activeTags,
       status: status ?? this.status,
     );
   }
 
   @override
-  List<Object> get props => [tags, status];
+  List<Object> get props => [tags, activeTags, status];
 }

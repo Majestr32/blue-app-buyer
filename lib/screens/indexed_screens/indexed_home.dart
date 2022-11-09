@@ -58,18 +58,7 @@ class _IndexedHomeState extends State<IndexedHome> {
                 const SizedBox(height: 210,),
                 context.watch<CouponCubit>().state.status != CouponStateStatus.initial && context.watch<CouponCubit>().state.popularCoupons.isNotEmpty ? SizedBox(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: Row(
-                    children: [
-                      Text('Destacados', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
-                      Spacer(),
-                      GestureDetector(
-                          onTap: (){
-                            context.read<SearchedCouponsCubit>().setCategory('popular');
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
-                          },
-                          child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
-                    ],
-                  ),
+                  child: Text('Destacados', style: TextStyle(fontSize: 16, fontFamily: 'Outfit', fontWeight: FontWeight.w600),),
                 ) : Container(),
                 const SizedBox(height: 23,),
                 context.watch<CouponCubit>().state.status == CouponStateStatus.initial? CarouselSlider(items: const [FakeFeaturedTile(),FakeFeaturedTile(),FakeFeaturedTile()], options: CarouselOptions(viewportFraction: 1, enableInfiniteScroll: false, clipBehavior: Clip.none, onPageChanged: (i,cause) => setState((){_recommendedIndex = i;})),)
@@ -92,7 +81,7 @@ class _IndexedHomeState extends State<IndexedHome> {
                       GestureDetector(
                           onTap: (){
                             context.read<SearchedCouponsCubit>().setCategory('new');
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen(categorySearch: true,)));
                           },
                           child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
                     ],
@@ -109,7 +98,7 @@ class _IndexedHomeState extends State<IndexedHome> {
                       itemBuilder: (context, i) => context.watch<CouponCubit>().state.status == CouponStateStatus.initial ? const FakeHorizontalCouponTile() : HorizontalCouponTile(coupon: context.watch<CouponCubit>().state.newCoupons[i],)),
                 ),
                 SizedBox(height: 35,),
-                context.watch<CouponCubit>().state.history.isEmpty ? Container() : Container(
+                /*context.watch<CouponCubit>().state.history.isEmpty ? Container() : Container(
                   width: MediaQuery.of(context).size.width * 0.9,
                   margin: EdgeInsets.only(bottom: 20),
                   child: Row(
@@ -119,7 +108,7 @@ class _IndexedHomeState extends State<IndexedHome> {
                       GestureDetector(
                           onTap: (){
                             context.read<SearchedCouponsCubit>().setCategory('history');
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen(categorySearch: true,)));
                           },
                           child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
                     ],
@@ -133,7 +122,7 @@ class _IndexedHomeState extends State<IndexedHome> {
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, i) => HorizontalCouponTile(coupon: context.watch<CouponCubit>().state.history[i],)),
-                ),
+                ),*/
                 SizedBox(height: 35,),
                 context.watch<CouponCubit>().state.recommendedCoupons.isEmpty ? Container() : Container(
                   width: MediaQuery.of(context).size.width * 0.9,
@@ -144,8 +133,8 @@ class _IndexedHomeState extends State<IndexedHome> {
                       Spacer(),
                       GestureDetector(
                           onTap: (){
-                            context.read<SearchedCouponsCubit>().findCoupons('');
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
+                            context.read<SearchedCouponsCubit>().setCategory('recommended', tagsIds: context.read<UserCubit>().state.tagsIds);
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen(categorySearch: true,)));
                           },
                           child: Text('Mostrar Todo', style: TextStyle(fontSize: 14, fontFamily: 'Outfit', color: Color(0xFF595CE6), fontWeight: FontWeight.w500),)),
                     ],
@@ -191,8 +180,9 @@ class _IndexedHomeState extends State<IndexedHome> {
               child: Row(
                 children: [
                   Flexible(child: TextField(
+                    style: TextStyle(color: Colors.black),
                     onSubmitted: (val){
-                      context.read<SearchedCouponsCubit>().findCoupons(val);
+                      context.read<SearchedCouponsCubit>().setSearchQuery(val);
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchResultsScreen()));
                     },
                     decoration: InputDecoration(

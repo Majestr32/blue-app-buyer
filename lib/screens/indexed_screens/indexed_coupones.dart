@@ -4,6 +4,7 @@ import 'package:blue/widgets/common/app_bar_with_arrow.dart';
 import 'package:blue/widgets/common/expired_vertical_small_coupon.dart';
 import 'package:blue/widgets/common/friend_vertical_small_coupon.dart';
 import 'package:blue/widgets/common/used_vertical_small_coupon.dart';
+import 'package:blue/widgets/empty_result/no_data_coupons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,11 +48,11 @@ class _IndexedCouponsState extends State<IndexedCoupons> with SingleTickerProvid
       child: Stack(
         children: [
           Container(
-            margin: EdgeInsets.only(top: 80),
+            margin: EdgeInsets.only(top: 80, bottom: 70),
             child: TabBarView(
                 controller: _tabController,
                 children: [
-                  ListView.builder(
+                  context.watch<UserCubit>().state.activeCoupons.isEmpty ? NoDataCoupons() : ListView.builder(
                       shrinkWrap: true,
                       itemCount: context.watch<UserCubit>().state.activeCoupons.length,
                       itemBuilder: (context,i){
@@ -59,7 +60,7 @@ class _IndexedCouponsState extends State<IndexedCoupons> with SingleTickerProvid
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: ActiveVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.activeCoupons[i]));
                       }),
-                  ListView.builder(
+                  context.watch<UserCubit>().state.usedCoupons.isEmpty ? NoDataCoupons() : ListView.builder(
                       shrinkWrap: true,
                       itemCount: context.watch<UserCubit>().state.usedCoupons.length,
                       itemBuilder: (context,i){
@@ -67,8 +68,8 @@ class _IndexedCouponsState extends State<IndexedCoupons> with SingleTickerProvid
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: UsedVerticalSmallCouponTile(userCoupon: context.watch<UserCubit>().state.usedCoupons[i]));
                       }),
-                  Container(),
-                  ListView.builder(
+                  NoDataCoupons(),
+                  context.watch<UserCubit>().state.friendsCoupons.isEmpty ? NoDataCoupons() : ListView.builder(
                       shrinkWrap: true,
                       itemCount: context.watch<UserCubit>().state.friendsCoupons.length,
                       itemBuilder: (context,i){
@@ -76,13 +77,13 @@ class _IndexedCouponsState extends State<IndexedCoupons> with SingleTickerProvid
                             margin: EdgeInsets.symmetric(vertical: 10),
                             child: FriendVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.friendsCoupons[i]));
                       }),
-                  ListView.builder(
+                  context.watch<UserCubit>().state.expiredCoupons.isEmpty ? NoDataCoupons() : ListView.builder(
                       shrinkWrap: true,
                       itemCount: context.watch<UserCubit>().state.expiredCoupons.length,
                       itemBuilder: (context,i){
                         return Container(
                             margin: EdgeInsets.symmetric(vertical: 10),
-                            child: ExpiredVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.expiredCoupons[i].coupon));
+                            child: ExpiredVerticalSmallCouponTile(coupon: context.watch<UserCubit>().state.expiredCoupons[i]));
                       })
                 ]),
           ),

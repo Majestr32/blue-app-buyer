@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 
 String? validateEmail(String? value) {
@@ -65,8 +68,10 @@ String? validateUsername(String? value) {
 }
 
 String formatDate(DateTime date){
-  return DateFormat.yMMMMd('en_US').format(date);
+  return DateFormat.yMMMMd('es').format(date);
 }
+
+double distanceBetweenMapMarkers(LatLng pos1, LatLng pos2) => sqrt(pow(pos1.longitude - pos2.longitude, 2) + pow(pos1.latitude - pos2.longitude, 2));
 
 class StandardSnackBar{
   StandardSnackBar._constructor();
@@ -77,23 +82,36 @@ class StandardSnackBar{
 
   void showErrorSnackBar(BuildContext context,String error){
     _dontDisplayNewIfAlreadyDisplayed(() => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Row(
-          children: [
-            const Icon(Icons.error_outline, color: Colors.red,),
-            const SizedBox(width: 10,),
-            Flexible(child: Text(error)),
-          ],
+      shape: StadiumBorder(),
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        content: Container(
+          height: 40,
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            children: [
+              const Icon(Icons.error_outline, color: Colors.red,),
+              const SizedBox(width: 10,),
+              Flexible(child: Text(error)),
+            ],
+          ),
         ),
       )));
   }
   void showInfoSnackBar(BuildContext context,String message){
     _dontDisplayNewIfAlreadyDisplayed(() => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Row(
-        children: [
-          const Icon(Icons.info_outline, color: Colors.blue,),
-          const SizedBox(width: 10,),
-          Flexible(child: Text(message)),
-        ],
+      width: MediaQuery.of(context).size.width * 0.95,
+      behavior: SnackBarBehavior.floating,
+      shape: StadiumBorder(),
+      padding: EdgeInsets.symmetric(vertical: 20),
+      content: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: Row(
+          children: [
+            const Icon(Icons.info_outline, color: Colors.blue,),
+            const SizedBox(width: 10,),
+            Flexible(child: Text(message)),
+          ],
+        ),
       ),
     )));
   }

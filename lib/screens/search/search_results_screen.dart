@@ -1,5 +1,6 @@
 import 'package:blue/blocs/searched_coupons_cubit/searched_coupons_cubit.dart';
 import 'package:blue/screens/filter/filters_screen.dart';
+import 'package:blue/widgets/loading_indicator/standard_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,16 +15,19 @@ import '../../widgets/common/notification_icon.dart';
 import '../../widgets/common/vertical_small_coupon_tile.dart';
 
 class SearchResultsScreen extends StatefulWidget {
-  const SearchResultsScreen({Key? key}) : super(key: key);
+  final bool categorySearch;
+  const SearchResultsScreen({this.categorySearch = false,Key? key}) : super(key: key);
 
   @override
   State<SearchResultsScreen> createState() => _SearchResultsScreenState();
 }
 
-class _SearchResultsScreenState extends State<SearchResultsScreen> {
+class _SearchResultsScreenState extends State<SearchResultsScreen>{
 
   final ScrollController _allScrollController = ScrollController();
-  final ScrollController _categoriesScrollController = ScrollController();
+  late final _searchTextFieldController = TextEditingController(text: context.read<SearchedCouponsCubit>().state.searchQuery);
+  late String _searchQuery = context.read<SearchedCouponsCubit>().state.searchQuery;
+
   double _heightExtend = 0;
   bool _allLoading = false;
   int _selectedTab = 0;
@@ -32,20 +36,6 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   void initState() {
     super.initState();
     _allScrollController.addListener(_loadMoreAllCoupones);
-    _categoriesScrollController.addListener(_setCategory);
-  }
-
-  void _setCategory(){
-    double extendAfter = _categoriesScrollController.position.extentBefore;
-    double maxExtend = _categoriesScrollController.position.maxScrollExtent;
-    int resultingTab = (context.read<TagCubit>().state.tags.length * extendAfter) ~/ maxExtend;
-    if(_selectedTab == resultingTab){
-      return;
-    }
-    context.read<SearchedCouponsCubit>().filterCoupons([resultingTab]);
-    setState((){
-     _selectedTab = resultingTab;
-    });
   }
 
   void _loadMoreAllCoupones(){
@@ -64,7 +54,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   @override
   void dispose() {
     _allScrollController.dispose();
-    _categoriesScrollController.dispose();
+    _searchTextFieldController.dispose();
     super.dispose();
   }
   @override
@@ -79,7 +69,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: 220,),
-                _all(context)
+                context.watch<SearchedCouponsCubit>().state.status != SearchedCouponsStateStatus.loaded ? StandardLoadingIndicator() : _all(context)
               ],
             ),
           ),
@@ -98,7 +88,7 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                       ],
                     ))),
           ),
-          AnimatedOpacity(
+          widget.categorySearch ? Container() : AnimatedOpacity(
             opacity: _heightExtend > 50 ? 0 : _heightExtend < 0 ? 1 : 1 - _heightExtend / 50,
             duration: Duration(milliseconds: 80),
             child: _heightExtend > 50 ? Container() : Align(
@@ -111,8 +101,14 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     child: Row(
                       children: [
                         Flexible(child: TextField(
-                          onSubmitted: (val){
-                            context.read<SearchedCouponsCubit>().findCoupons(val);
+                          controller: _searchTextFieldController,
+                          style: TextStyle(color: Colors.black),
+                          onChanged: (val){
+                            if(_searchQuery == val){
+                              return;
+                            }
+                            _searchQuery = val;
+                            context.read<SearchedCouponsCubit>().setSearchQuery(val);
                           },
                           decoration: InputDecoration(
                               fillColor: Colors.white,
@@ -140,16 +136,15 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                   ((){
                     final _tabs = [
                       _tab('Todas', KIcons.filter2, 16, _selectedTab == 0, () {
-                        context.read<SearchedCouponsCubit>().filterCoupons([]);
+                        context.read<SearchedCouponsCubit>().changeCategoryTo(0);
                         setState((){_selectedTab = 0;});
                       }),
-                      ...List.generate(context.watch<TagCubit>().state.tags.length, (index) => _tab(context.watch<TagCubit>().state.tags[index].name, null, 16, _selectedTab == index + 1, () {
-                        context.read<SearchedCouponsCubit>().filterCoupons([index + 1]);
+                      ...List.generate(context.watch<TagCubit>().state.activeTags.length, (index) => _tab(context.watch<TagCubit>().state.activeTags[index].name, null, 16, _selectedTab == index + 1, () {
+                        context.read<SearchedCouponsCubit>().changeCategoryTo(context.read<TagCubit>().state.activeTags[index].id);
                         setState((){_selectedTab = index + 1;});
                       }))
                     ].map((e) => Container(margin: EdgeInsets.symmetric(horizontal: 8), child: e,)).toList();
-                    return SingleChildScrollView(
-                      controller: _categoriesScrollController,
+                      return SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       clipBehavior: Clip.none,
                       child: SizedBox(
@@ -209,13 +204,13 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
             children: [
               ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
-                  itemCount: state.searchedCoupons.length,
+                  itemCount: state.categoryCoupons.length,
                   shrinkWrap: true,
                   itemBuilder: (context, i) {
                     return Container(
                       padding: EdgeInsets.symmetric(horizontal: 15),
                         margin: EdgeInsets.only(bottom: 20),
-                        child: VerticalSmallCouponTile(coupon: state.searchedCoupons[i]));
+                        child: VerticalSmallCouponTile(coupon: state.categoryCoupons[i]));
                   }),
               SizedBox(height: 60,),
             ],

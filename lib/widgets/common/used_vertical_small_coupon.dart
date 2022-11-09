@@ -69,7 +69,7 @@ class _UsedVerticalSmallCouponTileState extends State<UsedVerticalSmallCouponTil
                               children: [
                                 CircleAvatar(radius: 15, backgroundColor: Colors.grey, backgroundImage: Image.network(widget.coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image),
                                 SizedBox(width: 5,),
-                                Flexible(child: Text(widget.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w600, fontSize: 11),)),
+                                Flexible(child: Text(widget.coupon.commerce.name, maxLines: 2, overflow: TextOverflow.ellipsis, style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500, fontSize: 10),)),
                               ],
                             ),
                           ),
@@ -78,6 +78,22 @@ class _UsedVerticalSmallCouponTileState extends State<UsedVerticalSmallCouponTil
                             children: [
                               Text("\$${widget.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF3E4462) : Colors.white, fontWeight: FontWeight.w500),),
                               Spacer(),
+                              widget.userCoupon.sentToName == null ? Container() : Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(8),
+                                          color: Color(0xFF5D5FEF).withOpacity(0.08)
+                                      ),
+                                      padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
+                                      child: Text("TRANSFERIDO POR:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
+                                  SizedBox(
+                                      width: 80,
+                                      child: Text(widget.userCoupon.sentFromName!, textAlign: TextAlign.right, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
+                                ],
+                              ),
+                              SizedBox(width: 10,),
                               Container(
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
@@ -102,7 +118,7 @@ class _UsedVerticalSmallCouponTileState extends State<UsedVerticalSmallCouponTil
                   Spacer(),
                   widget.userCoupon.isCommented ? Container() : GestureDetector(
                       onTap: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => RatingScreen(buyerCouponId: widget.userCoupon.id, couponId: widget.coupon.id)));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => RatingScreen(coupon: widget.userCoupon,)));
                       },
                       child: Text('+Agregar Reseña', style: TextStyle(color: Color(0xFFF9A137), fontWeight: FontWeight.w400, fontSize: 12),)),
                   SizedBox(width: 5,),

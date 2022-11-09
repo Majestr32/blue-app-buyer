@@ -52,7 +52,7 @@ class _ActiveCouponDetailsState extends State<ActiveCouponDetails> {
       },
       child: Container(
         width: double.infinity,
-        color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.white : Theme.of(context).splashColor,
+        color: Colors.transparent,
         padding: EdgeInsets.only(top: 20, left: 20, right: 20),
         child: Column(
           children: [

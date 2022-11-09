@@ -1,8 +1,10 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../models/coupon/coupon.dart';
 import '../../repositories/branch/branch_repository.dart';
+import 'package:geolocator/geolocator.dart';
 
 part 'selected_map_marker_state.dart';
 
@@ -14,9 +16,15 @@ class SelectedMapMarkerCubit extends Cubit<SelectedMapMarkerState> {
   }) : _branchRepository = branchRepository, super(SelectedMapMarkerState.initial());
 
   Future<void> loadBranchMarkers(int branchId) async{
-    reset();
     final coupons = await _branchRepository.getBranchCoupons(branchId);
-    emit(state.copyWith(status: SelectedMapMarkerStateStatus.loaded, markerCoupons: coupons));
+    final position = await _getUserCurrentLocation();
+    emit(state.copyWith(status: SelectedMapMarkerStateStatus.loaded, currentPosition: position, markerCoupons: coupons));
+  }
+
+  Future<Position?> _getUserCurrentLocation() async {
+    final perm = await Geolocator.requestPermission();
+    return perm == LocationPermission.denied || perm == LocationPermission.deniedForever ?
+      null : await Geolocator.getCurrentPosition();
   }
 
   void reset(){

@@ -90,7 +90,7 @@ class _IndexedProfileState extends State<IndexedProfile> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('UID: ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400, fontFamily: 'Outfit'),),
+                  Text('Uid: ', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w400, fontFamily: 'Outfit'),),
                   Text(context.watch<UserCubit>().state.user.uid!, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, fontFamily: 'Outfit'),),
                   SizedBox(width: 5,),
                   InkWell(
@@ -127,7 +127,7 @@ class _IndexedProfileState extends State<IndexedProfile> {
                     //style: Theme.of(context).elevatedButtonTheme.style,
                     onPressed: (){
                       context.read<AuthBloc>().add(AuthEvent.signOut());
-                    }, child: Text('Cerra Sesión')),
+                    }, child: Text('Cerrar Sesión')),
               ),
               Spacer(flex: 1,),
               SizedBox(height: 80,)

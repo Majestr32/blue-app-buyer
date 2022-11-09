@@ -39,6 +39,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
@@ -48,6 +50,7 @@ Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Bloc.observer = MyBlocObserver();
+  initializeDateFormatting('es');
   //Bloc.transformer = droppable();
   runApp(MultiRepositoryProvider(
     providers: [
@@ -203,9 +206,8 @@ class _MainState extends State<Main> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    context.read<TagCubit>().loadFavs();
+    context.read<TagCubit>().loadTags();
     _loadingDialog = ProgressDialog(context: context);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState((){

@@ -92,7 +92,7 @@ class FeaturedTile extends StatelessWidget {
                           onTap: (){
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => CompanyDetails(commerce: coupon.commerce)));
                           },
-                          child: CircleAvatar(radius: 18, backgroundColor: Colors.grey, backgroundImage: Image.network(coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image)),
+                          child: CircleAvatar(radius: 16, backgroundColor: Colors.grey, backgroundImage: Image.network(coupon.commerce.logoUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage(),).image)),
                       SizedBox(width: 5,),
                       Expanded(child: GestureDetector(
                           onTap: (){

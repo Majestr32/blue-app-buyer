@@ -5,10 +5,11 @@ import '../../models/tag/tag.dart';
 class TagRepository{
   final ITagService _tagService;
 
-
-
   Future<List<Tag>> getTags(){
     return _tagService.getTags();
+  }
+  Future<List<Tag>> getTagsWithCoupons(){
+    return _tagService.getTagsWithCoupons();
   }
 
   const TagRepository({

@@ -19,6 +19,8 @@ class UserCoupon with _$UserCoupon{
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'transaction_id') required String transactionId,
     @JsonKey(name: 'sent_to') required String? sentTo,
+    @JsonKey(name: 'sent_to_name') required String? sentToName,
+    @JsonKey(name: 'sent_from_name') required String? sentFromName,
     @JsonKey(name: 'commented') required int commented,
     @JsonKey(name: 'coupon') required Coupon coupon,
   }) = _UserCoupon;
