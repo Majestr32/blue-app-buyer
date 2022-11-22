@@ -101,13 +101,7 @@ class _IndexedCouponsState extends State<IndexedCoupons> with SingleTickerProvid
                   controller: _tabController,
                   indicatorColor: const Color(0xFF3D5BF6),
                   indicatorPadding: EdgeInsets.symmetric(horizontal: 5),
-                  tabs: [
-                    'Activos',
-                    'Canjeados',
-                    'Cancelados',
-                    'Amigos/Familia',
-                    'Vencidos'
-                  ].asMap().entries.map((e) => Tab(
+                  tabs: _tabs.asMap().entries.map((e) => Tab(
                     height: 23,
                     child: Text(e.value, style: TextStyle(fontFamily: 'Outfit', color: _tabController.index == e.key ? Color(0xFF3D5BF6) : Color(0xFFBCBCBC), fontWeight: FontWeight.w400, fontSize: 14),),
                   )).toList(),

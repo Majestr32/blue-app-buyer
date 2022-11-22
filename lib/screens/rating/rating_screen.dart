@@ -86,7 +86,7 @@ class _RatingScreenState extends State<RatingScreen> {
                                   child: CircleAvatar(
                                     radius: 22,
                                     backgroundColor: Colors.grey,
-                                    backgroundImage: Image.network(widget.coupon.coupon.posterUrl).image,
+                                    backgroundImage: Image.network(widget.coupon.coupon.posterUrls.first).image,
                                   ),
                                 ),
                               ],

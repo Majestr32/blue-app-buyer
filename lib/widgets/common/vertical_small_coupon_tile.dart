@@ -37,7 +37,7 @@ class VerticalSmallCouponTile extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                             child: Hero(
                                 tag: tag,
-                                child: Image.network(coupon.posterUrl, fit: BoxFit.cover,))),))),
+                                child: Image.network(coupon.posterUrls.first, fit: BoxFit.cover,))),))),
               Expanded(
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 12),

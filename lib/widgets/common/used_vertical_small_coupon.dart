@@ -52,7 +52,7 @@ class _UsedVerticalSmallCouponTileState extends State<UsedVerticalSmallCouponTil
                               borderRadius: BorderRadius.circular(16),
                               child: Hero(
                                   tag: tag,
-                                  child: Image.network(widget.coupon.posterUrl, fit: BoxFit.cover,))),))),
+                                  child: Image.network(widget.coupon.posterUrls.first, fit: BoxFit.cover,))),))),
                 Expanded(
                   child: Container(
                       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),

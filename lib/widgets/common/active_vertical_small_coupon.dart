@@ -65,7 +65,7 @@ class _ActiveVerticalSmallCouponTileState extends State<ActiveVerticalSmallCoupo
                                 borderRadius: BorderRadius.circular(16),
                                 child: Hero(
                                     tag: tag,
-                                    child: Image.network(widget.coupon.coupon.posterUrl, fit: BoxFit.cover,))),))),
+                                    child: Image.network(widget.coupon.coupon.posterUrls.first, fit: BoxFit.cover,))),))),
                   Expanded(
                     child: Container(
                         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),

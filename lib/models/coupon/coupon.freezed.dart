@@ -26,7 +26,7 @@ mixin _$Coupon {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'poster_url')
-  String get posterUrl => throw _privateConstructorUsedError;
+  String get encodedPosterUrl => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   @JsonKey(name: 'exp_date')
   DateTime get expDate => throw _privateConstructorUsedError;
@@ -40,6 +40,8 @@ mixin _$Coupon {
   double get avgRating => throw _privateConstructorUsedError;
   @JsonKey(name: 'reviews_count')
   int get reviewsCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'terms_and_conditions')
+  String get termsAndConditions => throw _privateConstructorUsedError;
   @JsonKey(name: 'faqs')
   List<Faq>? get faqs => throw _privateConstructorUsedError;
   List<String>? get items => throw _privateConstructorUsedError;
@@ -58,7 +60,7 @@ abstract class $CouponCopyWith<$Res> {
       @JsonKey(name: 'commerce_id') int commerceId,
       String name,
       String description,
-      @JsonKey(name: 'poster_url') String posterUrl,
+      @JsonKey(name: 'poster_url') String encodedPosterUrl,
       double price,
       @JsonKey(name: 'exp_date') DateTime expDate,
       @JsonKey(name: 'campaign_ending') DateTime campaignEnding,
@@ -67,6 +69,7 @@ abstract class $CouponCopyWith<$Res> {
       int sold,
       @JsonKey(name: 'avg_rating') double avgRating,
       @JsonKey(name: 'reviews_count') int reviewsCount,
+      @JsonKey(name: 'terms_and_conditions') String termsAndConditions,
       @JsonKey(name: 'faqs') List<Faq>? faqs,
       List<String>? items});
 
@@ -87,7 +90,7 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
     Object? commerceId = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? posterUrl = freezed,
+    Object? encodedPosterUrl = freezed,
     Object? price = freezed,
     Object? expDate = freezed,
     Object? campaignEnding = freezed,
@@ -96,6 +99,7 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
     Object? sold = freezed,
     Object? avgRating = freezed,
     Object? reviewsCount = freezed,
+    Object? termsAndConditions = freezed,
     Object? faqs = freezed,
     Object? items = freezed,
   }) {
@@ -116,9 +120,9 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      posterUrl: posterUrl == freezed
-          ? _value.posterUrl
-          : posterUrl // ignore: cast_nullable_to_non_nullable
+      encodedPosterUrl: encodedPosterUrl == freezed
+          ? _value.encodedPosterUrl
+          : encodedPosterUrl // ignore: cast_nullable_to_non_nullable
               as String,
       price: price == freezed
           ? _value.price
@@ -152,6 +156,10 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      termsAndConditions: termsAndConditions == freezed
+          ? _value.termsAndConditions
+          : termsAndConditions // ignore: cast_nullable_to_non_nullable
+              as String,
       faqs: faqs == freezed
           ? _value.faqs
           : faqs // ignore: cast_nullable_to_non_nullable
@@ -181,7 +189,7 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
       @JsonKey(name: 'commerce_id') int commerceId,
       String name,
       String description,
-      @JsonKey(name: 'poster_url') String posterUrl,
+      @JsonKey(name: 'poster_url') String encodedPosterUrl,
       double price,
       @JsonKey(name: 'exp_date') DateTime expDate,
       @JsonKey(name: 'campaign_ending') DateTime campaignEnding,
@@ -190,6 +198,7 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
       int sold,
       @JsonKey(name: 'avg_rating') double avgRating,
       @JsonKey(name: 'reviews_count') int reviewsCount,
+      @JsonKey(name: 'terms_and_conditions') String termsAndConditions,
       @JsonKey(name: 'faqs') List<Faq>? faqs,
       List<String>? items});
 
@@ -212,7 +221,7 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
     Object? commerceId = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? posterUrl = freezed,
+    Object? encodedPosterUrl = freezed,
     Object? price = freezed,
     Object? expDate = freezed,
     Object? campaignEnding = freezed,
@@ -221,6 +230,7 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
     Object? sold = freezed,
     Object? avgRating = freezed,
     Object? reviewsCount = freezed,
+    Object? termsAndConditions = freezed,
     Object? faqs = freezed,
     Object? items = freezed,
   }) {
@@ -241,9 +251,9 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      posterUrl: posterUrl == freezed
-          ? _value.posterUrl
-          : posterUrl // ignore: cast_nullable_to_non_nullable
+      encodedPosterUrl: encodedPosterUrl == freezed
+          ? _value.encodedPosterUrl
+          : encodedPosterUrl // ignore: cast_nullable_to_non_nullable
               as String,
       price: price == freezed
           ? _value.price
@@ -277,6 +287,10 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
           ? _value.reviewsCount
           : reviewsCount // ignore: cast_nullable_to_non_nullable
               as int,
+      termsAndConditions: termsAndConditions == freezed
+          ? _value.termsAndConditions
+          : termsAndConditions // ignore: cast_nullable_to_non_nullable
+              as String,
       faqs: faqs == freezed
           ? _value._faqs
           : faqs // ignore: cast_nullable_to_non_nullable
@@ -297,7 +311,7 @@ class _$_Coupon extends _Coupon {
       @JsonKey(name: 'commerce_id') required this.commerceId,
       required this.name,
       required this.description,
-      @JsonKey(name: 'poster_url') required this.posterUrl,
+      @JsonKey(name: 'poster_url') required this.encodedPosterUrl,
       required this.price,
       @JsonKey(name: 'exp_date') required this.expDate,
       @JsonKey(name: 'campaign_ending') required this.campaignEnding,
@@ -306,6 +320,7 @@ class _$_Coupon extends _Coupon {
       required this.sold,
       @JsonKey(name: 'avg_rating') required this.avgRating,
       @JsonKey(name: 'reviews_count') required this.reviewsCount,
+      @JsonKey(name: 'terms_and_conditions') required this.termsAndConditions,
       @JsonKey(name: 'faqs') required final List<Faq>? faqs,
       required final List<String>? items})
       : _faqs = faqs,
@@ -326,7 +341,7 @@ class _$_Coupon extends _Coupon {
   final String description;
   @override
   @JsonKey(name: 'poster_url')
-  final String posterUrl;
+  final String encodedPosterUrl;
   @override
   final double price;
   @override
@@ -348,6 +363,9 @@ class _$_Coupon extends _Coupon {
   @override
   @JsonKey(name: 'reviews_count')
   final int reviewsCount;
+  @override
+  @JsonKey(name: 'terms_and_conditions')
+  final String termsAndConditions;
   final List<Faq>? _faqs;
   @override
   @JsonKey(name: 'faqs')
@@ -369,7 +387,7 @@ class _$_Coupon extends _Coupon {
 
   @override
   String toString() {
-    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, posterUrl: $posterUrl, price: $price, expDate: $expDate, campaignEnding: $campaignEnding, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount, faqs: $faqs, items: $items)';
+    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, encodedPosterUrl: $encodedPosterUrl, price: $price, expDate: $expDate, campaignEnding: $campaignEnding, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount, termsAndConditions: $termsAndConditions, faqs: $faqs, items: $items)';
   }
 
   @override
@@ -383,7 +401,8 @@ class _$_Coupon extends _Coupon {
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.posterUrl, posterUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.encodedPosterUrl, encodedPosterUrl) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality().equals(other.expDate, expDate) &&
             const DeepCollectionEquality()
@@ -394,6 +413,8 @@ class _$_Coupon extends _Coupon {
             const DeepCollectionEquality().equals(other.avgRating, avgRating) &&
             const DeepCollectionEquality()
                 .equals(other.reviewsCount, reviewsCount) &&
+            const DeepCollectionEquality()
+                .equals(other.termsAndConditions, termsAndConditions) &&
             const DeepCollectionEquality().equals(other._faqs, _faqs) &&
             const DeepCollectionEquality().equals(other._items, _items));
   }
@@ -406,7 +427,7 @@ class _$_Coupon extends _Coupon {
       const DeepCollectionEquality().hash(commerceId),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(posterUrl),
+      const DeepCollectionEquality().hash(encodedPosterUrl),
       const DeepCollectionEquality().hash(price),
       const DeepCollectionEquality().hash(expDate),
       const DeepCollectionEquality().hash(campaignEnding),
@@ -415,6 +436,7 @@ class _$_Coupon extends _Coupon {
       const DeepCollectionEquality().hash(sold),
       const DeepCollectionEquality().hash(avgRating),
       const DeepCollectionEquality().hash(reviewsCount),
+      const DeepCollectionEquality().hash(termsAndConditions),
       const DeepCollectionEquality().hash(_faqs),
       const DeepCollectionEquality().hash(_items));
 
@@ -434,19 +456,29 @@ class _$_Coupon extends _Coupon {
 abstract class _Coupon extends Coupon {
   factory _Coupon(
       {required final int id,
-      @JsonKey(name: 'commerce_id') required final int commerceId,
+      @JsonKey(name: 'commerce_id')
+          required final int commerceId,
       required final String name,
       required final String description,
-      @JsonKey(name: 'poster_url') required final String posterUrl,
+      @JsonKey(name: 'poster_url')
+          required final String encodedPosterUrl,
       required final double price,
-      @JsonKey(name: 'exp_date') required final DateTime expDate,
-      @JsonKey(name: 'campaign_ending') required final DateTime campaignEnding,
+      @JsonKey(name: 'exp_date')
+          required final DateTime expDate,
+      @JsonKey(name: 'campaign_ending')
+          required final DateTime campaignEnding,
       required final int? discount,
-      @JsonKey(name: 'commerce') required final Commerce commerce,
+      @JsonKey(name: 'commerce')
+          required final Commerce commerce,
       required final int sold,
-      @JsonKey(name: 'avg_rating') required final double avgRating,
-      @JsonKey(name: 'reviews_count') required final int reviewsCount,
-      @JsonKey(name: 'faqs') required final List<Faq>? faqs,
+      @JsonKey(name: 'avg_rating')
+          required final double avgRating,
+      @JsonKey(name: 'reviews_count')
+          required final int reviewsCount,
+      @JsonKey(name: 'terms_and_conditions')
+          required final String termsAndConditions,
+      @JsonKey(name: 'faqs')
+          required final List<Faq>? faqs,
       required final List<String>? items}) = _$_Coupon;
   _Coupon._() : super._();
 
@@ -463,7 +495,7 @@ abstract class _Coupon extends Coupon {
   String get description;
   @override
   @JsonKey(name: 'poster_url')
-  String get posterUrl;
+  String get encodedPosterUrl;
   @override
   double get price;
   @override
@@ -485,6 +517,9 @@ abstract class _Coupon extends Coupon {
   @override
   @JsonKey(name: 'reviews_count')
   int get reviewsCount;
+  @override
+  @JsonKey(name: 'terms_and_conditions')
+  String get termsAndConditions;
   @override
   @JsonKey(name: 'faqs')
   List<Faq>? get faqs;

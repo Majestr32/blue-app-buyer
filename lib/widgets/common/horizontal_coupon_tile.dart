@@ -46,7 +46,7 @@ class HorizontalCouponTile extends StatelessWidget {
                   tag: tag,
                   child: Image.network(
                       fit: BoxFit.cover,
-                      coupon.posterUrl, errorBuilder: (context,obj,stacktrace) => ErrorImage()),
+                      coupon.posterUrls.first, errorBuilder: (context,obj,stacktrace) => ErrorImage()),
                 ),
               )),),
         Expanded(

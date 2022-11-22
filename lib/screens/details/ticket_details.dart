@@ -10,6 +10,7 @@ import 'package:blue/screens/rating/rating_screen.dart';
 import 'package:blue/utils/utils.dart';
 import 'package:blue/widgets/common/review_tile.dart';
 import 'package:blue/widgets/error/error_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,6 +41,7 @@ class _TicketDetailsState extends State<TicketDetails> {
   int _selectedIndex = 0;
 
   bool _showBranches = false;
+  bool _showTermsAndConditions = false;
   bool _showFaqs = false;
 
   late final Timer _timer;
@@ -88,18 +90,26 @@ class _TicketDetailsState extends State<TicketDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                       SizedBox(height: 200,),
-                      Container(width: MediaQuery.of(context).size.width * 0.9, height: 240, decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(24)
-                      ), child: Padding(
-                          padding: EdgeInsets.all(5),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Hero(
-                                  tag: widget.tag,
-                                  child: Image.network(widget.coupon.posterUrl, fit: BoxFit.cover, errorBuilder: (context,obj,stacktrace) => ErrorImage(),))))),
+                      CarouselSlider.builder(
+                        options: CarouselOptions(viewportFraction: 1, height: 240, onPageChanged: (index,_){
+                          setState((){
+                            _selectedIndex = index;
+                          });
+                        }),
+                        itemCount: widget.coupon.posterUrls.length,
+                        itemBuilder: (context, i, j) => Container(width: MediaQuery.of(context).size.width * 0.9, height: 240, decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24)
+                        ), child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Hero(
+                                    tag: widget.tag,
+                                    child: Image.network(widget.coupon.posterUrls[i], fit: BoxFit.cover, errorBuilder: (context,obj,stacktrace) => ErrorImage(),))))),
+                      ),
                         SizedBox(height: 10,),
-                        _dots(1),
+                        _dots(widget.coupon.posterUrls.length),
                       SizedBox(height: 20,),
                       Row(
                         children: [
@@ -200,6 +210,8 @@ class _TicketDetailsState extends State<TicketDetails> {
                 _dropdownFaqs(),
                 SizedBox(height: 20,),
                 _dropdownBranches(),
+                SizedBox(height: 20,),
+                _dropdownTermsAndConditions(),
                 Center(
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.9,
@@ -352,6 +364,51 @@ class _TicketDetailsState extends State<TicketDetails> {
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: BranchTile(branch: context.watch<CouponReviewsCubit>().state.branches[i],));
                   })
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _dropdownTermsAndConditions(){
+    return context.watch<CouponReviewsCubit>().state.branches.isEmpty ? Container() : GestureDetector(
+      onTap: (){
+        setState((){
+          _showTermsAndConditions = !_showTermsAndConditions;
+        });
+        if(_showTermsAndConditions){
+          _scrollController.animateTo(_scrollController.offset + 200, duration: Duration(seconds: 1), curve: Curves.decelerate);
+        }
+      },
+      child: Material(
+        color: Colors.transparent,
+        elevation: 0,
+        child: Container(
+          width: double.infinity,
+          padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text('Términos y condiciones', style: TextStyle(fontFamily: 'Outfit', fontWeight: FontWeight.w500),),
+                  Spacer(),
+                  Container(
+                    width: 16,
+                    height: 16,
+                    child: AnimatedRotation(
+                        turns: _showTermsAndConditions ? 0.25 : 0.75,
+                        duration: Duration(milliseconds: 300),
+                        child: SvgPicture.asset(KIcons.directionLeft, color: Theme.of(context).highlightColor,)),
+                  )
+                ],
+              ),
+              SizedBox(height: 15,),
+              Divider(),
+              !_showTermsAndConditions ? Container() : Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(widget.coupon.termsAndConditions, style: TextStyle(fontWeight: FontWeight.w200, fontFamily: 'Outfit', color: Color(0xFF8B8B8B), fontSize: 14),))
             ],
           ),
         ),

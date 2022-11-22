@@ -11,12 +11,13 @@ class Coupon with _$Coupon{
   const Coupon._();
 
   double get priceWithDiscount => double.parse((price * (1 - discount! / 100)).toStringAsFixed(2));
+  List<String> get posterUrls => encodedPosterUrl.split(":next_image:");
   factory Coupon({
     required int id,
     @JsonKey(name: 'commerce_id') required int commerceId,
     required String name,
     required String description,
-    @JsonKey(name: 'poster_url') required String posterUrl,
+    @JsonKey(name: 'poster_url') required String encodedPosterUrl,
     required double price,
     @JsonKey(name: 'exp_date') required DateTime expDate,
     @JsonKey(name: 'campaign_ending') required DateTime campaignEnding,
@@ -25,6 +26,7 @@ class Coupon with _$Coupon{
     required int sold,
     @JsonKey(name: 'avg_rating') required double avgRating,
     @JsonKey(name: 'reviews_count') required int reviewsCount,
+    @JsonKey(name: 'terms_and_conditions') required String termsAndConditions,
     @JsonKey(name: 'faqs') required List<Faq>? faqs,
     required List<String>? items
   }) = _Coupon;

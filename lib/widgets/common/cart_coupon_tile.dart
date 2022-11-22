@@ -26,7 +26,7 @@ class CartCouponTile extends StatelessWidget {
                 onTap: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => TicketDetails(coupon: coupon.coupon, tag: 'active_vertical_small_${coupon.id}')));
                 },
-                child: CircleAvatar(radius: 32, backgroundImage: Image.network(coupon.coupon.posterUrl).image, backgroundColor: Colors.grey, child: withCounter || coupon.quantity == 0 ? null : Align(alignment: Alignment.topRight, child: CircleAvatar(radius: 9, backgroundColor: Color(0xFFF9A137), child: Text(coupon.quantity.toString(), style: TextStyle(fontFamily: 'Outfit', fontSize: 8, color: Colors.white, fontWeight: FontWeight.w500),),),),)),
+                child: CircleAvatar(radius: 32, backgroundImage: Image.network(coupon.coupon.posterUrls.first).image, backgroundColor: Colors.grey, child: withCounter || coupon.quantity == 0 ? null : Align(alignment: Alignment.topRight, child: CircleAvatar(radius: 9, backgroundColor: Color(0xFFF9A137), child: Text(coupon.quantity.toString(), style: TextStyle(fontFamily: 'Outfit', fontSize: 8, color: Colors.white, fontWeight: FontWeight.w500),),),),)),
             SizedBox(width: 10,),
             Expanded(flex: 2,child: Text(coupon.coupon.name, maxLines: 2, style: TextStyle(fontFamily: 'Outfit', fontSize: 12, fontWeight: FontWeight.w500), overflow: TextOverflow.ellipsis,)),
             SizedBox(width: 10,),
