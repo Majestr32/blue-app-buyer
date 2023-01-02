@@ -52,6 +52,7 @@ dependencies:
   sn_progress_dialog: ^1.0.8
   carousel_slider: ^4.1.1
   loading_indicator: ^3.1.0
+  custom_marker: ^1.0.0
   dio: ^4.0.6
   google_maps_flutter: ^2.2.0
   geolocator: ^9.0.2

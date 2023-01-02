@@ -28,6 +28,9 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
   Widget build(BuildContext context) {
     return BlocListener<UserCubit,UserState>(
       listener: (context,state){
+        if(!ModalRoute.of(context)!.isCurrent){
+          return;
+        }
         if(state.status == UserStateStatus.loading){
           _loadingDialog!.show(max: 2, hideValue: true, msg: 'Loading ...');
         } else{
@@ -36,7 +39,7 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         if(state.status == UserStateStatus.error){
           StandardSnackBar.instance.showErrorSnackBar(context, state.error!);
         }
-        if(state.status == UserStateStatus.authenticated){
+        if(state.status == UserStateStatus.successOperation){
           StandardSnackBar.instance.showInfoSnackBar(context, 'Éxito');
           Navigator.of(context).pop();
         }

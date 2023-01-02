@@ -21,6 +21,8 @@ UserCoupon _$UserCouponFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserCoupon {
   int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'display_id')
+  int get displayId => throw _privateConstructorUsedError;
   @JsonKey(name: 'coupon_id')
   int get couponId => throw _privateConstructorUsedError;
   String get qr => throw _privateConstructorUsedError;
@@ -54,6 +56,7 @@ abstract class $UserCouponCopyWith<$Res> {
       _$UserCouponCopyWithImpl<$Res>;
   $Res call(
       {int id,
+      @JsonKey(name: 'display_id') int displayId,
       @JsonKey(name: 'coupon_id') int couponId,
       String qr,
       @JsonKey(name: 'buyer_uid') String buyerUid,
@@ -79,6 +82,7 @@ class _$UserCouponCopyWithImpl<$Res> implements $UserCouponCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? displayId = freezed,
     Object? couponId = freezed,
     Object? qr = freezed,
     Object? buyerUid = freezed,
@@ -94,6 +98,10 @@ class _$UserCouponCopyWithImpl<$Res> implements $UserCouponCopyWith<$Res> {
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      displayId: displayId == freezed
+          ? _value.displayId
+          : displayId // ignore: cast_nullable_to_non_nullable
               as int,
       couponId: couponId == freezed
           ? _value.couponId
@@ -155,6 +163,7 @@ abstract class _$$_UserCouponCopyWith<$Res>
   @override
   $Res call(
       {int id,
+      @JsonKey(name: 'display_id') int displayId,
       @JsonKey(name: 'coupon_id') int couponId,
       String qr,
       @JsonKey(name: 'buyer_uid') String buyerUid,
@@ -183,6 +192,7 @@ class __$$_UserCouponCopyWithImpl<$Res> extends _$UserCouponCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? displayId = freezed,
     Object? couponId = freezed,
     Object? qr = freezed,
     Object? buyerUid = freezed,
@@ -198,6 +208,10 @@ class __$$_UserCouponCopyWithImpl<$Res> extends _$UserCouponCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      displayId: displayId == freezed
+          ? _value.displayId
+          : displayId // ignore: cast_nullable_to_non_nullable
               as int,
       couponId: couponId == freezed
           ? _value.couponId
@@ -248,6 +262,7 @@ class __$$_UserCouponCopyWithImpl<$Res> extends _$UserCouponCopyWithImpl<$Res>
 class _$_UserCoupon extends _UserCoupon {
   _$_UserCoupon(
       {required this.id,
+      @JsonKey(name: 'display_id') required this.displayId,
       @JsonKey(name: 'coupon_id') required this.couponId,
       required this.qr,
       @JsonKey(name: 'buyer_uid') required this.buyerUid,
@@ -265,6 +280,9 @@ class _$_UserCoupon extends _UserCoupon {
 
   @override
   final int id;
+  @override
+  @JsonKey(name: 'display_id')
+  final int displayId;
   @override
   @JsonKey(name: 'coupon_id')
   final int couponId;
@@ -297,7 +315,7 @@ class _$_UserCoupon extends _UserCoupon {
 
   @override
   String toString() {
-    return 'UserCoupon(id: $id, couponId: $couponId, qr: $qr, buyerUid: $buyerUid, createdAt: $createdAt, transactionId: $transactionId, sentTo: $sentTo, sentToName: $sentToName, sentFromName: $sentFromName, commented: $commented, coupon: $coupon)';
+    return 'UserCoupon(id: $id, displayId: $displayId, couponId: $couponId, qr: $qr, buyerUid: $buyerUid, createdAt: $createdAt, transactionId: $transactionId, sentTo: $sentTo, sentToName: $sentToName, sentFromName: $sentFromName, commented: $commented, coupon: $coupon)';
   }
 
   @override
@@ -306,6 +324,7 @@ class _$_UserCoupon extends _UserCoupon {
         (other.runtimeType == runtimeType &&
             other is _$_UserCoupon &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.displayId, displayId) &&
             const DeepCollectionEquality().equals(other.couponId, couponId) &&
             const DeepCollectionEquality().equals(other.qr, qr) &&
             const DeepCollectionEquality().equals(other.buyerUid, buyerUid) &&
@@ -326,6 +345,7 @@ class _$_UserCoupon extends _UserCoupon {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(displayId),
       const DeepCollectionEquality().hash(couponId),
       const DeepCollectionEquality().hash(qr),
       const DeepCollectionEquality().hash(buyerUid),
@@ -353,6 +373,7 @@ class _$_UserCoupon extends _UserCoupon {
 abstract class _UserCoupon extends UserCoupon {
   factory _UserCoupon(
       {required final int id,
+      @JsonKey(name: 'display_id') required final int displayId,
       @JsonKey(name: 'coupon_id') required final int couponId,
       required final String qr,
       @JsonKey(name: 'buyer_uid') required final String buyerUid,
@@ -370,6 +391,9 @@ abstract class _UserCoupon extends UserCoupon {
 
   @override
   int get id;
+  @override
+  @JsonKey(name: 'display_id')
+  int get displayId;
   @override
   @JsonKey(name: 'coupon_id')
   int get couponId;

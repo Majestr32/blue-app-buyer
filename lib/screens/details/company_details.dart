@@ -151,7 +151,9 @@ class _CompanyDetailsState extends State<CompanyDetails> with SingleTickerProvid
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: context.watch<CommerceCubit>().state.reviews.length,
-                    itemBuilder: (context, i) => ReviewTile(review: context.watch<CommerceCubit>().state.reviews[i]),),
+                    itemBuilder: (context, i) => Container(
+                        margin: EdgeInsets.only(bottom: 20),
+                        child: ReviewTile(review: context.watch<CommerceCubit>().state.reviews[i])),),
                 ),
               ),
               SizedBox(height: 30,)
@@ -176,7 +178,7 @@ class _CompanyDetailsState extends State<CompanyDetails> with SingleTickerProvid
           const SizedBox(height: 15,),
           VerticalSmallCouponTile(coupon: context.watch<CommerceCubit>().state.mostRatedCoupon!),
           const SizedBox(height: 15,),
-          SizedBox(
+          context.watch<CommerceCubit>().state.coupons.isEmpty ? Container() : SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
             child: const Align(
                 alignment: Alignment.centerLeft,

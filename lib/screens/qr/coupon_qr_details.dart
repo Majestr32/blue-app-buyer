@@ -52,7 +52,7 @@ class CouponQrDetails extends StatelessWidget {
                             angle: pi / 2,
                             child: SvgPicture.asset('assets/images/rect.svg', color: Theme.of(context).highlightColor,)),
                       ),
-                      Center(child: Image.network(context.watch<ThemeCubit>().state.theme == ThemeMode.light ? 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${coupon.id}' : 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${coupon.id}&color=FFFFFF&bgcolor=121725')),
+                      Center(child: Image.network(context.watch<ThemeCubit>().state.theme == ThemeMode.light ? 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${coupon.displayId}' : 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${coupon.displayId}&color=FFFFFF&bgcolor=121725')),
                     ],
                   ),
                 ),
@@ -61,7 +61,7 @@ class CouponQrDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text('CÓDIGO:', style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w300, fontSize: 16,),),
-                    Text(coupon.id.toString(), style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 16,),),
+                    Text(coupon.displayId.toString(), style: TextStyle(fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 16,),),
                   ],
                 ),
               ],

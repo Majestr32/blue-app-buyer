@@ -6,6 +6,7 @@ import 'package:blue/screens/indexed_screens/indexed_coupones.dart';
 import 'package:blue/screens/indexed_screens/indexed_home.dart';
 import 'package:blue/screens/indexed_screens/indexed_profile.dart';
 import 'package:blue/screens/indexed_screens/indexed_search.dart';
+import 'package:blue/utils/refreshables.dart';
 import 'package:blue/widgets/common/arc_with_logo.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

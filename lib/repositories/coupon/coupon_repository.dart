@@ -22,11 +22,11 @@ class CouponRepository{
   Future<List<Coupon>> getCouponHistory(int offset, int count) async{
     assert(_data != null);
 
+    log("taking from history");
     final history = await _data!.getCouponsHistory(offset, count);
     if(history.isEmpty){
       return [];
     }
-    log(history.map((e) => e.couponId).toString());
     final coupons = await _couponService.getCouponsByIds(history.map((e) => e.couponId).toList());
 
     for (var h in history) {

@@ -24,8 +24,7 @@ class SearchedCouponsCubit extends Cubit<SearchedCouponsState> {
   }
 
   Future<void> loadCoupons() async{
-    int newCouponsCount = state.categoryCoupons.length;
-    List<Coupon> newCoupons = await _couponRepository.getFilteredCoupons(newCouponsCount, 8, tagsIds: state.selectedCategory == 0 ? [] : [state.selectedCategory], searchQuery: state.searchQuery.isEmpty ? null : state.searchQuery, minPrice: state.minPrice, maxPrice: state.maxPrice);
+    List<Coupon> newCoupons = await _couponRepository.getFilteredCoupons(0, 8, tagsIds: state.selectedCategory == 0 ? [] : [state.selectedCategory], searchQuery: state.searchQuery.isEmpty ? null : state.searchQuery, minPrice: state.minPrice, maxPrice: state.maxPrice);
     emit(state.copyWith(status: SearchedCouponsStateStatus.loaded, categoryCoupons: newCoupons));
   }
 

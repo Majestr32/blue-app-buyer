@@ -94,11 +94,11 @@ class UserCubit extends Cubit<UserState> {
     emit(state.copyWith(friends: friends));
   }
   Future<void> addCouponToCart(int couponId) async{
+    final cartCoupon = await _userRepository.addItemToCart(uid: state.user.uid!, couponId: couponId);
     if(state.cartCoupons.where((element) => element.couponId == couponId).isNotEmpty){
       emit(state.copyWith(cartCoupons: state.cartCoupons.map((e) => e.couponId == couponId ? e.copyWith.call(quantity: e.quantity + 1) : e).toList()));
       return;
     }
-    final cartCoupon = await _userRepository.addItemToCart(uid: state.user.uid!, couponId: couponId);
     emit(state.copyWith(cartCoupons: [cartCoupon,...state.cartCoupons]));
   }
   Future<void> removeCouponFromCart(int couponId) async{
@@ -152,6 +152,7 @@ class UserCubit extends Cubit<UserState> {
       final paymentMethod = await _paymentRepository.createPaymentMethod(cardNumber, expMonth, expYear, cvc);
       final customerId = (await _paymentRepository.getOrCreateCustomerByEmail(state.user.user!.email!))["id"];
       await _paymentRepository.attachPaymentMethod(paymentMethod["id"], customerId);
+      emit(state.copyWith(status: UserStateStatus.successOperation));
       emit(state.copyWith(cards: [paymentMethod,...state.cards], status: previousStatus));
     } on CustomError catch(e){
       emit(state.copyWith(status: UserStateStatus.error, error: e.error));

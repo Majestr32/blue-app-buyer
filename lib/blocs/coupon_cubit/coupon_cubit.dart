@@ -42,12 +42,12 @@ class CouponCubit extends Cubit<CouponState> {
     searchOperation?.cancel();
     mapSearchOperation?.cancel();
     emit(state.copyWith(searchQuery: searchQuery, categoryCoupons: [], status: CouponStateStatus.loading));
-    searchOperation = CancelableOperation.fromFuture(loadCoupons(),);
-    mapSearchOperation = CancelableOperation.fromFuture(loadBranches());
+    searchOperation = CancelableOperation.fromFuture(Future.delayed(Duration(seconds: 1)).then((_) => loadCoupons()));
+    mapSearchOperation = CancelableOperation.fromFuture(Future.delayed(Duration(seconds: 1)).then((_) => loadBranches()));
   }
 
   Future<void> addCouponToHistory(int id) async{
-    final lastInsertedCouponId = state.history.first.id;
+    final lastInsertedCouponId = state.history.isEmpty ? -1 : state.history.first.id;
     if(id == lastInsertedCouponId){
       return;
     }
@@ -59,16 +59,16 @@ class CouponCubit extends Cubit<CouponState> {
     searchOperation?.cancel();
     mapSearchOperation?.cancel();
     emit(state.copyWith(minPrice: minPrice, maxPrice: maxPrice, status: CouponStateStatus.loading));
-    searchOperation = CancelableOperation.fromFuture(loadCoupons(),);
-    mapSearchOperation = CancelableOperation.fromFuture(loadBranches());
+    searchOperation = CancelableOperation.fromFuture(Future.delayed(Duration(seconds: 1)).then((_) => loadCoupons()));
+    mapSearchOperation = CancelableOperation.fromFuture(Future.delayed(Duration(seconds: 1)).then((_) => loadBranches()));
   }
 
   Future<void> changeCategoryTo(int category) async{
     searchOperation?.cancel();
     mapSearchOperation?.cancel();
     emit(state.copyWith(categoryCoupons: [], selectedCategory: category, status: CouponStateStatus.loading));
-    searchOperation = CancelableOperation.fromFuture(loadCoupons(),);
-    mapSearchOperation = CancelableOperation.fromFuture(loadBranches());
+    searchOperation = CancelableOperation.fromFuture(Future.delayed(Duration(seconds: 1)).then((_) => loadCoupons()));
+    mapSearchOperation = CancelableOperation.fromFuture(Future.delayed(Duration(seconds: 1)).then((_) => loadBranches()));
   }
 
   Future<void> loadNewCoupons() async{
@@ -79,7 +79,6 @@ class CouponCubit extends Cubit<CouponState> {
 
   Future<void> loadCoupons() async{
     List<Coupon> newCoupons = await _couponRepository.getFilteredCoupons(0, 8, tagsIds: state.selectedCategory == 0 ? [] : [state.selectedCategory], searchQuery: state.searchQuery.isEmpty ? null : state.searchQuery, minPrice: state.minPrice, maxPrice: state.maxPrice);
-    log("tag is ${state.selectedCategory} \nfound ${newCoupons.length} coupons");
     emit(state.copyWith(status: CouponStateStatus.loaded, categoryCoupons: newCoupons));
   }
 

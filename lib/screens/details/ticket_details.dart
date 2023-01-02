@@ -169,7 +169,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                         ],
                       ),
                       SizedBox(height: 30,),
-                        Center(
+                        _formattedDate(widget.coupon.campaignEnding, _now) == 'Expired' ? Container() : Center(
                           child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.85,
                               height: 60,
@@ -179,7 +179,7 @@ class _TicketDetailsState extends State<TicketDetails> {
                                   context.read<UserCubit>().addCouponToCart(widget.coupon.id);
                                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => CheckoutScreen()));
                                 }else{
-                                  await showConfirmationDialog(context, '¿Estás seguro de que quieres limpiar el carrito?', () async{
+                                  await showConfirmationDialog(context, 'Tienes artículos en tu carrito, ¿quieres vaciarlo para continuar tu compra?” ', () async{
                                     context.read<UserCubit>().emptyCart().then((value){
                                       if(context.read<UserCubit>().state.cartCoupons.isEmpty){
                                         context.read<UserCubit>().addCouponToCart(widget.coupon.id);
@@ -190,14 +190,13 @@ class _TicketDetailsState extends State<TicketDetails> {
                                 }
                               }, child: Text('Comprar Ahora', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
                         ),
-                      SizedBox(height: 15,),
-                        Center(
+                        _formattedDate(widget.coupon.campaignEnding, _now) == 'Expired' ? Container() : SizedBox(height: 15,),
+                        _formattedDate(widget.coupon.campaignEnding, _now) == 'Expired' ? Container() : Center(
                           child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.85,
                               height: 60,
                               child: OutlinedButton(onPressed: () async{
                                 context.read<UserCubit>().addCouponToCart(widget.coupon.id);
-                                StandardSnackBar.instance.showInfoSnackBar(context, 'Añadido al carrito');
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => CartScreen()));
                               }, child: Text('Agregar a Carrito', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),))),
                         ),
@@ -227,7 +226,9 @@ class _TicketDetailsState extends State<TicketDetails> {
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: context.watch<CouponReviewsCubit>().state.reviews.length,
-                            itemBuilder: (context, i) => ReviewTile(review: context.watch<CouponReviewsCubit>().state.reviews[i]),),
+                            itemBuilder: (context, i) => Container(
+                                margin: EdgeInsets.only(bottom: 20),
+                                child: ReviewTile(review: context.watch<CouponReviewsCubit>().state.reviews[i])),),
                         ),
                         SizedBox(height: 30,)
                       ],

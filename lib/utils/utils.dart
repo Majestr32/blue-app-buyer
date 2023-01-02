@@ -82,11 +82,12 @@ class StandardSnackBar{
 
   void showErrorSnackBar(BuildContext context,String error){
     _dontDisplayNewIfAlreadyDisplayed(() => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      width: MediaQuery.of(context).size.width * 0.95,
+      behavior: SnackBarBehavior.floating,
       shape: StadiumBorder(),
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        content: Container(
-          height: 40,
-          padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 20),
+        content: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child: Row(
             children: [
               const Icon(Icons.error_outline, color: Colors.red,),

@@ -18,7 +18,7 @@ class VerticalSmallCouponTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(width: MediaQuery.of(context).size.width * 0.9, height: 130, decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.6), offset: Offset(-1,4), blurRadius: 5)], color: Theme.of(context).focusColor),
+    return Container(width: MediaQuery.of(context).size.width * 0.9, height: 135, decoration: BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.6), offset: Offset(-1,4), blurRadius: 5)], color: Theme.of(context).focusColor),
       child: Stack(
         children: [
           Row(

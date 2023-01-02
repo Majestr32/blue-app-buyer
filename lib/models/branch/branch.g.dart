@@ -15,6 +15,7 @@ _$_Branch _$$_BranchFromJson(Map<String, dynamic> json) => _$_Branch(
       lat: (json['lat'] as num).toDouble(),
       ln: (json['ln'] as num).toDouble(),
       commerceId: json['commerce_id'] as int,
+      logoUrl: json['logo_url'] as String?,
       commerce: json['commerce'] == null
           ? null
           : Commerce.fromJson(json['commerce'] as Map<String, dynamic>),
@@ -29,5 +30,6 @@ Map<String, dynamic> _$$_BranchToJson(_$_Branch instance) => <String, dynamic>{
       'lat': instance.lat,
       'ln': instance.ln,
       'commerce_id': instance.commerceId,
+      'logo_url': instance.logoUrl,
       'commerce': instance.commerce?.toJson(),
     };

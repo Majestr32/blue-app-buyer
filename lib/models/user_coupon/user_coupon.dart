@@ -13,6 +13,7 @@ class UserCoupon with _$UserCoupon{
   bool get fromFriend => sentTo != null;
   factory UserCoupon({
     required int id,
+    @JsonKey(name: 'display_id') required int displayId,
     @JsonKey(name: 'coupon_id') required int couponId,
     required String qr,
     @JsonKey(name: 'buyer_uid') required String buyerUid,

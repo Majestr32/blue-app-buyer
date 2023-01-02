@@ -15,8 +15,8 @@ class SelectedMapMarkerCubit extends Cubit<SelectedMapMarkerState> {
     required BranchRepository branchRepository,
   }) : _branchRepository = branchRepository, super(SelectedMapMarkerState.initial());
 
-  Future<void> loadBranchMarkers(int branchId) async{
-    final coupons = await _branchRepository.getBranchCoupons(branchId);
+  Future<void> loadBranchMarkers(int branchId,{String? query, List<int>? favs, double? minPrice, double? maxPrice}) async{
+    final coupons = await _branchRepository.getBranchCoupons(branchId, query: query, favs: favs, maxPrice: maxPrice, minPrice: minPrice);
     final position = await _getUserCurrentLocation();
     emit(state.copyWith(status: SelectedMapMarkerStateStatus.loaded, currentPosition: position, markerCoupons: coupons));
   }

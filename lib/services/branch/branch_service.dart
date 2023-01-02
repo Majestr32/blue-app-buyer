@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:blue/models/branch/branch.dart';
 import 'package:blue/models/coupon/coupon.dart';
 import 'package:blue/services/branch/branch_service_contract.dart';
@@ -16,8 +18,14 @@ class BranchService implements IBranchService{
   }
 
   @override
-  Future<List<Coupon>> getBranchCoupons(int branchId) async{
-    final response = await _dio.get("$hostApi/branches/$branchId/coupons");
+  Future<List<Coupon>> getBranchCoupons(int branchId,{String? query, List<int>? favs, double? minPrice, double? maxPrice}) async{
+    final queryParams = {
+      'query': query,
+      'favs[]': favs,
+      'min_price': minPrice,
+      'max_price': maxPrice
+    }..removeWhere((key, value) => value == null);
+    final response = await _dio.get("$hostApi/branches/$branchId/coupons", queryParameters: queryParams);
     final jsonArr = response.data as List;
     return jsonArr.map((e) => Coupon.fromJson(e["coupon"])).toList();
   }

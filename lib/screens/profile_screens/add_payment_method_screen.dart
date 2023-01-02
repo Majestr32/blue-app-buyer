@@ -52,8 +52,7 @@ class _AddPaymentMethodScreenState extends State<AddPaymentMethodScreen> {
         }
         if(state.status == UserStateStatus.error){
           StandardSnackBar.instance.showErrorSnackBar(context, state.error!);
-        }
-        if(state.status == UserStateStatus.authenticated){
+        } else if(state.status == UserStateStatus.successOperation){
           StandardSnackBar.instance.showInfoSnackBar(context, 'Éxito');
           Navigator.of(context).pop();
         }

@@ -13,7 +13,11 @@ class PaymentService implements IPaymentService{
 
   @override
   Future<void> attachPaymentMethod(String paymentMethodId, String customerId) async{
-    await _dio.post("$apiBase/payment_methods/$paymentMethodId/attach", data: {'customer' : customerId});
+    try{
+      await _dio.post("$apiBase/payment_methods/$paymentMethodId/attach", data: {'customer' : customerId}); 
+    }catch(e){
+      throw CustomError(error: 'El método de pago no es válido', code: 'pm-not-valid');
+    }
   }
 
   @override

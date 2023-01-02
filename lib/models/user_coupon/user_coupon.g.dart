@@ -9,6 +9,7 @@ part of 'user_coupon.dart';
 _$_UserCoupon _$$_UserCouponFromJson(Map<String, dynamic> json) =>
     _$_UserCoupon(
       id: json['id'] as int,
+      displayId: json['display_id'] as int,
       couponId: json['coupon_id'] as int,
       qr: json['qr'] as String,
       buyerUid: json['buyer_uid'] as String,
@@ -24,6 +25,7 @@ _$_UserCoupon _$$_UserCouponFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_UserCouponToJson(_$_UserCoupon instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'display_id': instance.displayId,
       'coupon_id': instance.couponId,
       'qr': instance.qr,
       'buyer_uid': instance.buyerUid,
