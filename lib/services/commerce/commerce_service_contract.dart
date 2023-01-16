@@ -5,7 +5,7 @@ import '../../models/coupon_review/coupon_review.dart';
 
 abstract class ICommerceService{
   Future<List<Coupon>> getCommerceCoupons(int commerceId,int offset, int count);
-  Future<Coupon> getCommerceMostRatedCoupon(int commerceId);
+  Future<List<Coupon>> getCommerceMostRatedCoupon(int commerceId);
   Future<List<Branch>> listBranches({required int commerceId});
   Future<List<CouponReview>> getCommerceReviews(int commerceId);
 }

@@ -17,7 +17,7 @@ class CommerceCubit extends Cubit<CommerceState> {
     final mostRatedCoupon = await _commerceRepository.getCommerceMostRatedCoupon(commerceId);
     final branches = await _commerceRepository.listBranches(commerceId: commerceId);
     final reviews = await _commerceRepository.getCommerceReviews(commerceId);
-    emit(state.copyWith(coupons: coupons, mostRatedCoupon: mostRatedCoupon, reviews: reviews, branches: branches, status: CommerceStateStatus.loaded));
+    emit(state.copyWith(coupons: coupons, mostRatedCoupon: mostRatedCoupon.first, reviews: reviews, branches: branches, status: CommerceStateStatus.loaded));
   }
 
   CommerceCubit({

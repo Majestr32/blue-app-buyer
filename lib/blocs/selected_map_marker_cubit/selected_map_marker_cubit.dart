@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -16,6 +18,7 @@ class SelectedMapMarkerCubit extends Cubit<SelectedMapMarkerState> {
   }) : _branchRepository = branchRepository, super(SelectedMapMarkerState.initial());
 
   Future<void> loadBranchMarkers(int branchId,{String? query, List<int>? favs, double? minPrice, double? maxPrice}) async{
+    log("loading");
     final coupons = await _branchRepository.getBranchCoupons(branchId, query: query, favs: favs, maxPrice: maxPrice, minPrice: minPrice);
     final position = await _getUserCurrentLocation();
     emit(state.copyWith(status: SelectedMapMarkerStateStatus.loaded, currentPosition: position, markerCoupons: coupons));

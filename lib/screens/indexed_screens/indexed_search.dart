@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:blue/blocs/branches_cubit/branches_cubit.dart';
 import 'package:blue/blocs/coupon_cubit/coupon_cubit.dart';
@@ -15,11 +17,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../blocs/user_cubit/user_cubit.dart';
 import '../../consts/k_icons.dart';
 import 'package:blue/utils/utils.dart';
 import 'package:custom_marker/marker_icon.dart';
+import 'dart:ui' as ui;
 
 import '../../utils/refreshables.dart';
 import '../../widgets/common/arc_with_logo.dart';
@@ -164,9 +168,9 @@ class _IndexedSearchState extends State<IndexedSearch> with SingleTickerProvider
                           });
                         },
                         child: Container(width: 40, height: 40, decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(blurRadius: 18, color: Color(0xFF5D5FEF))
-                            ],
+                          boxShadow: [
+                            BoxShadow(color: Colors.grey.withOpacity(0.6), blurRadius: 2)
+                          ],
                             borderRadius: BorderRadius.circular(8), color: _isMap ? Color(0xFF5D5FEF) : Colors.white),
                           child: Center(
                             child: Image.asset('assets/images/compass.png', width: 24, height: 24, color: _isMap ? Colors.white : Colors.black),
@@ -224,6 +228,85 @@ class MapSearchTab extends StatefulWidget {
   State<MapSearchTab> createState() => _MapSearchTabState();
 }
 
+Future<BitmapDescriptor> _getMarkerWidget(
+{required String logoUrl, required String text}) async{
+  PictureRecorder recorder = PictureRecorder();
+  var completer = Completer<ImageInfo>();
+  var img = Image.network(logoUrl, cacheWidth: 250, cacheHeight: 250, centerSlice: Rect.fromCircle(center: Offset(60,60), radius: 6), fit: BoxFit.fill,).image;
+  img.resolve(const ImageConfiguration()).addListener(ImageStreamListener((info, _) {
+    completer.complete(info);
+  }));
+  ImageInfo imageInfo = await completer.future;
+  MarkerPainter markerPainter = MarkerPainter(text);
+  RoundedImagePainter imagePainter = RoundedImagePainter(imageInfo.image);
+  Canvas canvas = Canvas(recorder);
+  markerPainter.paint(canvas, Size(330,330));
+  imagePainter.paint(canvas, Size(330,220));
+  final picture = recorder.endRecording();
+  final bytes = await (await picture.toImage(330, 330)).toByteData(format: ImageByteFormat.png);
+  return  BitmapDescriptor.fromBytes(bytes!.buffer.asUint8List());
+
+}
+
+
+
+class RoundedImagePainter extends CustomPainter{
+  final ui.Image image;
+
+  RoundedImagePainter(this.image);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.clipRRect(ui.RRect.fromRectAndRadius(ui.Rect.fromCircle(center: Offset(size.width / 2,size.height / 2), radius: 90), ui.Radius.circular(90)));
+    canvas.drawCircle(Offset(size.width / 2,size.height / 2), 90, ui.Paint()..color = Colors.white);
+    canvas.clipRRect(ui.RRect.fromRectAndRadius(ui.Rect.fromCircle(center: Offset(size.width / 2,size.height / 2), radius: 82), ui.Radius.circular(82)));
+    canvas.drawImage(image, Offset.zero, ui.Paint());
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class MarkerPainter extends CustomPainter{
+  final String text;
+
+  MarkerPainter(this.text);
+
+  final textStyle = TextStyle(
+    fontSize: 48,
+    fontWeight: FontWeight.w500,
+    color: Colors.blueGrey.shade800,
+    overflow: TextOverflow.ellipsis
+  );
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final textSpan = TextSpan(
+      text: text,
+      style: textStyle
+    );
+
+    final textPainter = TextPainter(
+      text: textSpan,
+      textAlign: TextAlign.center,
+      textDirection: TextDirection.ltr
+    )..layout(maxWidth: 330);
+
+    final dx = (size.width - textPainter.width + 5) * 0.5;
+    final dy = (size.height - textPainter.height) * 0.8;
+    final offset = Offset(dx, dy);
+    textPainter.paint(canvas, offset);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+
+}
+
 class _MapSearchTabState extends State<MapSearchTab> {
   GoogleMapController? _mapController;
   int? _selectedCommerce;
@@ -251,26 +334,6 @@ class _MapSearchTabState extends State<MapSearchTab> {
   void initState() {
     super.initState();
     context.read<BranchesCubit>().loadBranches();
-    //_mapUpdateCoolDown = Timer.periodic(const Duration(seconds: 1), (timer) {
-    //  if(previousMarkersCount != _markers.length){
-    //    _scrollToNearestResult();
-    //    previousMarkersCount = _markers.length;
-    //  }
-    //  final foundMarkers = _markers.where((element) => (element.position.longitude <= rangeMaxX && element.position.longitude >= rangeMinX) && (element.position.latitude <= rangeMaxY && element.position.latitude >= rangeMinY));
-    //  if(foundMarkers.isEmpty){
-    //    setState((){
-    //      _selectedCommerce = null;
-    //    });
-    //    return;
-    //  }
-    //  final foundMarker = foundMarkers.first;
-    //  setState((){
-    //    _selectedCommerce = 0;
-    //    final branches = context.read<CouponCubit>().state.markerBranches;
-    //    final marker = branches.firstWhere((element) => element.lat == foundMarker.position.latitude && element.ln == foundMarker.position.longitude);
-    //    context.read<SelectedMapMarkerCubit>().loadBranchMarkers(marker.id!);
-    //  });
-    //});
   }
 
   @override
@@ -280,21 +343,17 @@ class _MapSearchTabState extends State<MapSearchTab> {
     super.dispose();
   }
 
-  void _scrollToNearestResult(){
+  Future _scrollToNearestResult() async{
     if(_markers.isEmpty){
       return;
     }
-    final userPos = context.read<SelectedMapMarkerCubit>().state.currentPosition;
-    if(userPos == null){
-      _mapController?.moveCamera(CameraUpdate.newLatLngZoom(_markers.first.position, 12));
-      return;
-    }
-    final userLatLng = LatLng(userPos.latitude, userPos.longitude);
-    double minDist = distanceBetweenMapMarkers(userLatLng,_markers.first.position);
+    await Geolocator.requestPermission();
+    final userPos = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
+    double minDist = Geolocator.distanceBetween(userPos.latitude, userPos.longitude,_markers.first.position.latitude, _markers.first.position.longitude);
     LatLng moveTo = _markers.first.position;
 
     for (var marker in _markers){
-      final distance = distanceBetweenMapMarkers(marker.position, userLatLng);
+      final distance = Geolocator.distanceBetween(userPos.latitude, userPos.longitude,marker.position.latitude, marker.position.longitude);
       if(distance < minDist){
         minDist = distance;
         moveTo = marker.position;
@@ -310,7 +369,7 @@ class _MapSearchTabState extends State<MapSearchTab> {
       listener: (context,state)async{
         if(state.status == CouponStateStatus.loaded){
           final asyncMarkers = await Stream.fromIterable(state.markerBranches.map((e) async => Marker(
-              icon: await MarkerIcon.downloadResizePictureCircle(e.logoUrl!, size: 120, addBorder: true, borderSize: 20),
+              icon: await _getMarkerWidget(logoUrl: e.logoUrl!, text: e.name!),
               markerId: MarkerId(e.id.toString()), position: LatLng(e.lat,e.ln), onTap: (){
             setState((){
               _selectedCommerce = 0;

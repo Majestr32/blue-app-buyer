@@ -64,9 +64,9 @@ class VerticalSmallCouponTile extends StatelessWidget {
                                     margin: EdgeInsets.only(bottom: withHeart ? 3 : 0, top: withHeart ? 3 : 0),
                                     child: SvgPicture.asset(KIcons.starFilled)),
                                 SizedBox(width: 2,),
-                                Text(coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
+                                Text(coupon.avgRating.toString(), style: TextStyle(color: Color(0xFFFFE500), fontSize: !withHeart ? 12 : 14, fontFamily: 'Outfit', fontWeight: FontWeight.w700),),
                                 SizedBox(width: 2,),
-                                Text("(${coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontFamily: 'Outfit'),),
+                                Text("(${coupon.reviewsCount})", style: TextStyle(color: Color(0xFF898A8D), fontSize: !withHeart ? 12 : 14, fontFamily: 'Outfit'),),
                               ],
                             ),
                           ),
@@ -76,13 +76,13 @@ class VerticalSmallCouponTile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                             coupon.discount == null ? Row(children: [
-                              Text("\$${coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                              Text("\$${coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: !withHeart ? 12 : 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                             ],) :
                             Row(
                               children: [
-                                Text("\$${coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
+                                Text("\$${coupon.price}", style: TextStyle(fontFamily: 'Poppins',  fontSize: !withHeart ? 12 : 15, color: Colors.grey, decoration: TextDecoration.lineThrough, fontWeight: FontWeight.bold),),
                                 SizedBox(width: 3,),
-                                Text("\$${coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
+                                Text("\$${coupon.priceWithDiscount}", style: TextStyle(fontFamily: 'Poppins', fontSize: !withHeart ? 12 : 15, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF595CE6) : Colors.white, fontWeight: FontWeight.bold),),
                               ],),
                             coupon.discount == null ? Container() : Align(
                                 alignment: Alignment.centerRight,

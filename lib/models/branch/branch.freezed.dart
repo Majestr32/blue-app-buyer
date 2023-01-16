@@ -21,6 +21,7 @@ Branch _$BranchFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Branch {
   int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   String get username => throw _privateConstructorUsedError;
   String get phone => throw _privateConstructorUsedError;
   String get whatsapp => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $BranchCopyWith<$Res> {
       _$BranchCopyWithImpl<$Res>;
   $Res call(
       {int? id,
+      String? name,
       String username,
       String phone,
       String whatsapp,
@@ -68,6 +70,7 @@ class _$BranchCopyWithImpl<$Res> implements $BranchCopyWith<$Res> {
   @override
   $Res call({
     Object? id = freezed,
+    Object? name = freezed,
     Object? username = freezed,
     Object? phone = freezed,
     Object? whatsapp = freezed,
@@ -83,6 +86,10 @@ class _$BranchCopyWithImpl<$Res> implements $BranchCopyWith<$Res> {
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -141,6 +148,7 @@ abstract class _$$_BranchCopyWith<$Res> implements $BranchCopyWith<$Res> {
   @override
   $Res call(
       {int? id,
+      String? name,
       String username,
       String phone,
       String whatsapp,
@@ -167,6 +175,7 @@ class __$$_BranchCopyWithImpl<$Res> extends _$BranchCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? name = freezed,
     Object? username = freezed,
     Object? phone = freezed,
     Object? whatsapp = freezed,
@@ -182,6 +191,10 @@ class __$$_BranchCopyWithImpl<$Res> extends _$BranchCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       username: username == freezed
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -227,6 +240,7 @@ class __$$_BranchCopyWithImpl<$Res> extends _$BranchCopyWithImpl<$Res>
 class _$_Branch extends _Branch {
   _$_Branch(
       {this.id,
+      this.name,
       required this.username,
       required this.phone,
       required this.whatsapp,
@@ -243,6 +257,8 @@ class _$_Branch extends _Branch {
 
   @override
   final int? id;
+  @override
+  final String? name;
   @override
   final String username;
   @override
@@ -266,7 +282,7 @@ class _$_Branch extends _Branch {
 
   @override
   String toString() {
-    return 'Branch(id: $id, username: $username, phone: $phone, whatsapp: $whatsapp, location: $location, lat: $lat, ln: $ln, commerceId: $commerceId, logoUrl: $logoUrl, commerce: $commerce)';
+    return 'Branch(id: $id, name: $name, username: $username, phone: $phone, whatsapp: $whatsapp, location: $location, lat: $lat, ln: $ln, commerceId: $commerceId, logoUrl: $logoUrl, commerce: $commerce)';
   }
 
   @override
@@ -275,6 +291,7 @@ class _$_Branch extends _Branch {
         (other.runtimeType == runtimeType &&
             other is _$_Branch &&
             const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.username, username) &&
             const DeepCollectionEquality().equals(other.phone, phone) &&
             const DeepCollectionEquality().equals(other.whatsapp, whatsapp) &&
@@ -292,6 +309,7 @@ class _$_Branch extends _Branch {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(username),
       const DeepCollectionEquality().hash(phone),
       const DeepCollectionEquality().hash(whatsapp),
@@ -318,6 +336,7 @@ class _$_Branch extends _Branch {
 abstract class _Branch extends Branch {
   factory _Branch(
       {final int? id,
+      final String? name,
       required final String username,
       required final String phone,
       required final String whatsapp,
@@ -333,6 +352,8 @@ abstract class _Branch extends Branch {
 
   @override
   int? get id;
+  @override
+  String? get name;
   @override
   String get username;
   @override

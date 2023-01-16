@@ -62,6 +62,7 @@ class ExpiredVerticalSmallCouponTile extends StatelessWidget {
                           ),
                           Spacer(),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text("\$${coupon.coupon.price}", style: TextStyle(fontFamily: 'Poppins', fontSize: 14, color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Color(0xFF3E4462) : Colors.white, fontWeight: FontWeight.w500),),
                               Spacer(),
@@ -74,7 +75,7 @@ class ExpiredVerticalSmallCouponTile extends StatelessWidget {
                                           color: Color(0xFF5D5FEF).withOpacity(0.08)
                                       ),
                                       padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
-                                      child: Text("TRANSFERIDO POR:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
+                                      child: Text("TRANSFERIDO POR:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 7, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
                                   SizedBox(
                                       width: 80,
                                       child: Text(coupon.sentFromName!, textAlign: TextAlign.right, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
@@ -87,7 +88,7 @@ class ExpiredVerticalSmallCouponTile extends StatelessWidget {
                                       color: Color(0xFFF26C6C)
                                   ),
                                   padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
-                                  child: Text("Vencido".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Colors.white, fontWeight: FontWeight.bold),)),
+                                  child: Text("Vencido".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 7, color: Colors.white, fontWeight: FontWeight.bold),)),
                             ],
                           ),
                         ],

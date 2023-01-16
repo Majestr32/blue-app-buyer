@@ -34,7 +34,7 @@ class OrderCompleted extends StatelessWidget {
                 child: OutlinedButton(
                     style: Theme.of(context).outlinedButtonTheme.style,
                     onPressed: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Home(defaultIndexedScreen: 2,)));
                     }, child: Text('Ver mis Cupones')),
               ),)
           ],

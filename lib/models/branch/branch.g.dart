@@ -8,6 +8,7 @@ part of 'branch.dart';
 
 _$_Branch _$$_BranchFromJson(Map<String, dynamic> json) => _$_Branch(
       id: json['id'] as int?,
+      name: json['name'] as String?,
       username: json['username'] as String,
       phone: json['phone'] as String,
       whatsapp: json['whatsapp'] as String,
@@ -23,6 +24,7 @@ _$_Branch _$$_BranchFromJson(Map<String, dynamic> json) => _$_Branch(
 
 Map<String, dynamic> _$$_BranchToJson(_$_Branch instance) => <String, dynamic>{
       'id': instance.id,
+      'name': instance.name,
       'username': instance.username,
       'phone': instance.phone,
       'whatsapp': instance.whatsapp,

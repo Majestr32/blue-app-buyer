@@ -28,10 +28,10 @@ class CommerceService implements ICommerceService{
   }
 
   @override
-  Future<Coupon> getCommerceMostRatedCoupon(int commerceId) async{
+  Future<List<Coupon>> getCommerceMostRatedCoupon(int commerceId) async{
     final response = await _dio.get("${hostApi}commerces/$commerceId/coupons/top");
     final json = response.data;
-    return Coupon.fromJson(json);
+    return (response.data as List).map((e) => Coupon.fromJson(e)).toList();
   }
 
 

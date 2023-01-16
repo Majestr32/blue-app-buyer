@@ -16,7 +16,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'auth/signing.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final int defaultIndexedScreen;
+  const Home({this.defaultIndexedScreen = 0,Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -24,7 +25,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  int _currentPage = 0;
+  late int _currentPage = widget.defaultIndexedScreen;
 
   @override
   void initState() {

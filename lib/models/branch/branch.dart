@@ -10,6 +10,7 @@ class Branch with _$Branch{
   const Branch._();
   factory Branch({
     int? id,
+    String? name,
     required String username,
     required String phone,
     required String whatsapp,

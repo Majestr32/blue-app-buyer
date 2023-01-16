@@ -10,7 +10,7 @@ class CommerceRepository{
   Future<List<Coupon>> getCommerceCoupons(int commerceId,int offset, int count){
     return _commerceService.getCommerceCoupons(commerceId, offset, count);
   }
-  Future<Coupon> getCommerceMostRatedCoupon(int commerceId){
+  Future<List<Coupon>> getCommerceMostRatedCoupon(int commerceId){
     return _commerceService.getCommerceMostRatedCoupon(commerceId);
   }
   Future<List<Branch>> listBranches({required int commerceId}){

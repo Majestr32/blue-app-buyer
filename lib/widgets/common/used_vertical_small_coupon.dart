@@ -87,7 +87,7 @@ class _UsedVerticalSmallCouponTileState extends State<UsedVerticalSmallCouponTil
                                           color: Color(0xFF5D5FEF).withOpacity(0.08)
                                       ),
                                       padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
-                                      child: Text("TRANSFERIDO POR:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
+                                      child: Text("TRANSFERIDO POR:".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 7, color: Color(0xFF5D5FEF), fontWeight: FontWeight.bold),)),
                                   SizedBox(
                                       width: 80,
                                       child: Text(widget.userCoupon.sentFromName!, textAlign: TextAlign.right, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 10, fontFamily: 'Poppins', fontWeight: FontWeight.w300,color: context.watch<ThemeCubit>().state.theme == ThemeMode.light ? Colors.grey.withOpacity(0.4) : Colors.white,),))
@@ -100,7 +100,7 @@ class _UsedVerticalSmallCouponTileState extends State<UsedVerticalSmallCouponTil
                                       color: Color(0xFFCAFFD9)
                                   ),
                                   padding: EdgeInsets.symmetric(horizontal: 6,vertical: 5),
-                                  child: Text("Canjeado".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 8, color: Color(0xFF25B700), fontWeight: FontWeight.bold),)),
+                                  child: Text("Canjeado".toUpperCase(), style: TextStyle(fontFamily: 'Poppins', fontSize: 7, color: Color(0xFF25B700), fontWeight: FontWeight.bold),)),
                             ],
                           ),
                         ],

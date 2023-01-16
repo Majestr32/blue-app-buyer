@@ -10,7 +10,9 @@ part 'coupon.freezed.dart';
 class Coupon with _$Coupon{
   const Coupon._();
 
-  double get priceWithDiscount => double.parse((price * (1 - discount! / 100)).toStringAsFixed(2));
+  String get priceWithDiscount => (priceDouble * (1 - discount! / 100)).toStringAsFixed(2);
+  String get price => priceDouble.toStringAsFixed(2);
+
   List<String> get posterUrls => encodedPosterUrl.split(":next_image:");
   factory Coupon({
     required int id,
@@ -18,7 +20,7 @@ class Coupon with _$Coupon{
     required String name,
     required String description,
     @JsonKey(name: 'poster_url') required String encodedPosterUrl,
-    required double price,
+    @JsonKey(name: 'price') required double priceDouble,
     @JsonKey(name: 'exp_date') required DateTime expDate,
     @JsonKey(name: 'campaign_ending') required DateTime campaignEnding,
     required int? discount,

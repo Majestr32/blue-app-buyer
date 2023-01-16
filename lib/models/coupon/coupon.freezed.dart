@@ -27,7 +27,8 @@ mixin _$Coupon {
   String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'poster_url')
   String get encodedPosterUrl => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
+  @JsonKey(name: 'price')
+  double get priceDouble => throw _privateConstructorUsedError;
   @JsonKey(name: 'exp_date')
   DateTime get expDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'campaign_ending')
@@ -61,7 +62,7 @@ abstract class $CouponCopyWith<$Res> {
       String name,
       String description,
       @JsonKey(name: 'poster_url') String encodedPosterUrl,
-      double price,
+      @JsonKey(name: 'price') double priceDouble,
       @JsonKey(name: 'exp_date') DateTime expDate,
       @JsonKey(name: 'campaign_ending') DateTime campaignEnding,
       int? discount,
@@ -91,7 +92,7 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
     Object? name = freezed,
     Object? description = freezed,
     Object? encodedPosterUrl = freezed,
-    Object? price = freezed,
+    Object? priceDouble = freezed,
     Object? expDate = freezed,
     Object? campaignEnding = freezed,
     Object? discount = freezed,
@@ -124,9 +125,9 @@ class _$CouponCopyWithImpl<$Res> implements $CouponCopyWith<$Res> {
           ? _value.encodedPosterUrl
           : encodedPosterUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
+      priceDouble: priceDouble == freezed
+          ? _value.priceDouble
+          : priceDouble // ignore: cast_nullable_to_non_nullable
               as double,
       expDate: expDate == freezed
           ? _value.expDate
@@ -190,7 +191,7 @@ abstract class _$$_CouponCopyWith<$Res> implements $CouponCopyWith<$Res> {
       String name,
       String description,
       @JsonKey(name: 'poster_url') String encodedPosterUrl,
-      double price,
+      @JsonKey(name: 'price') double priceDouble,
       @JsonKey(name: 'exp_date') DateTime expDate,
       @JsonKey(name: 'campaign_ending') DateTime campaignEnding,
       int? discount,
@@ -222,7 +223,7 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
     Object? name = freezed,
     Object? description = freezed,
     Object? encodedPosterUrl = freezed,
-    Object? price = freezed,
+    Object? priceDouble = freezed,
     Object? expDate = freezed,
     Object? campaignEnding = freezed,
     Object? discount = freezed,
@@ -255,9 +256,9 @@ class __$$_CouponCopyWithImpl<$Res> extends _$CouponCopyWithImpl<$Res>
           ? _value.encodedPosterUrl
           : encodedPosterUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
+      priceDouble: priceDouble == freezed
+          ? _value.priceDouble
+          : priceDouble // ignore: cast_nullable_to_non_nullable
               as double,
       expDate: expDate == freezed
           ? _value.expDate
@@ -312,7 +313,7 @@ class _$_Coupon extends _Coupon {
       required this.name,
       required this.description,
       @JsonKey(name: 'poster_url') required this.encodedPosterUrl,
-      required this.price,
+      @JsonKey(name: 'price') required this.priceDouble,
       @JsonKey(name: 'exp_date') required this.expDate,
       @JsonKey(name: 'campaign_ending') required this.campaignEnding,
       required this.discount,
@@ -343,7 +344,8 @@ class _$_Coupon extends _Coupon {
   @JsonKey(name: 'poster_url')
   final String encodedPosterUrl;
   @override
-  final double price;
+  @JsonKey(name: 'price')
+  final double priceDouble;
   @override
   @JsonKey(name: 'exp_date')
   final DateTime expDate;
@@ -387,7 +389,7 @@ class _$_Coupon extends _Coupon {
 
   @override
   String toString() {
-    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, encodedPosterUrl: $encodedPosterUrl, price: $price, expDate: $expDate, campaignEnding: $campaignEnding, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount, termsAndConditions: $termsAndConditions, faqs: $faqs, items: $items)';
+    return 'Coupon(id: $id, commerceId: $commerceId, name: $name, description: $description, encodedPosterUrl: $encodedPosterUrl, priceDouble: $priceDouble, expDate: $expDate, campaignEnding: $campaignEnding, discount: $discount, commerce: $commerce, sold: $sold, avgRating: $avgRating, reviewsCount: $reviewsCount, termsAndConditions: $termsAndConditions, faqs: $faqs, items: $items)';
   }
 
   @override
@@ -403,7 +405,8 @@ class _$_Coupon extends _Coupon {
                 .equals(other.description, description) &&
             const DeepCollectionEquality()
                 .equals(other.encodedPosterUrl, encodedPosterUrl) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
+            const DeepCollectionEquality()
+                .equals(other.priceDouble, priceDouble) &&
             const DeepCollectionEquality().equals(other.expDate, expDate) &&
             const DeepCollectionEquality()
                 .equals(other.campaignEnding, campaignEnding) &&
@@ -428,7 +431,7 @@ class _$_Coupon extends _Coupon {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(encodedPosterUrl),
-      const DeepCollectionEquality().hash(price),
+      const DeepCollectionEquality().hash(priceDouble),
       const DeepCollectionEquality().hash(expDate),
       const DeepCollectionEquality().hash(campaignEnding),
       const DeepCollectionEquality().hash(discount),
@@ -462,7 +465,8 @@ abstract class _Coupon extends Coupon {
       required final String description,
       @JsonKey(name: 'poster_url')
           required final String encodedPosterUrl,
-      required final double price,
+      @JsonKey(name: 'price')
+          required final double priceDouble,
       @JsonKey(name: 'exp_date')
           required final DateTime expDate,
       @JsonKey(name: 'campaign_ending')
@@ -497,7 +501,8 @@ abstract class _Coupon extends Coupon {
   @JsonKey(name: 'poster_url')
   String get encodedPosterUrl;
   @override
-  double get price;
+  @JsonKey(name: 'price')
+  double get priceDouble;
   @override
   @JsonKey(name: 'exp_date')
   DateTime get expDate;

@@ -27,9 +27,9 @@ class UserState extends Equatable {
   double get cartSum =>
       cartCoupons.fold(0, (previousValue, element) =>
       element.coupon.discount == null
-          ? previousValue + element.quantity * element.coupon.price
-          : previousValue + element.quantity * (element.coupon.price -
-          element.coupon.price * element.coupon.discount! / 100));
+          ? previousValue + element.quantity * element.coupon.priceDouble
+          : previousValue + element.quantity * (element.coupon.priceDouble -
+          element.coupon.priceDouble * element.coupon.discount! / 100));
 
   String getFriendNameFromUid(String uid){
     final foundFriends = friends.where((friend) => friend.receiverUid == uid);
